@@ -1,0 +1,13 @@
+using Simplicity.Utility.HFSM;
+using UnityEngine;
+
+#ROOTNAMESPACEBEGIN#
+    [CreateAssetMenu(menuName = "HFSM/Decision/#SCRIPTNAME#", fileName = "#SCRIPTNAME#")]
+    public class #SCRIPTNAME# : Decision
+    {
+        public override bool Decide(StateMachineController stateMachineController)
+        {
+            return false;
+        }
+    }
+#ROOTNAMESPACEEND#

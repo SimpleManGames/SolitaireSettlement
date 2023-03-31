@@ -1,0 +1,20 @@
+using Simplicity.Utility.HFSM;
+using UnityEngine;
+
+#ROOTNAMESPACEBEGIN#
+    [CreateAssetMenu(menuName = "HFSM/Action/#SCRIPTNAME#", fileName = "#SCRIPTNAME#")]
+    public class #SCRIPTNAME# : Action
+    {
+        public override void OnEnterExecute(StateMachineController stateMachineController)
+        {
+        }
+
+        public override void OnExecute(StateMachineController stateMachineController)
+        {
+        }
+
+        public override void OnExitExecute(StateMachineController stateMachineController)
+        {
+        }
+    }
+#ROOTNAMESPACEEND#
