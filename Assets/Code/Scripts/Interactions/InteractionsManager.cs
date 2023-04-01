@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -33,6 +34,9 @@ namespace SolitaireSettlement
         private GameObject _currentDragObject;
         private IUIDraggable _currentDraggable;
 
+        private GameObject _currentClickObject;
+        private IUIClickable _currentClickable;
+
         private void Awake()
         {
             _gameInputs = new GameInputs();
@@ -64,21 +68,18 @@ namespace SolitaireSettlement
 
                     _uiRaycaster.Raycast(_clickData, _clickResults);
 
-                    foreach (var result in _clickResults)
-                    {
-                        var resultGameObject = result.gameObject;
-                        if (resultGameObject.GetComponent<IUIDraggable>() == null)
-                            continue;
+                    if (ParseClickResultsForClickable())
+                        return;
 
-                        _currentDragObject = resultGameObject;
-                        _currentDraggable = resultGameObject.GetComponent<IUIDraggable>();
-                        break;
-                    }
+                    if (ParseClickResultsForDraggable())
+                        return;
 
                     break;
                 case InputActionPhase.Canceled:
                     _currentDragObject = null;
                     _currentDraggable = null;
+                    _currentClickObject = null;
+                    _currentClickable = null;
                     break;
                 case InputActionPhase.Disabled:
                 case InputActionPhase.Waiting:
@@ -86,6 +87,38 @@ namespace SolitaireSettlement
                 default:
                     break;
             }
+        }
+
+        private bool ParseClickResultsForClickable()
+        {
+            foreach (var result in _clickResults)
+            {
+                var resultGameObject = result.gameObject;
+                if (resultGameObject.GetComponent<IUIClickable>() == null)
+                    continue;
+
+                _currentClickObject = resultGameObject;
+                _currentClickable = resultGameObject.GetComponent<IUIClickable>();
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ParseClickResultsForDraggable()
+        {
+            foreach (var result in _clickResults)
+            {
+                var resultGameObject = result.gameObject;
+                if (resultGameObject.GetComponent<IUIDraggable>() == null)
+                    continue;
+
+                _currentDragObject = resultGameObject;
+                _currentDraggable = resultGameObject.GetComponent<IUIDraggable>();
+                return true;
+            }
+
+            return false;
         }
 
         public void OnInteractionPoint(InputAction.CallbackContext context)
