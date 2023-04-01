@@ -1,0 +1,66 @@
+{
+    "name": "GameInputs",
+    "maps": [
+        {
+            "name": "Interactions",
+            "id": "35cd6b52-e6dc-44a3-9b27-13dae7ffa821",
+            "actions": [
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "0f30b899-fee2-43f5-be68-398a05067c6f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interaction Point",
+                    "type": "Value",
+                    "id": "f9b779d9-4592-4f86-b1aa-aae76f3e6dd4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f8b12d0b-4f19-4987-a60f-edaff029b627",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6a560ea-4edc-4659-b048-98805b675384",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Interaction Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mouse",
+            "bindingGroup": "Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
