@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: HarvestLog
+  m_Name: Harvest Log
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2

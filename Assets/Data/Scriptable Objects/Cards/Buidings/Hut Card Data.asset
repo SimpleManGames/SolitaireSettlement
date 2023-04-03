@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73ec9af6a283c3f4e8bd53136d9f5d47, type: 3}
-  m_Name: HutCardData
+  m_Name: Hut Card Data
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Hut
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: b3d84141ec6768b4493eda7b211f60b8, type: 2}
