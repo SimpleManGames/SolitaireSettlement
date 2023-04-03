@@ -1,12 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SolitaireSettlement
 {
     public class StackActionManager : SerializedMonoBehaviour
     {
+        protected struct RelevantStackActionInfo
+        {
+            public StackActionData stackActionData;
+            public List<Card> involvedCards;
+        }
+
         [field: SerializeField]
         private HashSet<StackActionData> StackActions { get; set; }
 
@@ -14,12 +21,12 @@ namespace SolitaireSettlement
         private List<CardStack> CurrentStacks { get; set; }
 
         [field: ShowInInspector, ReadOnly]
-        private List<StackActionData> CurrentPossibleStackActions { get; set; }
+        private List<RelevantStackActionInfo> CurrentPossibleStackActions { get; set; }
 
         private void Awake()
         {
             CurrentStacks = new List<CardStack>();
-            CurrentPossibleStackActions = new List<StackActionData>();
+            CurrentPossibleStackActions = new List<RelevantStackActionInfo>();
         }
 
         private void Update()
@@ -50,16 +57,30 @@ namespace SolitaireSettlement
 
         private void CheckForPossibleStackActions()
         {
-            foreach (var action in from stack in CurrentStacks // Gather all the CardData into list
-                     select stack.Cards.Select(c => c.Data).ToList()
-                     into stackCardData
-                     from action in StackActions // Gather all the actions that match what the stack has
-                     let containsAllCards = action.NeededCardsInStack.All(stackCardData.Contains)
-                     where containsAllCards
-                     select action)
+            foreach (var currentStack in CurrentStacks)
             {
-                CurrentPossibleStackActions.Add(action);
+                var currentStackData = currentStack.Cards.Select(c => c.Data);
+
+                // Select the stackAction that contains all the cards in currentStack
+                foreach (var stackAction in from stackAction in StackActions
+                         let containsAllCards = stackAction.NeededCardsInStack.All(stackActionCard =>
+                             currentStackData.Contains(stackActionCard))
+                         where containsAllCards
+                         select stackAction)
+                {
+                    CurrentPossibleStackActions.Add(new RelevantStackActionInfo()
+                    {
+                        stackActionData = stackAction,
+                        involvedCards = currentStack.Cards
+                    });
+                }
             }
+        }
+
+        public void PreformPossibleStackActions()
+        {
+            foreach (var stackActionInfo in CurrentPossibleStackActions)
+                stackActionInfo.stackActionData.Result.Result(stackActionInfo.involvedCards);
         }
     }
 }
