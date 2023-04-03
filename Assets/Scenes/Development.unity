@@ -231,6 +231,10 @@ PrefabInstance:
       propertyPath: <Data>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 7b312887a4fa2de46aca92284145affe, type: 2}
+    - target: {fileID: 6938691214990423952, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: <InternalDataReference>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b312887a4fa2de46aca92284145affe, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
 --- !u!1 &519420028
@@ -653,6 +657,10 @@ PrefabInstance:
       propertyPath: <Data>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 586f19e3cd3cff94b8edeabe6f17810d, type: 2}
+    - target: {fileID: 6938691214990423952, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: <InternalDataReference>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 586f19e3cd3cff94b8edeabe6f17810d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
 --- !u!1001 &1299657658
@@ -772,6 +780,10 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 71e55f43a34bf5645bc5f3d24d79712a, type: 2}
     - target: {fileID: 6938691214990423952, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: <Data>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
+    - target: {fileID: 6938691214990423952, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: <InternalDataReference>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
     m_RemovedComponents: []
@@ -1092,6 +1104,10 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 71e55f43a34bf5645bc5f3d24d79712a, type: 2}
     - target: {fileID: 6938691214990423952, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: <Data>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 0138928352434fe4e80d9f4b3737a47f, type: 2}
+    - target: {fileID: 6938691214990423952, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: <InternalDataReference>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 0138928352434fe4e80d9f4b3737a47f, type: 2}
     m_RemovedComponents: []

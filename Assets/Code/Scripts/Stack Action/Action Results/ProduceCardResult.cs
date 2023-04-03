@@ -10,7 +10,7 @@ namespace SolitaireSettlement
         [field: SerializeField, Required]
         private CardData ProducedCard { get; set; }
 
-        public void Result(List<Card> relatedCardStack)
+        public void OnResult(IEnumerable<Card> relatedCardStack)
         {
             var stack = relatedCardStack.Aggregate("Stack ", (s, card) => s += $": {card.Data.Name}");
             Debug.Log($"Produced card:{ProducedCard.Name} with {stack}");

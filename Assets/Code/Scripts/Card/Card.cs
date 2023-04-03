@@ -1,4 +1,3 @@
-using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,7 +5,12 @@ namespace SolitaireSettlement
 {
     public class Card : MonoBehaviour
     {
-        [field: SerializeField]
+        [field: SerializeField,
+                Tooltip("ScriptableObject References that this Card pulls info from.\n " +
+                        "We create a copy of this during runtime to modify values on it without effecting the actual asset.")]
+        public CardData InternalDataReference { get; private set; }
+
+        [field: ShowInInspector, ReadOnly, InlineEditor]
         public CardData Data { get; set; }
 
         [field: ShowInInspector]
@@ -23,6 +27,7 @@ namespace SolitaireSettlement
 
         private void Awake()
         {
+            Data = Instantiate(InternalDataReference);
             GetComponent<CardRenderer>().UpdateCardVisuals(Data);
         }
 

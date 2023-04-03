@@ -4,6 +4,6 @@ namespace SolitaireSettlement
 {
     public interface IStackActionResult
     {
-        void Result(List<Card> relatedCardStack);
+        void OnResult(IEnumerable<Card> relatedCardStack);
     }
 }

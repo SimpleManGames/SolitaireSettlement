@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SolitaireSettlement
 {
     public class StackActionManager : SerializedMonoBehaviour
     {
-        protected struct RelevantStackActionInfo
+        private struct RelevantStackActionInfo
         {
             public StackActionData stackActionData;
             public List<Card> involvedCards;
@@ -59,7 +58,8 @@ namespace SolitaireSettlement
         {
             foreach (var currentStack in CurrentStacks)
             {
-                var currentStackData = currentStack.Cards.Select(c => c.Data);
+                // We use the InternalDataReference here since the Cloned version has different values and the compare wouldn't work
+                var currentStackData = currentStack.Cards.Select(c => c.InternalDataReference);
 
                 // Select the stackAction that contains all the cards in currentStack
                 foreach (var stackAction in from stackAction in StackActions
@@ -80,7 +80,11 @@ namespace SolitaireSettlement
         public void PreformPossibleStackActions()
         {
             foreach (var stackActionInfo in CurrentPossibleStackActions)
-                stackActionInfo.stackActionData.Result.Result(stackActionInfo.involvedCards);
+            {
+                stackActionInfo.stackActionData.Result.OnResult(stackActionInfo.involvedCards);
+                foreach (var card in stackActionInfo.involvedCards.Where(card => card.Data.Consume != null))
+                    card.Data.Consume.OnConsume(card);
+            }
         }
     }
 }
