@@ -31,14 +31,15 @@ namespace SolitaireSettlement
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private TextMeshProUGUI NameText { get; set; }
 
-        private void Awake()
+        public void UpdateCardVisuals(CardData data)
         {
-            if (Palette == null)
-            {
-                Debug.LogError($"Palette was null during Awake for {gameObject.name}!");
-                return;
-            }
+            Palette = data.ColorPalette;
+            NameText.text = data.Name;
+            gameObject.name = data.Name;
+        }
 
+        private void SetVisuals()
+        {
             SetGraphicColor(BackgroundImage, Palette.PrimaryColor);
             SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
             SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);

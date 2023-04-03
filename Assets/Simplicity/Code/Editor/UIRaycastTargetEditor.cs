@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Simplicity.Editor
 {
-    [CanEditMultipleObjects, CustomEditor(typeof(UIRaycastTarget), false)]
+    [CanEditMultipleObjects, CustomEditor(typeof(UI.UIRaycastTarget), false)]
     public class NonDrawingGraphicEditor : GraphicEditor
     {
         public override void OnInspectorGUI()

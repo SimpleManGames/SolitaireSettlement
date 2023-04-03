@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Simplicity.UI;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -76,6 +76,10 @@ namespace SolitaireSettlement
 
                     break;
                 case InputActionPhase.Canceled:
+                    HandleCardStackInteraction();
+
+                    _currentDraggable?.OnDragCancel();
+
                     _currentDragObject = null;
                     _currentDraggable = null;
                     _currentClickObject = null;
@@ -86,6 +90,56 @@ namespace SolitaireSettlement
                 case InputActionPhase.Started:
                 default:
                     break;
+            }
+        }
+
+        private void HandleCardStackInteraction()
+        {
+            if (_currentDragObject == null)
+                return;
+
+            var rectTransform = _currentDragObject.GetComponent<RectTransform>();
+            foreach (var card in GameObject.FindGameObjectsWithTag("Card"))
+            {
+                if (card == _currentDragObject)
+                    continue;
+
+                var otherRectTransform = card.GetComponent<RectTransform>();
+                if (!rectTransform.Overlaps(otherRectTransform))
+                    continue;
+
+                var placeOntoCard = otherRectTransform.GetComponent<Card>();
+                var draggingCard = _currentDragObject.GetComponent<Card>();
+
+                if (placeOntoCard.Stack != null && placeOntoCard.Stack.Cards.Contains(draggingCard))
+                    continue;
+
+                if (placeOntoCard.Stack == null) // New Stack
+                {
+                    // New stack is being made, so we need to add both of them to it
+                    placeOntoCard.Stack = new CardStack();
+                    placeOntoCard.Stack.AddCard(placeOntoCard);
+
+                    if (draggingCard.Stack != null && draggingCard.Stack.HasCards)
+                    {
+                        placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
+                    }
+                    else
+                    {
+                        placeOntoCard.Stack.AddCard(draggingCard);
+                    }
+                }
+                else if (draggingCard.Stack != null && draggingCard.Stack.HasCards) // Combine multiple stacks
+                {
+                    placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
+                }
+                else // Single card to stack
+                {
+                    // Not root, add to an existing stack
+                    placeOntoCard.Stack.AddCard(draggingCard);
+                }
+
+                break;
             }
         }
 
@@ -115,6 +169,23 @@ namespace SolitaireSettlement
 
                 _currentDragObject = resultGameObject;
                 _currentDraggable = resultGameObject.GetComponent<IUIDraggable>();
+
+                var cardComponent = _currentDragObject.GetComponent<Card>();
+                if (cardComponent.IsInStack)
+                {
+                    if (cardComponent.IsOnTop)
+                    {
+                        cardComponent.Stack.RemoveCard(cardComponent);
+                    }
+                    else if (!cardComponent.IsOnBottom)
+                    {
+                        var cards = cardComponent.Stack.SplitAt(cardComponent);
+                        cardComponent.Stack.RemoveCards(cards);
+                        cardComponent.Stack = new CardStack();
+                        cardComponent.Stack.AddCards(cards);
+                    }
+                }
+
                 return true;
             }
 

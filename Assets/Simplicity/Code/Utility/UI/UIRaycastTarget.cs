@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 
-namespace Simplicity
+namespace Simplicity.UI
 {
     public class UIRaycastTarget : Graphic
     {

@@ -6,10 +6,22 @@ namespace SolitaireSettlement
     [CreateAssetMenu(menuName = "Solitaire Settlement/Card/Card Data", fileName = "Card Data")]
     public class CardData : ScriptableObject
     {
+        public enum ECardType
+        {
+            Person,
+            Resource,
+            Building,
+            Gathering
+        }
+
         [field: Title("Visuals")]
-        [field: SerializeField] private string Name { get; set; }
+        [field: SerializeField] 
+        public string Name { get; private set; }
 
         [field: SerializeField, AssetsOnly, Required]
-        private CardPaletteData ColorPalette { get; set; }
+        public CardPaletteData ColorPalette { get; private set; }
+
+        [field: Title("Settings")]
+        [field: SerializeField] public ECardType CardType { get; private set; }
     }
 }

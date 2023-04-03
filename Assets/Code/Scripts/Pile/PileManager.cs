@@ -17,7 +17,7 @@ namespace SolitaireSettlement
 
         private void Awake()
         {
-            PopulateDeckWithInitialCards();
+            // PopulateDeckWithInitialCards();
         }
 
         private void PopulateDeckWithInitialCards()
