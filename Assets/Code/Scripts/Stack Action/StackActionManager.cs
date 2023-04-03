@@ -28,13 +28,7 @@ namespace SolitaireSettlement
             CurrentPossibleStackActions = new List<RelevantStackActionInfo>();
         }
 
-        private void Update()
-        {
-            GatherCurrentStacks();
-            CheckForPossibleStackActions();
-        }
-
-        private void GatherCurrentStacks()
+        public void GatherCurrentStacks()
         {
             CurrentPossibleStackActions.Clear();
             var cardObjects = GameObject.FindGameObjectsWithTag("Card");
@@ -42,6 +36,9 @@ namespace SolitaireSettlement
             var uniqueStacks = new List<CardStack>();
             foreach (var card in cardComponents)
             {
+                if (card == null)
+                    continue;
+
                 if (card.Stack?.HasCards != true)
                     continue;
 
@@ -54,7 +51,7 @@ namespace SolitaireSettlement
             CurrentStacks = uniqueStacks;
         }
 
-        private void CheckForPossibleStackActions()
+        public void CheckForPossibleStackActions()
         {
             foreach (var currentStack in CurrentStacks)
             {
@@ -82,8 +79,8 @@ namespace SolitaireSettlement
             foreach (var stackActionInfo in CurrentPossibleStackActions)
             {
                 stackActionInfo.stackActionData.Result.OnResult(stackActionInfo.involvedCards);
-                foreach (var card in stackActionInfo.involvedCards.Where(card => card.Data.Consume != null))
-                    card.Data.Consume.OnConsume(card);
+                foreach (var card in stackActionInfo.involvedCards.Where(card => card.Data.CardUse != null))
+                    card.Data.CardUse.OnCardUse(card);
             }
         }
     }

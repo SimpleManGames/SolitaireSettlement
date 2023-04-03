@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace BountyHunters
+namespace Simplicity.GameEvent
 {
     public class GameEventListener : MonoBehaviour
     {

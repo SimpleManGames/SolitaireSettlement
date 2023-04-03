@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 1507109860}
   - component: {fileID: 1507109859}
   - component: {fileID: 1507109861}
+  - component: {fileID: 1507109862}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -820,6 +821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameCamera>k__BackingField: {fileID: 519420031}
   <InteractableUICanvas>k__BackingField: {fileID: 955841288}
+  <OnCardInteractedEvent>k__BackingField: {fileID: 11400000, guid: c9f877297a793494490510b04c2dccf0, type: 2}
   <InteractableLayerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 32
@@ -856,8 +858,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 53e48d100da1e3947beb2f582083324d, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -876,19 +877,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
       Data: 0
-    - Name: $v
-      Entry: 3
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -896,6 +885,27 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+--- !u!114 &1507109862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507109858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14f01760d070f54ca26211ee18af37b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DestroyOnLoad>k__BackingField: 0
+  <AllCards>k__BackingField: []
+  <CardCanvas>k__BackingField: {fileID: 1513576520}
+  <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+--- !u!1 &1513576520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4551055902058276968, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
+  m_PrefabInstance: {fileID: 4551055901130756973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1687666573
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,6 +916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687666574}
   - component: {fileID: 1687666576}
+  - component: {fileID: 1687666577}
   - component: {fileID: 1687666575}
   m_Layer: 0
   m_Name: Stack Action
@@ -999,6 +1010,46 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+--- !u!114 &1687666577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687666573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b333e1896f19b4b8aede7b33ded7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c9f877297a793494490510b04c2dccf0, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1687666576}
+        m_TargetAssemblyTypeName: SolitaireSettlement.StackActionManager, Assembly-CSharp
+        m_MethodName: GatherCurrentStacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1687666576}
+        m_TargetAssemblyTypeName: SolitaireSettlement.StackActionManager, Assembly-CSharp
+        m_MethodName: CheckForPossibleStackActions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1894959744
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -27,9 +27,9 @@ MonoBehaviour:
     - Name: <CardType>k__BackingField
       Entry: 3
       Data: 2
-    - Name: <Consume>k__BackingField
+    - Name: <CardUse>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.AmountOfUsesConsume, Assembly-CSharp
+      Data: 0|SolitaireSettlement.AmountOfCardUses, Assembly-CSharp
     - Name: <AmountOfUses>k__BackingField
       Entry: 3
       Data: 2

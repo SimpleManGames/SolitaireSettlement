@@ -24,7 +24,7 @@ namespace SolitaireSettlement
         [field: Title("Settings")]
         [field: SerializeField] public ECardType CardType { get; }
 
-        [field: SerializeField] public IStackActionConsume Consume { get; set; }
+        [field: SerializeField] public IStackActionCardUse CardUse { get; set; }
 
         public override int GetHashCode()
         {

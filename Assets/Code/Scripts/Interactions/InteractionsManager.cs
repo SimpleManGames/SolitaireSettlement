@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Simplicity.GameEvent;
 using Simplicity.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,6 +15,9 @@ namespace SolitaireSettlement
         [field: SerializeField] private Camera GameCamera { get; set; }
 
         [field: SerializeField] private Canvas InteractableUICanvas { get; set; }
+
+        [field: Title("Events")]
+        [field: SerializeField] private GameEvent OnCardInteractedEvent { get; set; }
 
         [field: Title("Settings")]
         [field: SerializeField] private LayerMask InteractableLayerMask { get; set; }
@@ -77,6 +81,7 @@ namespace SolitaireSettlement
                     break;
                 case InputActionPhase.Canceled:
                     HandleCardStackInteraction();
+                    OnCardInteractedEvent.Raise();
 
                     _currentDraggable?.OnDragCancel();
 
