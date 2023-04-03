@@ -787,6 +787,7 @@ GameObject:
   - component: {fileID: 1507109860}
   - component: {fileID: 1507109859}
   - component: {fileID: 1507109861}
+  - component: {fileID: 1507109862}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -883,6 +884,44 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+--- !u!114 &1507109862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507109858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f95109377598044f844327fa505150e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: ccb0102802475614e82d2f87e55cb2bc, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <StackActions>k__BackingField
+      Entry: 7
+      Data: 0|System.Collections.Generic.HashSet`1[[SolitaireSettlement.StackActionData,
+        Assembly-CSharp]], System.Core
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1001 &1894959744
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    [CreateAssetMenu(menuName = "Solitaire Settlement/Card/Card Data", fileName = "Card Data")]
+    [CreateAssetMenu(menuName = "Solitaire Settlement/Card/Card Data", fileName = "New Card")]
     public class CardData : ScriptableObject
     {
         public enum ECardType
