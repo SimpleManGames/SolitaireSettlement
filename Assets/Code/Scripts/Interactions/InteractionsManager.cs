@@ -83,6 +83,8 @@ namespace SolitaireSettlement
                     HandleCardStackInteraction();
                     OnCardInteractedEvent.Raise();
 
+                    _currentClickable?.OnClick();
+
                     _currentDraggable?.OnDragCancel();
 
                     _currentDragObject = null;

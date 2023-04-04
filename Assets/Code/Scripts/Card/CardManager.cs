@@ -9,7 +9,9 @@ namespace SolitaireSettlement
     public class CardManager : Singleton<CardManager>
     {
         [field: Title("References")]
-        
+        [field: SerializeField]
+        private DeckManager DeckManager { get; set; }
+
         [field: SerializeField, ReadOnly]
         private List<Card> AllCards { get; set; }
 
@@ -17,7 +19,7 @@ namespace SolitaireSettlement
         private GameObject CardCanvas { get; set; }
 
         [field: ShowInInspector, ReadOnly]
-        private List<CardData> ToBeCreatedCards { get; set; }
+        private List<CardData> ToBeAddedCards { get; set; }
 
         [field: ShowInInspector, ReadOnly]
         private List<Card> ToBeDeletedCards { get; set; }
@@ -31,14 +33,16 @@ namespace SolitaireSettlement
             // Grab the initial cards
             AllCards = GameObject.FindGameObjectsWithTag("Card").Select(c => c.GetComponent<Card>()).ToList();
 
-            ToBeCreatedCards = new List<CardData>();
+            ToBeAddedCards = new List<CardData>();
             ToBeDeletedCards = new List<Card>();
         }
 
         private void Update()
         {
-            foreach (var newCard in ToBeCreatedCards) CreateNewCard(newCard);
+            foreach (var newCard in ToBeAddedCards) AddCardToDeck(newCard);
             foreach (var cardObject in ToBeDeletedCards) DeleteCard(cardObject);
+
+            ToBeAddedCards.Clear();
             ToBeDeletedCards.Clear();
         }
 
@@ -48,7 +52,7 @@ namespace SolitaireSettlement
         /// <param name="newCard">Data to base the new Card off of.</param>
         public void RequestToAddCard(CardData newCard)
         {
-            ToBeCreatedCards.Add(newCard);
+            ToBeAddedCards.Add(newCard);
         }
 
         public void RequestToDeleteCard(Card cardObject)
@@ -56,11 +60,13 @@ namespace SolitaireSettlement
             ToBeDeletedCards.Add(cardObject);
         }
 
-        private void CreateNewCard(CardData data)
+        private void AddCardToDeck(CardData data)
         {
-            var newCardObject = Instantiate(CardPrefab, CardCanvas.transform);
-            var newCardComponent = newCardObject.GetComponent<Card>();
-            newCardComponent.Data = data;
+            DeckManager.AddCardToDeck(data);
+
+            // var newCardObject = Instantiate(CardPrefab, CardCanvas.transform);
+            // var newCardComponent = newCardObject.GetComponent<Card>();
+            // newCardComponent.Data = data;
         }
 
         private void DeleteCard(Card cardObject)

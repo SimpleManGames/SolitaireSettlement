@@ -82,6 +82,8 @@ namespace SolitaireSettlement
                 foreach (var card in stackActionInfo.involvedCards.Where(card => card.Data.CardUse != null))
                     card.Data.CardUse.OnCardUse(card);
             }
+
+            CurrentPossibleStackActions.Clear();
         }
     }
 }

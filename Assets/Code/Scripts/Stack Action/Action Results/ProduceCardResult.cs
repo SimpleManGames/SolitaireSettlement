@@ -14,6 +14,7 @@ namespace SolitaireSettlement
         {
             var stack = relatedCardStack.Aggregate("Stack ", (s, card) => s += $": {card.Data.Name}");
             Debug.Log($"Produced card:{ProducedCard.Name} with {stack}");
+            CardManager.Instance.RequestToAddCard(ProducedCard);
         }
     }
 }
