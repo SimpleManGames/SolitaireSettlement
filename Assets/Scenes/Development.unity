@@ -461,24 +461,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &673249660 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8556774355106279951, guid: 24be7267c3691df4db791a07ddcc2eca, type: 3}
-  m_PrefabInstance: {fileID: 8556774356323598246}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &673249664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673249660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e07f2e7f51d8f4ba98d49fe9f0fd13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnDeckInteractEvent: {fileID: 11400000, guid: fb93b62e570fe5d46884cd9c8aa9e586, type: 2}
 --- !u!1 &862943145
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d6503962ed77c458606918deb24359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AmountOfCardsDrawn>k__BackingField: 3
 --- !u!4 &920737149
 Transform:
   m_ObjectHideFlags: 0
