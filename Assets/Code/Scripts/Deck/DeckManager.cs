@@ -13,12 +13,29 @@ namespace SolitaireSettlement
         [field: ShowInInspector, ReadOnly]
         private List<CardData> ShownCards { get; set; }
 
+        [ShowInInspector, ReadOnly]
+        private List<CardData> CurrentlyVisibleShownCards =>
+            new()
+            {
+                ShownCards?.Count > 2 ? ShownCards[^3] : null,
+                ShownCards?.Count > 1 ? ShownCards[^2] : null,
+                ShownCards?.Count > 0 ? ShownCards[^1] : null
+            };
+
         [field: SerializeField]
         private int AmountOfCardsDrawn { get; set; } = 3;
 
+        private List<GameObject> VisualCardObjects = new();
+        
         public bool HasCardsInDeck => CardsInDeck?.Count > 0;
 
         private void Awake()
+        {
+            CardsInDeck = new List<CardData>();
+            ShownCards = new List<CardData>();
+        }
+
+        private void OnDestroy()
         {
             CardsInDeck = new List<CardData>();
             ShownCards = new List<CardData>();

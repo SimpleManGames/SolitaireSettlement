@@ -64,9 +64,7 @@ namespace SolitaireSettlement
         {
             DeckManager.AddCardToDeck(data);
 
-            // var newCardObject = Instantiate(CardPrefab, CardCanvas.transform);
-            // var newCardComponent = newCardObject.GetComponent<Card>();
-            // newCardComponent.Data = data;
+
         }
 
         private void DeleteCard(Card cardObject)
