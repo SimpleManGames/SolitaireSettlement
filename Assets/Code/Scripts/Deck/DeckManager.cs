@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace SolitaireSettlement
         private List<CardData> ShownCards { get; set; }
 
         [ShowInInspector, ReadOnly]
-        private List<CardData> CurrentlyVisibleShownCards =>
+        public List<CardData> CurrentlyVisibleShownCards =>
             new()
             {
                 ShownCards?.Count > 2 ? ShownCards[^3] : null,
@@ -25,9 +24,8 @@ namespace SolitaireSettlement
         [field: SerializeField]
         private int AmountOfCardsDrawn { get; set; } = 3;
 
-        private List<GameObject> VisualCardObjects = new();
-        
         public bool HasCardsInDeck => CardsInDeck?.Count > 0;
+        public bool IsShowingCards => CurrentlyVisibleShownCards?.Count > 0;
 
         private void Awake()
         {

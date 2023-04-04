@@ -27,8 +27,7 @@ namespace SolitaireSettlement
 
         private void Awake()
         {
-            Data = Instantiate(InternalDataReference);
-            GetComponent<CardRenderer>().UpdateCardVisuals(Data);
+            UpdateCardData(InternalDataReference);
         }
 
         private void Update()
@@ -55,6 +54,20 @@ namespace SolitaireSettlement
                     card.transform.SetAsLastSibling();
                 }
             }
+        }
+
+        public void UpdateCardData(CardData data)
+        {
+            if (Data != null)
+                Destroy(Data);
+
+            if (data == null)
+                return;
+
+            InternalDataReference = data;
+
+            Data = Instantiate(InternalDataReference);
+            GetComponent<CardRenderer>().UpdateCardVisuals(Data);
         }
     }
 }
