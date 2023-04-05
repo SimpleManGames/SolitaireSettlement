@@ -73,7 +73,7 @@ namespace SolitaireSettlement
         public bool IsValidPlacement(ICardPlaceable placeable)
         {
             var cardObject = placeable as Card;
-            return CardStack.CanAddCard(this, cardObject);
+            return CardStack.CanAddCard(this, cardObject) && !IsInDeck;
         }
     }
 }
