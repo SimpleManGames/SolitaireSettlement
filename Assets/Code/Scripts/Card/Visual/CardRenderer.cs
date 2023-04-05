@@ -36,6 +36,8 @@ namespace SolitaireSettlement
             Palette = data.ColorPalette;
             NameText.text = data.Name;
             gameObject.name = data.Name;
+
+            SetVisuals();
         }
 
         private void SetVisuals()
@@ -44,7 +46,7 @@ namespace SolitaireSettlement
             SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
             SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);
             SetGraphicColor(BorderImage, Palette.BorderColor);
-            SetGraphicColor(NameUnderlineImage, Palette.NameColor);
+            SetGraphicColor(NameUnderlineImage, Palette.BorderColor);
 
             SetGraphicColor(NameText, Palette.NameColor);
         }
