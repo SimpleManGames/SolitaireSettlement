@@ -35,10 +35,16 @@ namespace SolitaireSettlement
         private PointerEventData _clickData;
         private List<RaycastResult> _clickResults;
 
+        [ShowInInspector]
         private GameObject _currentDragObject;
+
+        [ShowInInspector]
         private IUIDrag _currentDraggable;
 
+        [ShowInInspector]
         private GameObject _currentClickObject;
+
+        [ShowInInspector]
         private IUIClickable _currentClickable;
 
         private void Awake()
@@ -128,11 +134,35 @@ namespace SolitaireSettlement
                 if (!placeOntoCard.IsValidPlacement(draggingCard))
                     break;
 
+                UpdateStackInfoForDragObject();
                 DetermineStackInteractions(placeOntoCard, draggingCard);
 
                 if (_currentDragObject.GetComponent<Card>().IsInDeck)
                     DeckManager.Instance.MoveCardTopCardToGame();
-                break;
+
+                return;
+            }
+
+            if (_currentDragObject.GetComponent<Card>().Data.CardType == CardData.ECardType.Person)
+                UpdateStackInfoForDragObject();
+        }
+
+        private void UpdateStackInfoForDragObject()
+        {
+            var cardComponent = _currentDragObject.GetComponent<Card>();
+            if (cardComponent.IsInStack)
+            {
+                if (cardComponent.IsOnTop)
+                {
+                    cardComponent.Stack.RemoveCard(cardComponent);
+                }
+                else if (!cardComponent.IsOnBottom)
+                {
+                    var cards = cardComponent.Stack.SplitAt(cardComponent);
+                    cardComponent.Stack.RemoveCards(cards);
+                    cardComponent.Stack = new CardStack();
+                    cardComponent.Stack.AddCards(cards);
+                }
             }
         }
 
@@ -188,23 +218,6 @@ namespace SolitaireSettlement
                 _currentDragObject = resultGameObject;
                 _currentDraggable = resultGameObject.GetComponent<IUIDrag>();
                 _currentDraggable.OnDragStart();
-
-                var cardComponent = _currentDragObject.GetComponent<Card>();
-                if (cardComponent.IsInStack)
-                {
-                    if (cardComponent.IsOnTop)
-                    {
-                        cardComponent.Stack.RemoveCard(cardComponent);
-                    }
-                    else if (!cardComponent.IsOnBottom)
-                    {
-                        var cards = cardComponent.Stack.SplitAt(cardComponent);
-                        cardComponent.Stack.RemoveCards(cards);
-                        cardComponent.Stack = new CardStack();
-                        cardComponent.Stack.AddCards(cards);
-                    }
-                }
-
                 return true;
             }
 

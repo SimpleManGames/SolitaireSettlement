@@ -13,6 +13,9 @@ namespace SolitaireSettlement
         [field: ShowInInspector, ReadOnly, InlineEditor]
         public CardData Data { get; set; }
 
+        [field: SerializeField]
+        private IUIDrag Draggable { get; set; }
+
         [field: ShowInInspector]
         [field: ReadOnly]
         public bool IsInDeck { get; set; }
@@ -30,6 +33,7 @@ namespace SolitaireSettlement
         private void Awake()
         {
             UpdateCardData(InternalDataReference);
+            Draggable = GetComponent<CardDraggable>();
         }
 
         private void Update()
@@ -37,7 +41,7 @@ namespace SolitaireSettlement
             if (IsInStack && Stack.Cards.Count <= 1)
                 Stack = null;
 
-            if (IsInStack)
+            if (IsInStack && !Draggable.IsBeDragging)
             {
                 var index = Stack!.Cards.IndexOf(this);
 
