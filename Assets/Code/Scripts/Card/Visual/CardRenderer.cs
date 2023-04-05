@@ -13,19 +13,22 @@ namespace SolitaireSettlement
 
         [field: Title("UI Objects - Images")]
         [field: SerializeField, ChildGameObjectsOnly, Required]
-        private Image BackgroundImage { get; set; }
+        private MeshRenderer BackgroundMaterial { get; set; }
+
+        // [field: SerializeField, ChildGameObjectsOnly, Required]
+        // private Image NameBackgroundImage { get; set; }
+
+        // [field: SerializeField, ChildGameObjectsOnly, Required]
+        // private Image ArtBackgroundImage { get; set; }
+
+        // [field: SerializeField, ChildGameObjectsOnly, Required]
+        // private Image BorderImage { get; set; }
+
+        // [field: SerializeField, ChildGameObjectsOnly, Required]
+        // private Image NameUnderlineImage { get; set; }
 
         [field: SerializeField, ChildGameObjectsOnly, Required]
-        private Image NameBackgroundImage { get; set; }
-
-        [field: SerializeField, ChildGameObjectsOnly, Required]
-        private Image ArtBackgroundImage { get; set; }
-
-        [field: SerializeField, ChildGameObjectsOnly, Required]
-        private Image BorderImage { get; set; }
-
-        [field: SerializeField, ChildGameObjectsOnly, Required]
-        private Image NameUnderlineImage { get; set; }
+        private SpriteRenderer Art { get; set; }
 
         [field: Title("UI Objects - Text")]
         [field: SerializeField, ChildGameObjectsOnly, Required]
@@ -42,11 +45,11 @@ namespace SolitaireSettlement
 
         private void SetVisuals()
         {
-            SetGraphicColor(BackgroundImage, Palette.PrimaryColor);
-            SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
-            SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);
-            SetGraphicColor(BorderImage, Palette.BorderColor);
-            SetGraphicColor(NameUnderlineImage, Palette.BorderColor);
+            BackgroundMaterial.sharedMaterial.color = Palette.PrimaryColor;
+            // SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
+            // SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);
+            // SetGraphicColor(BorderImage, Palette.BorderColor);
+            // SetGraphicColor(NameUnderlineImage, Palette.BorderColor);
 
             SetGraphicColor(NameText, Palette.NameColor);
         }
