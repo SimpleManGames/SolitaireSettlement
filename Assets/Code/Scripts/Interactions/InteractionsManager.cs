@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Simplicity.GameEvent;
 using Simplicity.UI;
 using Sirenix.OdinInspector;
@@ -31,9 +32,9 @@ namespace SolitaireSettlement
 
         private GameInputs _gameInputs;
 
-        private GraphicRaycaster _uiRaycaster;
-        private PointerEventData _clickData;
-        private List<RaycastResult> _clickResults;
+        private RaycastHit[] _clickResults;
+
+        private Vector3 _dragOffset;
 
         [ShowInInspector]
         private GameObject _currentDragObject;
@@ -53,9 +54,7 @@ namespace SolitaireSettlement
             _gameInputs.Interactions.SetCallbacks(this);
             _gameInputs.Enable();
 
-            _uiRaycaster = InteractableUICanvas.GetComponent<GraphicRaycaster>();
-            _clickData = new PointerEventData(EventSystem.current);
-            _clickResults = new List<RaycastResult>();
+            _clickResults = new RaycastHit [10];
         }
 
         private void Update()
@@ -63,9 +62,14 @@ namespace SolitaireSettlement
             if (_currentDragObject == null || _currentDraggable == null)
                 return;
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                (RectTransform)InteractableUICanvas.transform, InteractionPoint, GameCamera, out var position);
-            _currentDraggable.OnDrag(position);
+            var interactionPointVec3 = (Vector3)InteractionPoint;
+            interactionPointVec3.z = _currentDragObject.transform.position.z - GameCamera.transform.position.z;
+            _currentDraggable.OnDrag(GameCamera.ScreenToWorldPoint(interactionPointVec3));
+        }
+
+        public void OnInteractionPoint(InputAction.CallbackContext context)
+        {
+            InteractionPoint = context.ReadValue<Vector2>();
         }
 
         public void OnPress(InputAction.CallbackContext context)
@@ -73,10 +77,9 @@ namespace SolitaireSettlement
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
-                    _clickData.position = InteractionPoint;
-                    _clickResults.Clear();
-
-                    _uiRaycaster.Raycast(_clickData, _clickResults);
+                    var ray = GameCamera.ScreenPointToRay(InteractionPoint);
+                    Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.blue, 10.0f);
+                    Physics.RaycastNonAlloc(ray, _clickResults, 200.0f);
 
                     if (ParseClickResultsForClickable())
                         return;
@@ -195,7 +198,10 @@ namespace SolitaireSettlement
         {
             foreach (var result in _clickResults)
             {
-                var resultGameObject = result.gameObject;
+                if (result.transform == null)
+                    continue;
+
+                var resultGameObject = result.transform.gameObject;
                 if (resultGameObject.GetComponent<IUIClickable>() == null)
                     continue;
 
@@ -211,24 +217,22 @@ namespace SolitaireSettlement
         {
             foreach (var result in _clickResults)
             {
-                var resultGameObject = result.gameObject;
+                if (result.transform == null)
+                    continue;
+
+                var resultGameObject = result.transform.gameObject;
                 if (resultGameObject.GetComponent<IUIDrag>() == null)
                     continue;
 
                 _currentDragObject = resultGameObject;
                 _currentDraggable = resultGameObject.GetComponent<IUIDrag>();
                 _currentDraggable.OnDragStart();
+
+                _dragOffset = _currentDragObject.transform.position - InteractionWorldPoint;
                 return true;
             }
 
             return false;
-        }
-
-        public void OnInteractionPoint(InputAction.CallbackContext context)
-        {
-            InteractionPoint = context.ReadValue<Vector2>();
-            var interactionPointVec3 = new Vector3(InteractionPoint.x, InteractionPoint.y, 0.0f);
-            InteractionWorldPoint = GameCamera.ScreenToWorldPoint(interactionPointVec3);
         }
     }
 }

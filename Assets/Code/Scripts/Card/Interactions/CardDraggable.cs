@@ -5,9 +5,6 @@ namespace SolitaireSettlement
     public class CardDraggable : MonoBehaviour, IUIDrag
     {
         [field: SerializeField]
-        private Canvas CardCanvas { get; set; }
-
-        [field: SerializeField]
         private Card Card { get; set; }
 
         public bool CanBeDragged { get; set; } = true;
@@ -16,9 +13,6 @@ namespace SolitaireSettlement
 
         private void Awake()
         {
-            if (CardCanvas == null)
-                CardCanvas = GetComponentInParent<Canvas>();
-
             CanBeDragged = true;
             IsBeDragging = false;
         }
@@ -38,7 +32,7 @@ namespace SolitaireSettlement
                 transform.SetAsLastSibling();
 
             var vec3Position = (Vector3)position;
-            transform.position = CardCanvas.transform.TransformPoint(vec3Position);
+            transform.position = vec3Position;
         }
 
         public void OnDragEnd()
