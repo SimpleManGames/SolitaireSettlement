@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071ad972faee1004e91db526cbf91be3, type: 3}
   m_Name: Person Card Palette
   m_EditorClassIdentifier: 
-  <PrimaryColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <SecondaryColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <BorderColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <NameColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <ArtColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <PrimaryColor>k__BackingField: {r: 0.99215686, g: 0.99607843, b: 0.8235294, a: 1}
+  <SecondaryColor>k__BackingField: {r: 0.85490197, g: 0.8666667, b: 0.5764706, a: 1}
+  <BorderColor>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <NameColor>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <ArtColor>k__BackingField: {r: 0, g: 0, b: 0, a: 1}

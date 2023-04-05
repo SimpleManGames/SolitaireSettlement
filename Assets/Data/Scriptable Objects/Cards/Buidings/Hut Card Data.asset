@@ -27,7 +27,7 @@ MonoBehaviour:
     - Name: <CardType>k__BackingField
       Entry: 3
       Data: 2
-    - Name: <Consume>k__BackingField
+    - Name: <CardUse>k__BackingField
       Entry: 6
       Data: 
-  <ColorPalette>k__BackingField: {fileID: 11400000, guid: b3d84141ec6768b4493eda7b211f60b8, type: 2}
+  <ColorPalette>k__BackingField: {fileID: 11400000, guid: 2b570ff481835b44bbd774cc487c91b7, type: 2}
