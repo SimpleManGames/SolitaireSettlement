@@ -3,6 +3,7 @@ using System.Linq;
 using Simplicity.GameEvent;
 using Simplicity.UI;
 using Sirenix.OdinInspector;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -65,6 +66,7 @@ namespace SolitaireSettlement
             var interactionPointVec3 = (Vector3)InteractionPoint;
             interactionPointVec3.z = _currentDragObject.transform.position.z - GameCamera.transform.position.z;
             _currentDraggable.OnDrag(GameCamera.ScreenToWorldPoint(interactionPointVec3));
+            _currentDragObject.transform.position = _currentDragObject.transform.position - Vector3.forward;
         }
 
         public void OnInteractionPoint(InputAction.CallbackContext context)
@@ -118,17 +120,19 @@ namespace SolitaireSettlement
 
         private void LoopThroughAllCardObjects()
         {
-            var rectTransform = _currentDragObject.GetComponent<RectTransform>();
+            var currentDragCollider = _currentDragObject.GetComponent<BoxCollider>();
             foreach (var card in GameObject.FindGameObjectsWithTag("Card"))
             {
                 if (card == _currentDragObject)
                     continue;
 
-                var otherRectTransform = card.GetComponent<RectTransform>();
-                if (!rectTransform.Overlaps(otherRectTransform))
+                var otherCollider = card.GetComponent<BoxCollider>();
+                if (!currentDragCollider.bounds.Intersects(otherCollider.bounds))
                     continue;
 
-                var placeOntoCard = otherRectTransform.GetComponent<Card>();
+                Debug.Log($"Intersecting between {currentDragCollider.name}:{otherCollider.name}");
+
+                var placeOntoCard = otherCollider.GetComponent<Card>();
                 var draggingCard = _currentDragObject.GetComponent<Card>();
 
                 if (placeOntoCard.Stack != null && placeOntoCard.Stack.Cards.Contains(draggingCard))

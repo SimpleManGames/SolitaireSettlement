@@ -16,6 +16,12 @@ namespace SolitaireSettlement
         [field: SerializeField]
         private IUIDrag Draggable { get; set; }
 
+        [field: SerializeField]
+        private float VerticalOffset { get; set; } = -2.0f;
+
+        [field: SerializeField]
+        private float OrderingOffset { get; set; } = -0.1f;
+
         [field: ShowInInspector]
         [field: ReadOnly]
         public bool IsInDeck { get; set; }
@@ -49,7 +55,7 @@ namespace SolitaireSettlement
                     return;
 
                 var previousCardPosition = Stack.Cards[index - 1].transform.position;
-                transform.localPosition = previousCardPosition + new Vector3(0.0f, -2.0f, 0.0f);
+                transform.localPosition = previousCardPosition + new Vector3(0.0f, VerticalOffset, OrderingOffset);
             }
 
             if (Stack != null && Stack.HasCards)

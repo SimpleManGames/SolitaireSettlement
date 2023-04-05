@@ -13,7 +13,7 @@ namespace SolitaireSettlement
 
         [field: Title("UI Objects - Images")]
         [field: SerializeField, ChildGameObjectsOnly, Required]
-        private MeshRenderer BackgroundMaterial { get; set; }
+        private SpriteRenderer BackgroundSprite { get; set; }
 
         // [field: SerializeField, ChildGameObjectsOnly, Required]
         // private Image NameBackgroundImage { get; set; }
@@ -28,11 +28,18 @@ namespace SolitaireSettlement
         // private Image NameUnderlineImage { get; set; }
 
         [field: SerializeField, ChildGameObjectsOnly, Required]
-        private SpriteRenderer Art { get; set; }
+        private SpriteRenderer ArtSprite { get; set; }
 
         [field: Title("UI Objects - Text")]
         [field: SerializeField, ChildGameObjectsOnly, Required]
-        private TextMeshProUGUI NameText { get; set; }
+        private TextMeshPro NameText { get; set; }
+
+        public int Index { get; set; }
+
+        private void Update()
+        {
+            SetSpriteOrder();
+        }
 
         public void UpdateCardVisuals(CardData data)
         {
@@ -41,11 +48,12 @@ namespace SolitaireSettlement
             gameObject.name = data.Name;
 
             SetVisuals();
+            SetSpriteOrder();
         }
 
         private void SetVisuals()
         {
-            BackgroundMaterial.sharedMaterial.color = Palette.PrimaryColor;
+            BackgroundSprite.sharedMaterial.color = Palette.PrimaryColor;
             // SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
             // SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);
             // SetGraphicColor(BorderImage, Palette.BorderColor);
@@ -58,6 +66,13 @@ namespace SolitaireSettlement
         {
             if (image != null)
                 image.color = color;
+        }
+
+        private void SetSpriteOrder()
+        {
+            BackgroundSprite.sortingOrder = Index;
+            ArtSprite.sortingOrder = Index + 1;
+            NameText.sortingOrder = Index + 2;
         }
     }
 }

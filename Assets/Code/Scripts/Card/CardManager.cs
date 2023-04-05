@@ -39,6 +39,8 @@ namespace SolitaireSettlement
 
         private void Update()
         {
+            for (var i = 0; i < AllCards.Count; i++) AllCards[i].GetComponent<CardRenderer>().Index = i;
+
             foreach (var newCard in ToBeAddedCards) AddCardToDeck(newCard);
             foreach (var cardObject in ToBeDeletedCards) DeleteCard(cardObject);
 
@@ -63,8 +65,6 @@ namespace SolitaireSettlement
         private void AddCardToDeck(CardData data)
         {
             DeckManager.AddCardToDeck(data);
-
-
         }
 
         private void DeleteCard(Card cardObject)
