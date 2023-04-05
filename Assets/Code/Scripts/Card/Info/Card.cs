@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class Card : MonoBehaviour
+    public class Card : MonoBehaviour, ICardPlaceable
     {
         [field: SerializeField,
                 Tooltip("ScriptableObject References that this Card pulls info from.\n " +
@@ -15,9 +15,11 @@ namespace SolitaireSettlement
 
         [field: ShowInInspector]
         [field: ReadOnly]
-        public CardStack Stack { get; set; }
+        public bool IsInDeck { get; set; }
 
-        public bool IsDragging { get; set; }
+        [field: ShowInInspector]
+        [field: ReadOnly]
+        public CardStack Stack { get; set; }
 
         [ShowInInspector]
         public bool IsInStack => Stack != null;
@@ -50,9 +52,7 @@ namespace SolitaireSettlement
             {
                 var cards = Stack.Cards;
                 foreach (var card in cards)
-                {
                     card.transform.SetAsLastSibling();
-                }
             }
         }
 
@@ -68,6 +68,12 @@ namespace SolitaireSettlement
 
             Data = Instantiate(InternalDataReference);
             GetComponent<CardRenderer>().UpdateCardVisuals(Data);
+        }
+
+        public bool IsValidPlacement(ICardPlaceable placeable)
+        {
+            var cardObject = placeable as Card;
+            return CardStack.CanAddCard(this, cardObject);
         }
     }
 }

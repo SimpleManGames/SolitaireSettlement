@@ -42,16 +42,21 @@ namespace SolitaireSettlement
 
         public bool CanAddCard(Card card)
         {
-            switch (TopCard()?.Data.CardType)
+            return CanAddCard(TopCard(), card);
+        }
+
+        public static bool CanAddCard(Card target, Card placing)
+        {
+            switch (target != null ? target.Data.CardType : (CardData.ECardType?)null)
             {
                 case CardData.ECardType.Resource:
-                    return card.Data.CardType == CardData.ECardType.Resource;
+                    return placing.Data.CardType == CardData.ECardType.Resource;
                 case CardData.ECardType.Building:
-                    return card.Data.CardType == CardData.ECardType.Person;
+                    return placing.Data.CardType == CardData.ECardType.Person;
                 case CardData.ECardType.Person:
-                    return card.Data.CardType == CardData.ECardType.Resource;
+                    return placing.Data.CardType == CardData.ECardType.Resource;
                 case CardData.ECardType.Gathering:
-                    return card.Data.CardType == CardData.ECardType.Person;
+                    return placing.Data.CardType == CardData.ECardType.Person;
                 default:
                     return true;
             }

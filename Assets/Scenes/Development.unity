@@ -482,7 +482,8 @@ MonoBehaviour:
     <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
     <CanvasTransform>k__BackingField: {fileID: 955841289}
   <DeckManager>k__BackingField: {fileID: 920737148}
-  <ShownCardsOffset>k__BackingField: {x: 10, y: 0, z: 0}
+  <ShownCardsOffsetFromDeck>k__BackingField: {x: 10, y: 0, z: 0}
+  <ShownCardsOffsetFromEachOther>k__BackingField: {x: 3, y: 0, z: 0}
 --- !u!1 &862943145
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +592,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d6503962ed77c458606918deb24359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DestroyOnLoad>k__BackingField: 0
+  <CardCanvas>k__BackingField: {fileID: 955841288}
+  <Visuals>k__BackingField: {fileID: 673249665}
   <AmountOfCardsDrawn>k__BackingField: 3
 --- !u!4 &920737149
 Transform:

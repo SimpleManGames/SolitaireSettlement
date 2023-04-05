@@ -2,11 +2,13 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public interface IUIDraggable
+    public interface IUIDrag
     {
         public bool CanBeDragged { get; set; }
+        public bool IsBeDragging { get; set; }
 
+        void OnDragStart();
         void OnDrag(Vector2 position);
-        void OnDragCancel();
+        void OnDragEnd();
     }
 }

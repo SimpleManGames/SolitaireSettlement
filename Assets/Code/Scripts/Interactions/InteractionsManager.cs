@@ -36,7 +36,7 @@ namespace SolitaireSettlement
         private List<RaycastResult> _clickResults;
 
         private GameObject _currentDragObject;
-        private IUIDraggable _currentDraggable;
+        private IUIDrag _currentDraggable;
 
         private GameObject _currentClickObject;
         private IUIClickable _currentClickable;
@@ -84,8 +84,7 @@ namespace SolitaireSettlement
                     OnCardInteractedEvent.Raise();
 
                     _currentClickable?.OnClick();
-
-                    _currentDraggable?.OnDragCancel();
+                    _currentDraggable?.OnDragEnd();
 
                     _currentDragObject = null;
                     _currentDraggable = null;
@@ -105,6 +104,11 @@ namespace SolitaireSettlement
             if (_currentDragObject == null)
                 return;
 
+            LoopThroughAllCardObjects();
+        }
+
+        private void LoopThroughAllCardObjects()
+        {
             var rectTransform = _currentDragObject.GetComponent<RectTransform>();
             foreach (var card in GameObject.FindGameObjectsWithTag("Card"))
             {
@@ -121,33 +125,40 @@ namespace SolitaireSettlement
                 if (placeOntoCard.Stack != null && placeOntoCard.Stack.Cards.Contains(draggingCard))
                     continue;
 
-                if (placeOntoCard.Stack == null) // New Stack
-                {
-                    // New stack is being made, so we need to add both of them to it
-                    placeOntoCard.Stack = new CardStack();
-                    placeOntoCard.Stack.AddCard(placeOntoCard);
+                if (!placeOntoCard.IsValidPlacement(draggingCard))
+                    break;
 
-                    if (draggingCard.Stack != null && draggingCard.Stack.HasCards)
-                    {
-                        placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
-                    }
-                    else
-                    {
-                        placeOntoCard.Stack.AddCard(draggingCard);
-                    }
-                }
-                else if (draggingCard.Stack != null && draggingCard.Stack.HasCards) // Combine multiple stacks
-                {
-                    placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
-                }
-                else // Single card to stack
-                {
-                    // Not root, add to an existing stack
-                    placeOntoCard.Stack.AddCard(draggingCard);
-                }
+                DetermineStackInteractions(placeOntoCard, draggingCard);
 
+                if (_currentDragObject.GetComponent<Card>().IsInDeck)
+                    DeckManager.Instance.MoveCardTopCardToGame();
                 break;
             }
+        }
+
+        private void DetermineStackInteractions(Card placeOntoCard, Card draggingCard)
+        {
+            if (placeOntoCard.Stack == null) // New Stack
+            {
+                // New stack is being made, so we need to add both of them to it
+                placeOntoCard.Stack = new CardStack();
+                placeOntoCard.Stack.AddCard(placeOntoCard);
+            }
+
+            if (draggingCard.Stack != null && draggingCard.Stack.HasCards)
+                AddDraggingCardsStackCards(placeOntoCard, draggingCard);
+            else
+                AddSingleCardToStack(placeOntoCard, draggingCard);
+        }
+
+        private static void AddSingleCardToStack(Card placeOntoCard, Card draggingCard)
+        {
+            placeOntoCard.Stack.AddCard(draggingCard);
+        }
+
+        private void AddDraggingCardsStackCards(Card placeOntoCard, Card draggingCard)
+        {
+            placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
         }
 
         private bool ParseClickResultsForClickable()
@@ -171,11 +182,12 @@ namespace SolitaireSettlement
             foreach (var result in _clickResults)
             {
                 var resultGameObject = result.gameObject;
-                if (resultGameObject.GetComponent<IUIDraggable>() == null)
+                if (resultGameObject.GetComponent<IUIDrag>() == null)
                     continue;
 
                 _currentDragObject = resultGameObject;
-                _currentDraggable = resultGameObject.GetComponent<IUIDraggable>();
+                _currentDraggable = resultGameObject.GetComponent<IUIDrag>();
+                _currentDraggable.OnDragStart();
 
                 var cardComponent = _currentDragObject.GetComponent<Card>();
                 if (cardComponent.IsInStack)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class CardDraggable : MonoBehaviour, IUIDraggable
+    public class CardDraggable : MonoBehaviour, IUIDrag
     {
         [field: SerializeField]
         private Canvas CardCanvas { get; set; }
@@ -12,12 +12,20 @@ namespace SolitaireSettlement
 
         public bool CanBeDragged { get; set; } = true;
 
+        public bool IsBeDragging { get; set; } = false;
+
         private void Awake()
         {
             if (CardCanvas == null)
                 CardCanvas = GetComponentInParent<Canvas>();
 
             CanBeDragged = true;
+            IsBeDragging = false;
+        }
+
+        public void OnDragStart()
+        {
+            IsBeDragging = true;
         }
 
         public void OnDrag(Vector2 position)
@@ -30,13 +38,12 @@ namespace SolitaireSettlement
                 transform.SetAsLastSibling();
 
             var vec3Position = (Vector3)position;
-            // vec3Position += -Vector3.forward;
             transform.position = CardCanvas.transform.TransformPoint(vec3Position);
         }
 
-        public void OnDragCancel()
+        public void OnDragEnd()
         {
-            // transform.position += Vector3.forward;
+            IsBeDragging = false;
         }
     }
 }

@@ -1,11 +1,18 @@
 using System.Collections.Generic;
+using Simplicity.Singleton;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class DeckManager : MonoBehaviour
+    public class DeckManager : Singleton<DeckManager>
     {
+        [field: SerializeField]
+        private Canvas CardCanvas { get; set; }
+
+        [field: SerializeField]
+        private DeckShownCardsVisual Visuals { get; set; }
+
         [field: ShowInInspector, ReadOnly]
         private List<CardData> CardsInDeck { get; set; }
 
@@ -27,8 +34,10 @@ namespace SolitaireSettlement
         public bool HasCardsInDeck => CardsInDeck?.Count > 0;
         public bool IsShowingCards => CurrentlyVisibleShownCards?.Count > 0;
 
-        private void Awake()
+        public override void Awake()
         {
+            base.Awake();
+
             CardsInDeck = new List<CardData>();
             ShownCards = new List<CardData>();
         }
@@ -42,6 +51,12 @@ namespace SolitaireSettlement
         public void AddCardToDeck(CardData cardData)
         {
             CardsInDeck.Add(cardData);
+        }
+
+        public void MoveCardTopCardToGame()
+        {
+            Visuals.MoveTopShownCardToGame();
+            ShownCards.Remove(ShownCards[^1]);
         }
 
         public void InteractWithDeck()
