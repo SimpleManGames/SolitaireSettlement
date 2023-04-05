@@ -42,24 +42,7 @@ namespace SolitaireSettlement
 
         public bool CanAddCard(Card card)
         {
-            return CanAddCard(TopCard(), card);
-        }
-
-        public static bool CanAddCard(Card target, Card placing)
-        {
-            switch (target != null ? target.Data.CardType : (CardData.ECardType?)null)
-            {
-                case CardData.ECardType.Resource:
-                    return placing.Data.CardType == CardData.ECardType.Resource;
-                case CardData.ECardType.Building:
-                    return placing.Data.CardType == CardData.ECardType.Person;
-                case CardData.ECardType.Person:
-                    return placing.Data.CardType == CardData.ECardType.Resource;
-                case CardData.ECardType.Gathering:
-                    return placing.Data.CardType == CardData.ECardType.Person;
-                default:
-                    return true;
-            }
+            return Card.CanPlaceCardOnTarget(TopCard(), card);
         }
 
         public void AddCard(Card card)
@@ -67,7 +50,7 @@ namespace SolitaireSettlement
             if (card == null)
                 return;
 
-            if (!CanAddCard(card))
+            if (HasCards && !CanAddCard(card))
                 return;
 
             card.Stack = this;

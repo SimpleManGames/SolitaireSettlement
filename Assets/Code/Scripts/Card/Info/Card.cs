@@ -73,7 +73,24 @@ namespace SolitaireSettlement
         public bool IsValidPlacement(ICardPlaceable placeable)
         {
             var cardObject = placeable as Card;
-            return CardStack.CanAddCard(this, cardObject) && !IsInDeck;
+            return CanPlaceCardOnTarget(this, cardObject) && !IsInDeck;
+        }
+
+        public static bool CanPlaceCardOnTarget(Card target, Card placing)
+        {
+            switch (target.Data.CardType)
+            {
+                case CardData.ECardType.Resource:
+                    return placing.Data.CardType == CardData.ECardType.Resource;
+                case CardData.ECardType.Building:
+                    return placing.Data.CardType == CardData.ECardType.Person;
+                case CardData.ECardType.Person:
+                    return placing.Data.CardType == CardData.ECardType.Resource;
+                case CardData.ECardType.Gathering:
+                    return placing.Data.CardType == CardData.ECardType.Person;
+                default:
+                    return false;
+            }
         }
     }
 }
