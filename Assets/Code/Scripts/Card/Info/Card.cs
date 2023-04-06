@@ -74,10 +74,73 @@ namespace SolitaireSettlement
             GetComponent<CardRenderer>().UpdateCardVisuals(Data);
         }
 
+        public bool OnPlaced(GameObject target, GameObject place)
+        {
+            var placeOntoCard = target.GetComponent<Card>();
+            var draggingCard = place.GetComponent<Card>();
+
+            if (placeOntoCard.Stack != null && placeOntoCard.Stack.Cards.Contains(draggingCard))
+                return false;
+
+            if (!placeOntoCard.IsValidPlacement(draggingCard))
+                return false;
+
+            UpdateStackInfoForDragObject(draggingCard);
+            DetermineStackInteractions(placeOntoCard, draggingCard);
+
+            if (draggingCard.GetComponent<Card>().IsInDeck)
+                DeckManager.Instance.MoveCardTopCardToGame();
+
+            return true;
+        }
+
         public bool IsValidPlacement(ICardPlaceable placeable)
         {
             var cardObject = placeable as Card;
             return CanPlaceCardOnTarget(this, cardObject) && !IsInDeck;
+        }
+
+        private void UpdateStackInfoForDragObject(Card cardObject)
+        {
+            if (!cardObject.IsInStack)
+                return;
+
+            if (cardObject.IsOnTop)
+            {
+                cardObject.Stack.RemoveCard(cardObject);
+            }
+            else if (!cardObject.IsOnBottom)
+            {
+                var cards = cardObject.Stack.SplitAt(cardObject);
+                cardObject.Stack.RemoveCards(cards);
+                cardObject.Stack = new CardStack();
+                cardObject.Stack.AddCards(cards);
+            }
+        }
+
+        private void DetermineStackInteractions(Card placeOntoCard, Card draggingCard)
+        {
+            if (placeOntoCard.Stack == null) // New Stack
+            {
+                // New stack is being made, so we need to add both of them to it
+                placeOntoCard.Stack = new CardStack();
+                placeOntoCard.Stack.AddCard(placeOntoCard);
+            }
+
+            if (draggingCard.Stack != null && draggingCard.Stack.HasCards)
+                AddDraggingCardsStackCards(placeOntoCard, draggingCard);
+            else
+                AddSingleCardToStack(placeOntoCard, draggingCard);
+        }
+
+        private static void AddSingleCardToStack(Card placeOntoCard, Card draggingCard)
+        {
+            placeOntoCard.Stack.AddCard(draggingCard);
+        }
+
+        private void AddDraggingCardsStackCards(Card placeOntoCard, Card draggingCard)
+        {
+            placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
         }
 
         public static bool CanPlaceCardOnTarget(Card target, Card placing)

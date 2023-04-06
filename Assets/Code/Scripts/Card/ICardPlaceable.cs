@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace SolitaireSettlement
 {
     /// <summary>
@@ -5,6 +7,8 @@ namespace SolitaireSettlement
     /// </summary>
     public interface ICardPlaceable
     {
+        bool OnPlaced(GameObject target, GameObject place);
+        
         bool IsValidPlacement(ICardPlaceable placeable);
     }
 }

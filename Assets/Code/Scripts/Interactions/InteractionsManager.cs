@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Simplicity.GameEvent;
 using Simplicity.UI;
 using Sirenix.OdinInspector;
@@ -116,40 +117,32 @@ namespace SolitaireSettlement
         private void LoopThroughAllCardObjects()
         {
             var rectTransform = _currentDragObject.GetComponent<RectTransform>();
-            foreach (var card in GameObject.FindGameObjectsWithTag("Card"))
+            var placeables = GameObject.FindGameObjectsWithTag("Card");
+            foreach (var placeable in placeables)
             {
-                if (card == _currentDragObject)
+                var placeableComponent = placeable.GetComponent(typeof(ICardPlaceable)) as ICardPlaceable;
+
+                if (placeableComponent == null)
                     continue;
 
-                var otherRectTransform = card.GetComponent<RectTransform>();
+                if (placeable == _currentDragObject)
+                    continue;
+
+                var otherRectTransform = placeable.GetComponent<RectTransform>();
                 if (!rectTransform.Overlaps(otherRectTransform))
                     continue;
 
-                var placeOntoCard = otherRectTransform.GetComponent<Card>();
-                var draggingCard = _currentDragObject.GetComponent<Card>();
-
-                if (placeOntoCard.Stack != null && placeOntoCard.Stack.Cards.Contains(draggingCard))
-                    continue;
-
-                if (!placeOntoCard.IsValidPlacement(draggingCard))
-                    break;
-
-                UpdateStackInfoForDragObject();
-                DetermineStackInteractions(placeOntoCard, draggingCard);
-
-                if (_currentDragObject.GetComponent<Card>().IsInDeck)
-                    DeckManager.Instance.MoveCardTopCardToGame();
-
-                return;
+                if (placeableComponent.OnPlaced(otherRectTransform.gameObject, _currentDragObject.gameObject))
+                    return;
             }
 
             if (_currentDragObject.GetComponent<Card>().Data.CardType == CardData.ECardType.Person)
-                UpdateStackInfoForDragObject();
+                UpdateStackInfoForDragObject(_currentDragObject);
         }
 
-        private void UpdateStackInfoForDragObject()
+        private void UpdateStackInfoForDragObject(GameObject dragObject)
         {
-            var cardComponent = _currentDragObject.GetComponent<Card>();
+            var cardComponent = dragObject.GetComponent<Card>();
             if (cardComponent.IsInStack)
             {
                 if (cardComponent.IsOnTop)
@@ -164,31 +157,6 @@ namespace SolitaireSettlement
                     cardComponent.Stack.AddCards(cards);
                 }
             }
-        }
-
-        private void DetermineStackInteractions(Card placeOntoCard, Card draggingCard)
-        {
-            if (placeOntoCard.Stack == null) // New Stack
-            {
-                // New stack is being made, so we need to add both of them to it
-                placeOntoCard.Stack = new CardStack();
-                placeOntoCard.Stack.AddCard(placeOntoCard);
-            }
-
-            if (draggingCard.Stack != null && draggingCard.Stack.HasCards)
-                AddDraggingCardsStackCards(placeOntoCard, draggingCard);
-            else
-                AddSingleCardToStack(placeOntoCard, draggingCard);
-        }
-
-        private static void AddSingleCardToStack(Card placeOntoCard, Card draggingCard)
-        {
-            placeOntoCard.Stack.AddCard(draggingCard);
-        }
-
-        private void AddDraggingCardsStackCards(Card placeOntoCard, Card draggingCard)
-        {
-            placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
         }
 
         private bool ParseClickResultsForClickable()
