@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Singleton;
@@ -9,21 +8,13 @@ namespace SolitaireSettlement
 {
     public class GameAreaManager : Singleton<GameAreaManager>
     {
-        [field: Title("References")]
-        [field: SerializeField]
-        private DeckManager DeckManager { get; set; }
-
         [field: SerializeField, ReadOnly]
         private List<Card> AllCardsInPlay { get; set; }
 
         [field: SerializeField]
         public GameObject GameAreaCanvas { get; private set; }
 
-        [field: Title("Settings")]
-        [field: SerializeField, AssetsOnly]
-        private GameObject CardPrefab { get; set; }
-
-        private Queue<GameObject> _toBeDestroyed = new();
+        private readonly Queue<GameObject> _toBeDestroyed = new();
 
         private void Start()
         {
