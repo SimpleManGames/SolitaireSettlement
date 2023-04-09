@@ -32,7 +32,7 @@ namespace SolitaireSettlement
             {
                 c.SetActive(false);
                 c.GetComponent<CardDraggable>().CanBeDragged = false;
-                c.GetComponent<Card>().IsInDeck = true;
+                // c.GetComponent<Card>().IsInDeck = true;
             });
 
             if (!DeckManager.IsShowingCards)
@@ -58,7 +58,7 @@ namespace SolitaireSettlement
         public void MoveTopShownCardToGame()
         {
             _visualCardObjects[^1].transform.SetParent(transform.parent);
-            _visualCardObjects[^1].GetComponent<Card>().IsInDeck = false;
+            // _visualCardObjects[^1].GetComponent<Card>().IsInDeck = false;
             _visualCardObjects[^1] = CreateNewEmptyCard();
         }
 

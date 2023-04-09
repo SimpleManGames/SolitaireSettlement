@@ -18,7 +18,7 @@ namespace SolitaireSettlement
 
         [field: ShowInInspector]
         [field: ReadOnly]
-        public bool IsInDeck { get; set; }
+        public bool IsInHand { get; set; }
 
         [field: ShowInInspector]
         [field: ReadOnly]
@@ -49,7 +49,7 @@ namespace SolitaireSettlement
                     return;
 
                 var previousCardPosition = Stack.Cards[index - 1].transform.position;
-                transform.localPosition = previousCardPosition + new Vector3(0.0f, -2.0f, 0.0f);
+                transform.position = previousCardPosition + new Vector3(0.0f, -2.0f, 0.0f);
             }
 
             if (Stack != null && Stack.HasCards)
@@ -82,14 +82,14 @@ namespace SolitaireSettlement
             if (placeOntoCard.Stack != null && placeOntoCard.Stack.Cards.Contains(draggingCard))
                 return false;
 
-            if (!placeOntoCard.IsValidPlacement(draggingCard))
-                return false;
+            // if (!placeOntoCard.IsValidPlacement(draggingCard))
+            //     return false;
 
             UpdateStackInfoForDragObject(draggingCard);
             DetermineStackInteractions(placeOntoCard, draggingCard);
 
-            if (draggingCard.GetComponent<Card>().IsInDeck)
-                DeckManager.Instance.MoveCardTopCardToGame();
+            // if (draggingCard.GetComponent<Card>().IsInHand)
+            //     DeckManager.Instance.MoveCardTopCardToGame();
 
             return true;
         }
@@ -97,7 +97,7 @@ namespace SolitaireSettlement
         public bool IsValidPlacement(ICardPlaceable placeable)
         {
             var cardObject = placeable as Card;
-            return CanPlaceCardOnTarget(this, cardObject) && !IsInDeck;
+            return CanPlaceCardOnTarget(this, cardObject) && !IsInHand;
         }
 
         private void UpdateStackInfoForDragObject(Card cardObject)

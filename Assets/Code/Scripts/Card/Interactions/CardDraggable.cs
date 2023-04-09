@@ -16,9 +16,6 @@ namespace SolitaireSettlement
 
         private void Awake()
         {
-            if (CardCanvas == null)
-                CardCanvas = GetComponentInParent<Canvas>();
-
             CanBeDragged = true;
             IsBeDragging = false;
         }
@@ -26,6 +23,8 @@ namespace SolitaireSettlement
         public void OnDragStart()
         {
             IsBeDragging = true;
+            transform.localScale = Vector3.one;
+            transform.rotation = CardCanvas.transform.rotation;
         }
 
         public void OnDrag(Vector2 position)
@@ -38,6 +37,7 @@ namespace SolitaireSettlement
                 transform.SetAsLastSibling();
 
             var vec3Position = (Vector3)position;
+            transform.SetParent(CardCanvas.transform);
             transform.position = CardCanvas.transform.TransformPoint(vec3Position);
         }
 
