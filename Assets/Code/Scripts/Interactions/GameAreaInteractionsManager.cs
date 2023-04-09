@@ -127,8 +127,7 @@ namespace SolitaireSettlement
                     return;
             }
 
-            if (InputInteractions.CurrentDragObject.GetComponent<Card>().Data.CardType == CardData.ECardType.Person)
-                UpdateStackInfoForDragObject(InputInteractions.CurrentDragObject);
+            UpdateStackInfoForDragObject(InputInteractions.CurrentDragObject);
         }
 
         private void UpdateStackInfoForDragObject(GameObject dragObject)

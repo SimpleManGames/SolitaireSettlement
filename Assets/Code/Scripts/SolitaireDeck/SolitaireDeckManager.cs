@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class DeckManager : Singleton<DeckManager>
+    public class SolitaireDeckManager : Singleton<SolitaireDeckManager>
     {
         [field: SerializeField]
         private Canvas CardCanvas { get; set; }

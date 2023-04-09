@@ -8,8 +8,8 @@ namespace SolitaireSettlement
         [field: SerializeField]
         private CardFactory CardFactory { get; set; }
 
-        [field: SerializeField]
-        private DeckManager DeckManager { get; set; }
+        // [field: SerializeField]
+        // private DeckManager DeckManager { get; set; }
 
         [field: SerializeField]
         private Vector3 ShownCardsOffsetFromDeck { get; set; } = new(10, 0, 0);
@@ -35,22 +35,22 @@ namespace SolitaireSettlement
                 // c.GetComponent<Card>().IsInDeck = true;
             });
 
-            if (!DeckManager.IsShowingCards)
-                return;
+            // if (!DeckManager.IsShowingCards)
+                // return;
 
-            var shownCards = DeckManager.CurrentlyVisibleShownCards;
+            // var shownCards = DeckManager.CurrentlyVisibleShownCards;
 
-            for (var i = shownCards.Count - 1; i >= 0; i--)
-            {
-                if (shownCards[i] == null)
-                    continue;
-
-                var visualCardObject = _visualCardObjects[i].GetComponent<Card>();
-                visualCardObject.UpdateCardData(shownCards[i]);
-                visualCardObject.gameObject.transform.position =
-                    transform.position + ShownCardsOffsetFromDeck + ShownCardsOffsetFromEachOther * i;
-                visualCardObject.gameObject.SetActive(true);
-            }
+            // for (var i = shownCards.Count - 1; i >= 0; i--)
+            // {
+            //     if (shownCards[i] == null)
+            //         continue;
+            //
+            //     var visualCardObject = _visualCardObjects[i].GetComponent<Card>();
+            //     visualCardObject.UpdateCardData(shownCards[i]);
+            //     visualCardObject.gameObject.transform.position =
+            //         transform.position + ShownCardsOffsetFromDeck + ShownCardsOffsetFromEachOther * i;
+            //     visualCardObject.gameObject.SetActive(true);
+            // }
 
             _visualCardObjects[^1].GetComponent<CardDraggable>().CanBeDragged = true;
         }

@@ -24,7 +24,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Result>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.ProduceCardResult, Assembly-CSharp
+      Data: 0|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
     - Name: <ProducedCard>k__BackingField
       Entry: 10
       Data: 0

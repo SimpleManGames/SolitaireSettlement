@@ -18,13 +18,15 @@ namespace SolitaireSettlement
         {
             CanBeDragged = true;
             IsBeDragging = false;
+
+            CardCanvas = GameAreaManager.Instance.GameAreaCanvas.GetComponent<Canvas>();
         }
 
         public void OnDragStart()
         {
             IsBeDragging = true;
-            transform.localScale = Vector3.one;
-            transform.rotation = CardCanvas.transform.rotation;
+            GameAreaManager.Instance.AddCardToGameArea(Card);
+            HandManager.Instance.RemoveCardFromHand(Card);
         }
 
         public void OnDrag(Vector2 position)

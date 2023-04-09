@@ -11,7 +11,7 @@ namespace SolitaireSettlement
         public CardData InternalDataReference { get; private set; }
 
         [field: ShowInInspector, ReadOnly, InlineEditor]
-        public CardData Data { get; set; }
+        public CardData Data { get; private set; }
 
         [field: SerializeField]
         private IUIDrag Draggable { get; set; }

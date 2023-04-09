@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class ProduceCardResult : IStackActionResult
+    public class AddCardToDeckResult : IStackActionResult
     {
         [field: SerializeField, Required]
         private CardData ProducedCard { get; set; }
@@ -14,7 +14,7 @@ namespace SolitaireSettlement
         {
             var stack = relatedCardStack.Aggregate("Stack ", (s, card) => s += $": {card.Data.Name}");
             Debug.Log($"Produced card:{ProducedCard.Name} with {stack}");
-            CardManager.Instance.RequestToAddCard(ProducedCard);
+            DeckManager.Instance.AddCardToDeck(ProducedCard);
         }
     }
 }
