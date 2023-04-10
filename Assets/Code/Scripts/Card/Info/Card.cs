@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,15 +11,13 @@ namespace SolitaireSettlement
                         "We create a copy of this during runtime to modify values on it without effecting the actual asset.")]
         public CardData InternalDataReference { get; private set; }
 
-        [field: ShowInInspector, ReadOnly, InlineEditor]
-        public CardData Data { get; private set; }
+        [field: SerializeField]
+        public CardRuntimeInfo Info { get; private set; }
 
         [field: SerializeField]
         private IUIDrag Draggable { get; set; }
 
-        [field: ShowInInspector]
-        [field: ReadOnly]
-        public bool IsInHand { get; set; }
+        public bool IsInHand => Info.Location == CardRuntimeInfo.CardLocation.Hand;
 
         [field: ShowInInspector]
         [field: ReadOnly]
@@ -34,6 +33,11 @@ namespace SolitaireSettlement
         {
             UpdateCardData(InternalDataReference);
             Draggable = GetComponent<CardDraggable>();
+        }
+
+        private void Start()
+        {
+            Info.SetRelatedGameObject(gameObject);
         }
 
         private void Update()
@@ -62,16 +66,16 @@ namespace SolitaireSettlement
 
         public void UpdateCardData(CardData data)
         {
-            if (Data != null)
-                Destroy(Data);
+            if (Info.Data != null)
+                Destroy(Info.Data);
 
             if (data == null)
                 return;
 
             InternalDataReference = data;
 
-            Data = Instantiate(InternalDataReference);
-            GetComponent<CardRenderer>().UpdateCardVisuals(Data);
+            Info.Data = Instantiate(InternalDataReference);
+            GetComponent<CardRenderer>().UpdateCardVisuals(Info.Data);
         }
 
         public bool OnPlaced(GameObject target, GameObject place)
@@ -145,16 +149,16 @@ namespace SolitaireSettlement
 
         public static bool CanPlaceCardOnTarget(Card target, Card placing)
         {
-            switch (target.Data.CardType)
+            switch (target.Info.Data.CardType)
             {
                 case CardData.ECardType.Resource:
-                    return placing.Data.CardType == CardData.ECardType.Resource;
+                    return placing.Info.Data.CardType == CardData.ECardType.Resource;
                 case CardData.ECardType.Building:
-                    return placing.Data.CardType == CardData.ECardType.Person;
+                    return placing.Info.Data.CardType == CardData.ECardType.Person;
                 case CardData.ECardType.Person:
-                    return placing.Data.CardType == CardData.ECardType.Resource;
+                    return placing.Info.Data.CardType == CardData.ECardType.Resource;
                 case CardData.ECardType.Gathering:
-                    return placing.Data.CardType == CardData.ECardType.Person;
+                    return placing.Info.Data.CardType == CardData.ECardType.Person;
                 default:
                     return false;
             }

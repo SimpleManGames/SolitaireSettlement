@@ -1,5 +1,6 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Simplicity.Singleton;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,51 +9,43 @@ namespace SolitaireSettlement
 {
     public class HandManager : Singleton<HandManager>
     {
-        [field: SerializeField]
-        private RectTransform CardsInHandContainer { get; set; }
+        [field: ShowInInspector, ReadOnly]
+        private List<CardRuntimeInfo> _cardsInHand;
 
-        [field: SerializeField, ReadOnly]
-        private List<Card> CardsInHand { get; set; }
+        private List<CardRuntimeInfo> CardsInHand =>
+            _cardsInHand = CardManager.Instance.AllCardsInfo
+                .Where(c => c.Location == CardRuntimeInfo.CardLocation.Hand)
+                .ToList();
 
         [field: SerializeField]
-        private GameObject DrawnCardTargetPosition { get; set; }
+        public GameObject HandContainer { get; private set; }
 
         [field: SerializeField]
-        public Vector3 InHandScale { get; private set; } = new Vector3(15, 15, 1);
+        private GameObject DrawnCardTarget { get; set; }
+
+        public Vector3 DrawnCardTargetPosition => DrawnCardTarget.transform.position;
+
+        [field: SerializeField]
+        private float DurationBetweenCardDiscard { get; set; } = 0.5f;
 
         private void Update()
         {
-            DrawnCardTargetPosition.transform.SetAsLastSibling();
+            DrawnCardTarget.transform.SetAsLastSibling();
         }
 
-        public void DrawCardToHand(CardData cardData)
+        public void SendHandCardsToDiscard()
         {
-            var card = CardFactory.Instance.CreateCardObjectFromDataInUICanvas(cardData);
-            var cardAnimator = card.GetComponent<CardAnimator>();
-            StartCoroutine(cardAnimator.AnimateDraw(DrawnCardTargetPosition.transform.position));
+            StartCoroutine(DiscardCardsCoroutine());
         }
 
-        public void AddCardToHand(Card card)
+        private IEnumerator DiscardCardsCoroutine()
         {
-            CardsInHand.Add(card);
-            SetCardPropertiesWhileInHand(card.gameObject);
-        }
-
-        public void AddCardToHand(GameObject cardObject)
-        {
-            var card = cardObject.GetComponent<Card>();
-            AddCardToHand(card);
-        }
-
-        public void RemoveCardFromHand(Card cardObject)
-        {
-            CardsInHand.Remove(cardObject);
-        }
-
-        private void SetCardPropertiesWhileInHand(GameObject gameObject)
-        {
-            gameObject.transform.SetParent(CardsInHandContainer);
-            gameObject.transform.localScale = InHandScale;
+            for (var i = CardsInHand.Count - 1; i >= 0; i--)
+            {
+                CardsInHand[i].SetPosition(CardsInHand[i].RelatedGameObject.transform.position);
+                CardsInHand[i].SetCardLocation(CardRuntimeInfo.CardLocation.Discard, true);
+                yield return new WaitForSeconds(DurationBetweenCardDiscard);
+            }
         }
     }
 }

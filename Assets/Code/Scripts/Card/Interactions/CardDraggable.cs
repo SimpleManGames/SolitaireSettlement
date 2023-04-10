@@ -19,14 +19,13 @@ namespace SolitaireSettlement
             CanBeDragged = true;
             IsBeDragging = false;
 
-            CardCanvas = GameAreaManager.Instance.GameAreaCanvas.GetComponent<Canvas>();
+            CardCanvas = CardManager.Instance.GameAreaCanvas.GetComponent<Canvas>();
         }
 
         public void OnDragStart()
         {
             IsBeDragging = true;
-            GameAreaManager.Instance.AddCardToGameArea(Card);
-            HandManager.Instance.RemoveCardFromHand(Card);
+            Card.Info.SetCardLocation(CardRuntimeInfo.CardLocation.GameBoard);
         }
 
         public void OnDrag(Vector2 position)

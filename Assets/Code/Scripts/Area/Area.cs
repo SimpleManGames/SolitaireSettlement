@@ -29,7 +29,7 @@ namespace SolitaireSettlement
         public bool IsValidPlacement(ICardPlaceable placeable)
         {
             var cardObject = placeable as Card;
-            return !Revealed && cardObject != null && cardObject.Data.CardType == CardData.ECardType.Person;
+            return !Revealed && cardObject != null && cardObject.Info.Data.CardType == CardData.ECardType.Person;
         }
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Card
   - Game Area Canvas
+  - Screen Space Canvas
+  - Hand Container
   layers:
   - Default
   - TransparentFX

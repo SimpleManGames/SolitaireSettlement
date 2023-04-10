@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Simplicity.Singleton;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,7 +10,12 @@ namespace SolitaireSettlement
     public class DeckManager : Singleton<DeckManager>
     {
         [field: ShowInInspector, ReadOnly]
-        private List<CardData> CardsInDeck { get; set; }
+        private List<CardRuntimeInfo> _cardsInDeck;
+
+        private List<CardRuntimeInfo> CardsInDeck =>
+            _cardsInDeck = CardManager.Instance.AllCardsInfo
+                .Where(c => c.Location == CardRuntimeInfo.CardLocation.Deck)
+                .ToList();
 
         private bool HasCardsInDeck => CardsInDeck.Count > 0;
 
@@ -20,45 +26,25 @@ namespace SolitaireSettlement
         private float DurationBetweenCardDraw { get; set; } = 0.5f;
 
         [field: SerializeField]
-        public GameObject DrawFromPositionObject { get; set; }
+        public GameObject DeckGameObject { get; set; }
 
-        public Vector3 DrawFromPosition => DrawFromPositionObject.transform.position;
-
-        public override void Awake()
-        {
-            base.Awake();
-
-            CardsInDeck = new List<CardData>();
-        }
+        public Vector3 DeckPosition => DeckGameObject.transform.position;
 
         public void StartCoroutineDrawCards()
         {
             StartCoroutine(DrawCards());
         }
 
-        public void AddCardToDeck(CardData data)
-        {
-            CardsInDeck.Add(data);
-        }
-
-        public void AddCardsToDeck(CardData[] dataCollection)
-        {
-            foreach (var data in dataCollection)
-                AddCardToDeck(data);
-        }
-
         private IEnumerator DrawCards()
         {
             var i = 0;
-            var hasEnoughCards = CardsInDeck.Count >= CardsDrawnPerRound;
             while (i < CardsDrawnPerRound)
             {
                 if (CardsInDeck.Count <= 0)
                     break;
 
                 var cardDataToDraw = CardsInDeck[0];
-                HandManager.Instance.DrawCardToHand(cardDataToDraw);
-                CardsInDeck.Remove(cardDataToDraw);
+                cardDataToDraw.SetCardLocation(CardRuntimeInfo.CardLocation.Hand, true);
                 i++;
                 yield return new WaitForSeconds(DurationBetweenCardDraw);
             }

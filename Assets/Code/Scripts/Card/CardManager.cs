@@ -6,20 +6,31 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class GameAreaManager : Singleton<GameAreaManager>
+    public class CardManager : Singleton<CardManager>
     {
         [field: SerializeField, ReadOnly]
-        private List<Card> AllCardsInPlay { get; set; }
+        public List<CardRuntimeInfo> AllCardsInfo { get; private set; }
 
         [field: SerializeField]
         public GameObject GameAreaCanvas { get; private set; }
+
+        [field: SerializeField]
+        public GameObject HandCanvas { get; private set; }
+
+        [field: SerializeField]
+        public Camera GameCamera { get; private set; }
+
+        [field: SerializeField]
+        private float DurationBetweenCardDiscard { get; set; } = 0.5f;
 
         private readonly Queue<GameObject> _toBeDestroyed = new();
 
         private void Start()
         {
             // Grab the initial cards
-            AllCardsInPlay = GameObject.FindGameObjectsWithTag("Card").Select(c => c.GetComponent<Card>()).ToList();
+            AllCardsInfo = GameObject.FindGameObjectsWithTag("Card")
+                .Select(c => c.GetComponent<Card>().Info)
+                .ToList();
         }
 
         private void LateUpdate()
@@ -28,17 +39,13 @@ namespace SolitaireSettlement
                 DeleteCardObject(destroy);
         }
 
-        public void AddCardToGameArea(Card card)
+        public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location)
         {
-            card.transform.localScale = Vector3.one;
-            card.transform.rotation = GameAreaCanvas.transform.rotation;
-            AllCardsInPlay.Add(card);
-        }
-
-        public void RemoveCardFromGameArea(Card card)
-        {
-            HandManager.Instance.AddCardToHand(card);
-            AllCardsInPlay.Remove(card);
+            AllCardsInfo.Add(new CardRuntimeInfo()
+            {
+                Data = data,
+                Location = location
+            });
         }
 
         public void RequestToDeleteCardObject(GameObject cardObject)
@@ -49,8 +56,8 @@ namespace SolitaireSettlement
         private void DeleteCardObject(GameObject cardObject)
         {
             var card = cardObject.GetComponent<Card>();
-            card.Stack.RemoveCard(card);
-            AllCardsInPlay.Remove(card);
+            card.Stack?.RemoveCard(card);
+            card.Info.SetCardLocation(CardRuntimeInfo.CardLocation.Delete);
             Destroy(cardObject);
         }
     }
