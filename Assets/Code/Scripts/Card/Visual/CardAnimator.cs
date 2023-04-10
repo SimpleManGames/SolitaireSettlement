@@ -6,12 +6,8 @@ namespace SolitaireSettlement
 {
     public class CardAnimator : MonoBehaviour
     {
-        private bool isDrawing = false;
-
         public IEnumerator AnimateDraw(Vector3 targetPosition)
         {
-            isDrawing = true;
-
             transform.position = DeckManager.Instance.DrawFromPosition;
 
             var position = transform.position;
@@ -23,8 +19,6 @@ namespace SolitaireSettlement
                 yield return null;
 
             HandManager.Instance.AddCardToHand(gameObject);
-
-            isDrawing = false;
         }
     }
 }
