@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Singleton;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -10,7 +11,7 @@ namespace SolitaireSettlement
     public class HandManager : Singleton<HandManager>
     {
         [field: ShowInInspector, ReadOnly]
-        private List<CardRuntimeInfo> _cardsInHand;
+        private List<CardRuntimeInfo> _cardsInHand = new();
 
         private List<CardRuntimeInfo> CardsInHand =>
             _cardsInHand = CardManager.Instance.AllCardsInfo

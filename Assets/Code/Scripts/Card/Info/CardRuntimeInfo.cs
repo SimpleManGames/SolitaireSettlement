@@ -22,7 +22,7 @@ namespace SolitaireSettlement
         }
 
         [field: SerializeField]
-        public CardLocation Location { get; internal set; }
+        public CardLocation Location { get; private set; }
 
         public GameObject RelatedGameObject { get; private set; }
 
@@ -37,8 +37,15 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public Vector3 GameBoardScale { get; private set; } = new Vector3(1, 1, 1);
 
+        public CardRuntimeInfo(CardData data, CardLocation location)
+        {
+            Data = data;
+            SetCardLocation(location);
+        }
+
         public void SetCardLocation(CardLocation location, bool animate = false)
         {
+            Debug.Log($"Changing Card Location {Location} to {location}");
             Location = location;
             switch (Location)
             {
@@ -74,39 +81,51 @@ namespace SolitaireSettlement
 
         private void SetGameObjectGameBoardSettings()
         {
+            RelatedGameObject.transform.SetParent(CardManager.Instance.GameAreaCanvas.transform);
             RelatedGameObject.transform.localScale = GameBoardScale;
             RelatedGameObject.transform.rotation = CardManager.Instance.GameAreaCanvas.transform.rotation;
         }
 
         private void SetGameObjectDeckSettings(bool animate)
         {
+            Action onComplete = () => { Position = DeckManager.Instance.DeckPosition; };
+
             if (RelatedGameObject == null)
+            {
+                onComplete.Invoke();
                 return;
+            }
 
             if (!animate)
                 return;
 
             SetGameObjectToScreenSpace();
-            StartAnimateCoroutine(Position, DeckManager.Instance.DeckPosition, () => { });
+
+            StartAnimateCoroutine(Position, DeckManager.Instance.DeckPosition, onComplete);
         }
 
         private void SetGameObjectInHandSettings(bool animate)
         {
             if (RelatedGameObject == null)
-                SetRelatedGameObject(CardFactory.Instance.CreateCardObjectFromDataInUICanvas(Data));
+                SetRelatedGameObject(CardFactory.Instance.CreateCardObjectFromDataInUICanvas(Data, this));
 
             SetGameObjectToScreenSpace();
 
-            if (!animate)
+            Action onComplete = () =>
             {
                 Position = RelatedGameObject.transform.position = HandManager.Instance.DrawnCardTargetPosition;
                 RelatedGameObject.transform.SetParent(HandManager.Instance.HandContainer.transform);
+            };
+
+            if (!animate)
+            {
+                onComplete.Invoke();
                 return;
             }
 
             StartAnimateCoroutine(RelatedGameObject.transform.position,
                 HandManager.Instance.DrawnCardTargetPosition,
-                () => { RelatedGameObject.transform.SetParent(HandManager.Instance.HandContainer.transform); });
+                onComplete);
         }
 
         private void SetGameObjectDiscardSettings(bool animate)
@@ -128,6 +147,8 @@ namespace SolitaireSettlement
                 return;
 
             var cardTransform = RelatedGameObject.transform;
+
+            cardTransform.SetParent(CardManager.Instance.ScreenSpaceCanvas.transform);
 
             cardTransform.position = Position;
             cardTransform.rotation = Quaternion.identity;
