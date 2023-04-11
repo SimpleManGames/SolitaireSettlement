@@ -72,6 +72,9 @@ namespace SolitaireSettlement
 
             for (var i = leftOverCardsOnBoard.Count - 1; i >= 0; i--)
             {
+                var relatedCardComponent = leftOverCardsOnBoard[i].RelatedGameObject.GetComponent<Card>();
+                relatedCardComponent.Stack?.RemoveCard(relatedCardComponent);
+
                 var position =
                     GameCamera.WorldToScreenPoint(leftOverCardsOnBoard[i].RelatedGameObject.transform.position);
 
