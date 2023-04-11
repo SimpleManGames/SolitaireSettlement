@@ -52,16 +52,19 @@ namespace SolitaireSettlement
                 if (index - 1 < 0)
                     return;
 
+                if (Stack.Cards[index - 1] == null)
+                    return;
+
                 var previousCardPosition = Stack.Cards[index - 1].transform.position;
                 transform.position = previousCardPosition + new Vector3(0.0f, -2.0f, 0.0f);
             }
 
-            if (Stack != null && Stack.HasCards)
-            {
-                var cards = Stack.Cards;
-                foreach (var card in cards)
-                    card.transform.SetAsLastSibling();
-            }
+            if (Stack == null || !Stack.HasCards)
+                return;
+
+            var cards = Stack.Cards;
+            foreach (var card in cards)
+                card.transform.SetAsLastSibling();
         }
 
         public void UpdateCardInfo(CardRuntimeInfo info)

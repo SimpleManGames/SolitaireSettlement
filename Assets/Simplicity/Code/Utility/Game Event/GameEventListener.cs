@@ -1,10 +1,11 @@
 using Sirenix.OdinInspector;
+using SolitaireSettlement;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Simplicity.GameEvent
 {
-    public class GameEventListener : MonoBehaviour
+    public class GameEventListener : MonoBehaviour, IGameEventListener
     {
         [HorizontalGroup("Event")]
         [SerializeField] private GameEvent gameEvent;

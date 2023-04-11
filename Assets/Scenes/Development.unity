@@ -1176,11 +1176,11 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 1d85aa7f663de504c89214d89bcd5bea, type: 3}
-  m_PointAction: {fileID: 0}
+  m_PointAction: {fileID: -6565795466723315487, guid: 1d85aa7f663de504c89214d89bcd5bea, type: 3}
   m_MoveAction: {fileID: 0}
   m_SubmitAction: {fileID: 0}
   m_CancelAction: {fileID: 0}
-  m_LeftClickAction: {fileID: 0}
+  m_LeftClickAction: {fileID: -1529687416756854047, guid: 1d85aa7f663de504c89214d89bcd5bea, type: 3}
   m_MiddleClickAction: {fileID: 0}
   m_RightClickAction: {fileID: 0}
   m_ScrollWheelAction: {fileID: 0}
@@ -2698,6 +2698,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 751db2a915e8ba94f912c0c32fd396f4, type: 2}
+    - {fileID: 11400000, guid: a7d7f3f778cf3e14d81459c3c3cd62b9, type: 2}
     - {fileID: 11400000, guid: 1eb709b1982099e4d8886e9e544144b3, type: 2}
     - {fileID: 11400000, guid: 9ba3d23391e2d5d49909b9af0956a0ab, type: 2}
     - {fileID: 11400000, guid: 16dfed51e77a23147b41cd1de25d2499, type: 2}
@@ -2719,12 +2720,18 @@ MonoBehaviour:
     - Name: <Event>k__BackingField
       Entry: 10
       Data: 0
+    - Name: <DelayBeforeNextStage>k__BackingField
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
       Data: 2|SolitaireSettlement.PlanningStage, Assembly-CSharp
+    - Name: <OnPlanningFinished>k__BackingField
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -2733,6 +2740,9 @@ MonoBehaviour:
       Data: 3|SolitaireSettlement.InvokeEventStage, Assembly-CSharp
     - Name: <Event>k__BackingField
       Entry: 10
+      Data: 2
+    - Name: <DelayBeforeNextStage>k__BackingField
+      Entry: 4
       Data: 1
     - Name: 
       Entry: 8
@@ -2742,7 +2752,10 @@ MonoBehaviour:
       Data: 4|SolitaireSettlement.InvokeEventStage, Assembly-CSharp
     - Name: <Event>k__BackingField
       Entry: 10
-      Data: 2
+      Data: 3
+    - Name: <DelayBeforeNextStage>k__BackingField
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -2751,7 +2764,10 @@ MonoBehaviour:
       Data: 5|SolitaireSettlement.InvokeEventAfterConditionStage, Assembly-CSharp
     - Name: <Event>k__BackingField
       Entry: 10
-      Data: 3
+      Data: 4
+    - Name: <DelayBeforeNextStage>k__BackingField
+      Entry: 4
+      Data: 1
     - Name: <Condition>k__BackingField
       Entry: 7
       Data: 6|SolitaireSettlement.EnoughCardsForDrawCondition, Assembly-CSharp

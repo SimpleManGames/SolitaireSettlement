@@ -4,7 +4,7 @@ namespace SolitaireSettlement
     {
         public bool CheckCondition()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }
