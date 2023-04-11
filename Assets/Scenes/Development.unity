@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 223687258}
   - component: {fileID: 223687257}
   m_Layer: 5
-  m_Name: Hand Canvas
+  m_Name: Screen Space Canvas
   m_TagString: Screen Space Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2542,8 +2542,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1775970101}
-        m_TargetAssemblyTypeName: SolitaireSettlement.GameAreaManager, Assembly-CSharp
-        m_MethodName: 
+        m_TargetAssemblyTypeName: SolitaireSettlement.CardManager, Assembly-CSharp
+        m_MethodName: SendLeftOverCardsToDiscard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2568,7 +2568,7 @@ MonoBehaviour:
   <DestroyOnLoad>k__BackingField: 0
   <AllCardsInfo>k__BackingField: []
   <GameAreaCanvas>k__BackingField: {fileID: 1513576520}
-  <HandCanvas>k__BackingField: {fileID: 223687256}
+  <ScreenSpaceCanvas>k__BackingField: {fileID: 223687256}
   <GameCamera>k__BackingField: {fileID: 519420031}
   <DurationBetweenCardDiscard>k__BackingField: 0.5
 --- !u!1 &1836932396
@@ -2844,6 +2844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DestroyOnLoad>k__BackingField: 0
+  <HandContainer>k__BackingField: {fileID: 496303673}
   <DrawnCardTarget>k__BackingField: {fileID: 1435254347}
   <DurationBetweenCardDiscard>k__BackingField: 0.5
 --- !u!1 &2098008757

@@ -64,10 +64,20 @@ namespace SolitaireSettlement
             }
         }
 
+        public void UpdateCardInfo(CardRuntimeInfo info)
+        {
+            if (info == null)
+                return;
+
+            Info = info;
+        }
+
         public void UpdateCardData(CardData data)
         {
             if (Info.Data != null)
-                Destroy(Info.Data);
+            {
+                Info.Data = null;
+            }
 
             if (data == null)
                 return;

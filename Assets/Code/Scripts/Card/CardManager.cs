@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Singleton;
@@ -15,7 +16,7 @@ namespace SolitaireSettlement
         public GameObject GameAreaCanvas { get; private set; }
 
         [field: SerializeField]
-        public GameObject HandCanvas { get; private set; }
+        public GameObject ScreenSpaceCanvas { get; private set; }
 
         [field: SerializeField]
         public Camera GameCamera { get; private set; }
@@ -41,11 +42,7 @@ namespace SolitaireSettlement
 
         public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location)
         {
-            AllCardsInfo.Add(new CardRuntimeInfo()
-            {
-                Data = data,
-                Location = location
-            });
+            AllCardsInfo.Add(new CardRuntimeInfo(data, location));
         }
 
         public void RequestToDeleteCardObject(GameObject cardObject)
@@ -59,6 +56,29 @@ namespace SolitaireSettlement
             card.Stack?.RemoveCard(card);
             card.Info.SetCardLocation(CardRuntimeInfo.CardLocation.Delete);
             Destroy(cardObject);
+        }
+
+        public void SendLeftOverCardsToDiscard()
+        {
+            StartCoroutine(DiscardCardsCoroutine());
+        }
+
+        private IEnumerator DiscardCardsCoroutine()
+        {
+            var leftOverCardsOnBoard = AllCardsInfo.Where(c =>
+                    c.Location == CardRuntimeInfo.CardLocation.GameBoard &&
+                    c.Data.CardType == CardData.ECardType.Resource)
+                .ToList();
+
+            for (var i = leftOverCardsOnBoard.Count - 1; i >= 0; i--)
+            {
+                var position =
+                    GameCamera.WorldToScreenPoint(leftOverCardsOnBoard[i].RelatedGameObject.transform.position);
+
+                leftOverCardsOnBoard[i].SetPosition(position);
+                leftOverCardsOnBoard[i].SetCardLocation(CardRuntimeInfo.CardLocation.Discard, true);
+                yield return new WaitForSeconds(DurationBetweenCardDiscard);
+            }
         }
     }
 }

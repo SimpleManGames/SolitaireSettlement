@@ -36,11 +36,12 @@ namespace SolitaireSettlement
             return newCardObject;
         }
 
-        public GameObject CreateCardObjectFromDataInUICanvas(CardData data)
+        public GameObject CreateCardObjectFromDataInUICanvas(CardData data, CardRuntimeInfo info)
         {
             var newCardObject = Object.Instantiate(CardPrefab, UICanvasTransform);
             newCardObject.transform.localScale = new Vector3(15, 15, 1);
             var newCardComponent = newCardObject.GetComponent<Card>();
+            newCardComponent.UpdateCardInfo(info);
             newCardComponent.UpdateCardData(data);
             return newCardObject;
         }
