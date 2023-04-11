@@ -35,7 +35,6 @@ namespace SolitaireSettlement
             {
                 _currentStage = Stages.ElementAt(_currentIndex);
                 _currentStage.ExecuteStageLogic();
-                Debug.Log($"Current Stage Now:{_currentStage}");
             }
             catch (ArgumentOutOfRangeException e)
             {

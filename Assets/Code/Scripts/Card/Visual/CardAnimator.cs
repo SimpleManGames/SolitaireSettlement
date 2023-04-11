@@ -23,7 +23,6 @@ namespace SolitaireSettlement
                 .OnComplete(() =>
                 {
                     _onComplete?.Invoke();
-                    Debug.Log("Card Animation Complete!");
                 });
         }
     }
