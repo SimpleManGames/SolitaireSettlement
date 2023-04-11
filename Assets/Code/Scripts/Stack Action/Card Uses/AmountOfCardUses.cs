@@ -12,10 +12,7 @@ namespace SolitaireSettlement
         {
             AmountOfUses--;
             if (AmountOfUses == 0)
-            {
                 CardManager.Instance.RequestToDeleteCardObject(cardObject.gameObject);
-                Debug.Log("Used up all Consume");
-            }
         }
     }
 }

@@ -12,8 +12,6 @@ namespace SolitaireSettlement
 
         public void OnResult(IEnumerable<Card> relatedCardStack)
         {
-            var stack = relatedCardStack.Aggregate("Stack ", (s, card) => s += $": {card.Info.Data.Name}");
-            Debug.Log($"Produced card:{ProducedCard.Name} with {stack}");
             CardManager.Instance.CreateNewCardRuntimeInfo(ProducedCard, CardRuntimeInfo.CardLocation.Deck);
         }
     }

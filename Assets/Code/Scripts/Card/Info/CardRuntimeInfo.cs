@@ -45,7 +45,6 @@ namespace SolitaireSettlement
 
         public void SetCardLocation(CardLocation location, bool animate = false)
         {
-            Debug.Log($"Changing Card Location {Location} to {location}");
             Location = location;
             switch (Location)
             {
