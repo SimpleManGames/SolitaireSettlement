@@ -73,6 +73,7 @@ namespace SolitaireSettlement
                 return;
 
             Info = info;
+            Info.SetRelatedGameObject(gameObject);
         }
 
         public void UpdateCardData(CardData data)

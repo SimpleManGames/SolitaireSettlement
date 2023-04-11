@@ -32,10 +32,10 @@ namespace SolitaireSettlement
 
         public void StartCoroutineDrawCards()
         {
-            StartCoroutine(DrawCards());
+            DrawCards();
         }
 
-        private IEnumerator DrawCards()
+        private void DrawCards()
         {
             var i = 0;
             while (i < CardsDrawnPerRound)
@@ -46,7 +46,6 @@ namespace SolitaireSettlement
                 var cardDataToDraw = CardsInDeck[0];
                 cardDataToDraw.SetCardLocation(CardRuntimeInfo.CardLocation.Hand, true);
                 i++;
-                yield return new WaitForSeconds(DurationBetweenCardDraw);
             }
         }
     }

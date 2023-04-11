@@ -24,6 +24,7 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public CardLocation Location { get; private set; }
 
+        [field: ShowInInspector, ReadOnly]
         public GameObject RelatedGameObject { get; private set; }
 
         [field: SerializeField]
@@ -37,10 +38,10 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public Vector3 GameBoardScale { get; private set; } = new Vector3(1, 1, 1);
 
-        public CardRuntimeInfo(CardData data, CardLocation location)
+        public CardRuntimeInfo(CardData data, CardLocation location, bool animate = false)
         {
             Data = data;
-            SetCardLocation(location);
+            SetCardLocation(location, animate);
         }
 
         public void SetCardLocation(CardLocation location, bool animate = false)
@@ -87,26 +88,31 @@ namespace SolitaireSettlement
 
         private void SetGameObjectDeckSettings(bool animate)
         {
-            Action onComplete = () => { Position = DeckManager.Instance.DeckPosition; };
+            if (animate && RelatedGameObject == null)
+                SetRelatedGameObject(CardFactory.Instance.CreateCardObjectFromDataInUICanvas(Data, this));
 
-            if (RelatedGameObject == null)
+            Action onComplete = () =>
+            {
+                RelatedGameObject.transform.position = Position = DeckManager.Instance.DeckPosition;
+            };
+
+            if (!animate || RelatedGameObject == null)
             {
                 onComplete.Invoke();
                 return;
             }
 
-            if (!animate)
-                return;
-
             SetGameObjectToScreenSpace();
 
-            StartAnimateCoroutine(Position, DeckManager.Instance.DeckPosition, onComplete);
+            SetCardAnimationValues(Position, DeckManager.Instance.DeckPosition, onComplete);
         }
 
         private void SetGameObjectInHandSettings(bool animate)
         {
             if (RelatedGameObject == null)
                 SetRelatedGameObject(CardFactory.Instance.CreateCardObjectFromDataInUICanvas(Data, this));
+
+            RelatedGameObject.SetActive(true);
 
             SetGameObjectToScreenSpace();
 
@@ -122,7 +128,7 @@ namespace SolitaireSettlement
                 return;
             }
 
-            StartAnimateCoroutine(RelatedGameObject.transform.position,
+            SetCardAnimationValues(RelatedGameObject.transform.position,
                 HandManager.Instance.DrawnCardTargetPosition,
                 onComplete);
         }
@@ -136,8 +142,12 @@ namespace SolitaireSettlement
                 return;
 
             SetGameObjectToScreenSpace();
-            StartAnimateCoroutine(Position, DiscardManager.Instance.DiscardCardPosition,
-                () => { Object.Destroy(RelatedGameObject); });
+            SetCardAnimationValues(Position, DiscardManager.Instance.DiscardCardPosition,
+                () =>
+                {
+                    RelatedGameObject.SetActive(false);
+                    //Object.Destroy(RelatedGameObject);
+                });
         }
 
         private void SetGameObjectToScreenSpace()
@@ -154,10 +164,10 @@ namespace SolitaireSettlement
             cardTransform.localScale = ScreenSpaceElementScale;
         }
 
-        private void StartAnimateCoroutine(Vector3 from, Vector3 target, Action onComplete)
+        private void SetCardAnimationValues(Vector3 from, Vector3 target, Action onComplete)
         {
             var cardAnimator = RelatedGameObject.GetComponent<CardAnimator>();
-            cardAnimator.ExternalAnimateDraw(from, target, onComplete);
+            cardAnimator.AnimateTo(from, target, onComplete);
         }
     }
 }

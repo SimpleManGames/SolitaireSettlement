@@ -40,9 +40,11 @@ namespace SolitaireSettlement
                 DeleteCardObject(destroy);
         }
 
-        public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location)
+        public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location, bool animate = false, Vector3 initialPosition = default)
         {
-            AllCardsInfo.Add(new CardRuntimeInfo(data, location));
+            var runtimeInfo = new CardRuntimeInfo(data, location, animate);
+            runtimeInfo.SetPosition(initialPosition);
+            AllCardsInfo.Add(runtimeInfo);
         }
 
         public void RequestToDeleteCardObject(GameObject cardObject)
@@ -60,10 +62,10 @@ namespace SolitaireSettlement
 
         public void SendLeftOverCardsToDiscard()
         {
-            StartCoroutine(DiscardCardsCoroutine());
+            DiscardCards();
         }
 
-        private IEnumerator DiscardCardsCoroutine()
+        private void DiscardCards()
         {
             var leftOverCardsOnBoard = AllCardsInfo.Where(c =>
                     c.Location == CardRuntimeInfo.CardLocation.GameBoard &&
@@ -80,7 +82,6 @@ namespace SolitaireSettlement
 
                 leftOverCardsOnBoard[i].SetPosition(position);
                 leftOverCardsOnBoard[i].SetCardLocation(CardRuntimeInfo.CardLocation.Discard, true);
-                yield return new WaitForSeconds(DurationBetweenCardDiscard);
             }
         }
     }

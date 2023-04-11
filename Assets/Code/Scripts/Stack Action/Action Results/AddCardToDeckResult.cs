@@ -12,7 +12,9 @@ namespace SolitaireSettlement
 
         public void OnResult(IEnumerable<Card> relatedCardStack)
         {
-            CardManager.Instance.CreateNewCardRuntimeInfo(ProducedCard, CardRuntimeInfo.CardLocation.Deck);
+            var position = relatedCardStack.ElementAt(0).transform.position;
+            CardManager.Instance.CreateNewCardRuntimeInfo(ProducedCard, CardRuntimeInfo.CardLocation.Deck, true,
+                position);
         }
     }
 }

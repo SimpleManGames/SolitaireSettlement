@@ -36,16 +36,15 @@ namespace SolitaireSettlement
 
         public void SendHandCardsToDiscard()
         {
-            StartCoroutine(DiscardCardsCoroutine());
+            DiscardCards();
         }
 
-        private IEnumerator DiscardCardsCoroutine()
+        private void DiscardCards()
         {
             for (var i = CardsInHand.Count - 1; i >= 0; i--)
             {
                 CardsInHand[i].SetPosition(CardsInHand[i].RelatedGameObject.transform.position);
                 CardsInHand[i].SetCardLocation(CardRuntimeInfo.CardLocation.Discard, true);
-                yield return new WaitForSeconds(DurationBetweenCardDiscard);
             }
         }
     }

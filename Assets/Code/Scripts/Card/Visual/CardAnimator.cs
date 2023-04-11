@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -7,24 +6,25 @@ namespace SolitaireSettlement
 {
     public class CardAnimator : MonoBehaviour
     {
-        public void ExternalAnimateDraw(Vector3 from, Vector3 target, Action onComplete)
-        {
-            StartCoroutine(AnimateDraw(from, target, onComplete));
-        }
+        private Vector3 _from;
+        private Vector3 _to;
+        private Action _onComplete;
 
-        public IEnumerator AnimateDraw(Vector3 from, Vector3 target, Action onComplete)
+        public void AnimateTo(Vector3 from, Vector3 to, Action onComplete)
         {
             transform.position = from;
-
+            _from = from;
+            _to = to;
+            _onComplete = onComplete;
+            
             var position = transform.position;
-
-            var tween = DOTween.To(() => position, x => position = x, target, 1.0f)
-                .OnUpdate(() => transform.position = position);
-
-            while (tween.IsActive())
-                yield return null;
-
-            onComplete.Invoke();
+            DOTween.To(() => position, x => position = x, _to, 1.0f)
+                .OnUpdate(() => transform.position = position)
+                .OnComplete(() =>
+                {
+                    _onComplete?.Invoke();
+                    Debug.Log("Card Animation Complete!");
+                });
         }
     }
 }
