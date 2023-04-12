@@ -42,8 +42,7 @@ namespace SolitaireSettlement
 
         public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location, bool animate = false, Vector3 initialPosition = default)
         {
-            var runtimeInfo = new CardRuntimeInfo(data, location, animate);
-            runtimeInfo.SetPosition(initialPosition);
+            var runtimeInfo = new CardRuntimeInfo(data, location, animate, initialPosition);
             AllCardsInfo.Add(runtimeInfo);
         }
 

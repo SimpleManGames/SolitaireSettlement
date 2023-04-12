@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Simplicity.GameEvent;
 using UnityEngine;
 
@@ -20,8 +21,11 @@ namespace SolitaireSettlement
 
         public virtual bool HasFinished()
         {
-            _currentDelay += Time.deltaTime;
-            return _currentDelay > DelayBeforeNextStage;
+            var finished = DOTween.TotalTweensById("Card", true) == 0;
+            if (finished)
+                _currentDelay += Time.deltaTime;
+
+            return finished && _currentDelay > DelayBeforeNextStage;
         }
 
         public virtual void ExecuteStageLogic()

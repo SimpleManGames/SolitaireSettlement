@@ -1,7 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Singleton;
+using Simplicity.Utility.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,12 +13,12 @@ namespace SolitaireSettlement
         [field: ShowInInspector, ReadOnly]
         private List<CardRuntimeInfo> _cardsInDeck;
 
-        private List<CardRuntimeInfo> CardsInDeck =>
-            _cardsInDeck = CardManager.Instance.AllCardsInfo
-                .Where(c => c.Location == CardRuntimeInfo.CardLocation.Deck)
-                .ToList();
+        [ShowInInspector, ReadOnly]
+        private List<CardRuntimeInfo> _shuffledCards;
 
-        private bool HasCardsInDeck => CardsInDeck.Count > 0;
+        public bool HasCardsInDeck => _cardsInDeck.Count > 0;
+
+        public bool HasEnoughCardsForFullDraw => _cardsInDeck.Count > CardsDrawnPerRound;
 
         [field: SerializeField]
         public int CardsDrawnPerRound { get; private set; }
@@ -30,22 +31,37 @@ namespace SolitaireSettlement
 
         public Vector3 DeckPosition => DeckGameObject.transform.position;
 
-        public void StartCoroutineDrawCards()
+        private void Update()
         {
-            DrawCards();
+            UpdateCardsInDeck();
         }
 
-        private void DrawCards()
+        private void UpdateCardsInDeck()
+        {
+            _cardsInDeck = CardManager.Instance.AllCardsInfo
+                .Where(c => c.Location == CardRuntimeInfo.CardLocation.Deck)
+                .ToList();
+        }
+
+        public void Shuffle()
+        {
+            UpdateCardsInDeck();
+            _shuffledCards = _cardsInDeck;
+            _shuffledCards.FisherYatesShuffle();
+        }
+
+        public void DrawCards()
         {
             var i = 0;
             while (i < CardsDrawnPerRound)
             {
-                if (CardsInDeck.Count <= 0)
+                if (_shuffledCards.Count <= 0)
                     break;
 
-                var cardDataToDraw = CardsInDeck[0];
-                cardDataToDraw.SetCardLocation(CardRuntimeInfo.CardLocation.Hand, true);
+                var cardDataToDraw = _shuffledCards[0];
+                cardDataToDraw.SetCardLocation(CardRuntimeInfo.CardLocation.Hand, true, i * DurationBetweenCardDraw);
                 i++;
+                _shuffledCards.Remove(cardDataToDraw);
             }
         }
     }

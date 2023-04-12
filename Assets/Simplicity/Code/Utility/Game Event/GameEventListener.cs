@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using SolitaireSettlement;
 using UnityEngine;
@@ -33,7 +34,16 @@ namespace Simplicity.GameEvent
 
         public void OnEventRaised()
         {
-            response.Invoke();
+            try
+            {
+                response.Invoke();
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.LogError("GameEventListener Response could not be Invoked due to Null Reference!\n" +
+                               $"GameObject: {gameObject.name}\n" +
+                               $"Full Message: {e}");
+            }
         }
     }
 }

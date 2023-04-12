@@ -68,7 +68,8 @@ namespace SolitaireSettlement
 
                 InputInteractions.CurrentDragObject = resultGameObject;
                 InputInteractions.CurrentDraggable = resultGameObject.GetComponent<IUIDrag>();
-                InputInteractions.CurrentDraggable.OnDragStart();
+                CameraManager.Instance.GetPositionOnGameAreaCanvas(InputInteractions.InteractionPoint, out var position);
+                InputInteractions.CurrentDraggable.OnDragStart(position);
                 return true;
             }
 

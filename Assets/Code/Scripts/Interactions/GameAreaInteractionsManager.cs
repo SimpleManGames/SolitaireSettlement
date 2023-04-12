@@ -43,9 +43,7 @@ namespace SolitaireSettlement
             if (InputInteractions.CurrentDragObject == null || InputInteractions.CurrentDraggable == null)
                 return;
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                (RectTransform)GameAreaCanvas.transform, InputInteractions.InteractionPoint, GameCamera,
-                out var position);
+            CameraManager.Instance.GetPositionOnGameAreaCanvas(InputInteractions.InteractionPoint, out var position);
             InputInteractions.CurrentDraggable.OnDrag(position);
         }
 
@@ -89,7 +87,8 @@ namespace SolitaireSettlement
 
                 InputInteractions.CurrentDragObject = resultGameObject;
                 InputInteractions.CurrentDraggable = resultGameObject.GetComponent<IUIDrag>();
-                InputInteractions.CurrentDraggable.OnDragStart();
+                CameraManager.Instance.GetPositionOnGameAreaCanvas(InputInteractions.InteractionPoint, out var position);
+                InputInteractions.CurrentDraggable.OnDragStart(position);
                 return true;
             }
 

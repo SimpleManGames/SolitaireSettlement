@@ -275,6 +275,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InternalDataReference>k__BackingField: {fileID: 0}
+  <Info>k__BackingField:
+    <Location>k__BackingField: 0
+    <Position>k__BackingField: {x: 0, y: 0, z: 0}
+    <ScreenSpaceElementScale>k__BackingField: {x: 15, y: 15, z: 1}
+    <GameBoardScale>k__BackingField: {x: 1, y: 1, z: 1}
 --- !u!114 &9173158599800356935
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,14 +22,10 @@ namespace SolitaireSettlement
 
         public Vector3 DiscardCardPosition => DiscardCardLocation.transform.position;
 
-        public void ShuffleDiscardIntoDeck()
+        public void SendCardsFromDiscardIntoDeck()
         {
-            CardsInDiscard.FisherYatesShuffle();
-            var shuffledDiscardDeck = CardsInDiscard;
-            foreach (var card in shuffledDiscardDeck)
-            {
+            foreach (var card in CardsInDiscard)
                 card.SetCardLocation(CardRuntimeInfo.CardLocation.Deck);
-            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Simplicity.Singleton;
 using Sirenix.OdinInspector;
+using Unity.Mathematics;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -38,7 +39,7 @@ namespace SolitaireSettlement
 
         public GameObject CreateCardObjectFromDataInUICanvas(CardData data, CardRuntimeInfo info)
         {
-            var newCardObject = Object.Instantiate(CardPrefab, UICanvasTransform);
+            var newCardObject = Object.Instantiate(CardPrefab, info.Position, quaternion.identity, UICanvasTransform);
             newCardObject.transform.localScale = new Vector3(15, 15, 1);
             var newCardComponent = newCardObject.GetComponent<Card>();
             newCardComponent.UpdateCardInfo(info);

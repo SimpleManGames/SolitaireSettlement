@@ -14,6 +14,8 @@ namespace SolitaireSettlement
 
         public bool IsBeDragging { get; set; } = false;
 
+        private Vector3 _offset = Vector3.zero;
+
         private void Awake()
         {
             CanBeDragged = true;
@@ -22,10 +24,13 @@ namespace SolitaireSettlement
             CardCanvas = CardManager.Instance.GameAreaCanvas.GetComponent<Canvas>();
         }
 
-        public void OnDragStart()
+        public void OnDragStart(Vector2 position)
         {
             IsBeDragging = true;
             Card.Info.SetCardLocation(CardRuntimeInfo.CardLocation.GameBoard);
+            transform.SetParent(CardCanvas.transform);
+
+            _offset = transform.position - (Vector3)position;
         }
 
         public void OnDrag(Vector2 position)
@@ -38,7 +43,6 @@ namespace SolitaireSettlement
                 transform.SetAsLastSibling();
 
             var vec3Position = (Vector3)position;
-            transform.SetParent(CardCanvas.transform);
             transform.position = CardCanvas.transform.TransformPoint(vec3Position);
         }
 

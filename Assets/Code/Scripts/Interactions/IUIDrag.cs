@@ -7,7 +7,7 @@ namespace SolitaireSettlement
         public bool CanBeDragged { get; set; }
         public bool IsBeDragging { get; set; }
 
-        void OnDragStart();
+        void OnDragStart(Vector2 position);
         void OnDrag(Vector2 position);
         void OnDragEnd();
     }

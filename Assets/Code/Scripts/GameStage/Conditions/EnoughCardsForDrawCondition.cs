@@ -4,7 +4,7 @@ namespace SolitaireSettlement
     {
         public bool CheckCondition()
         {
-            return true;
+            return !DeckManager.Instance.HasEnoughCardsForFullDraw;
         }
     }
 }

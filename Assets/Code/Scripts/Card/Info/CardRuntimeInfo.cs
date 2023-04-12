@@ -38,13 +38,15 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public Vector3 GameBoardScale { get; private set; } = new Vector3(1, 1, 1);
 
-        public CardRuntimeInfo(CardData data, CardLocation location, bool animate = false)
+        public CardRuntimeInfo(CardData data, CardLocation location, bool animate = false,
+            Vector3 initialPosition = default)
         {
             Data = data;
+            SetPosition(initialPosition);
             SetCardLocation(location, animate);
         }
 
-        public void SetCardLocation(CardLocation location, bool animate = false)
+        public void SetCardLocation(CardLocation location, bool animate = false, float animateDelay = 0.0f)
         {
             Location = location;
             switch (Location)
@@ -53,13 +55,13 @@ namespace SolitaireSettlement
                     SetGameObjectGameBoardSettings();
                     break;
                 case CardLocation.Deck:
-                    SetGameObjectDeckSettings(animate);
+                    SetGameObjectDeckSettings(animate, animateDelay);
                     break;
                 case CardLocation.Hand:
-                    SetGameObjectInHandSettings(animate);
+                    SetGameObjectInHandSettings(animate, animateDelay);
                     break;
                 case CardLocation.Discard:
-                    SetGameObjectDiscardSettings(animate);
+                    SetGameObjectDiscardSettings(animate, animateDelay);
                     break;
                 case CardLocation.Delete:
                     RelatedGameObject.SetActive(false);
@@ -86,7 +88,7 @@ namespace SolitaireSettlement
             RelatedGameObject.transform.rotation = CardManager.Instance.GameAreaCanvas.transform.rotation;
         }
 
-        private void SetGameObjectDeckSettings(bool animate)
+        private void SetGameObjectDeckSettings(bool animate, float animateDelay)
         {
             if (animate && RelatedGameObject == null)
                 SetRelatedGameObject(CardFactory.Instance.CreateCardObjectFromDataInUICanvas(Data, this));
@@ -94,6 +96,7 @@ namespace SolitaireSettlement
             Action onComplete = () =>
             {
                 RelatedGameObject.transform.position = Position = DeckManager.Instance.DeckPosition;
+                RelatedGameObject.SetActive(false);
             };
 
             if (!animate || RelatedGameObject == null)
@@ -104,10 +107,10 @@ namespace SolitaireSettlement
 
             SetGameObjectToScreenSpace();
 
-            SetCardAnimationValues(Position, DeckManager.Instance.DeckPosition, onComplete);
+            SetCardAnimationValues(Position, DeckManager.Instance.DeckPosition, animateDelay, onComplete);
         }
 
-        private void SetGameObjectInHandSettings(bool animate)
+        private void SetGameObjectInHandSettings(bool animate, float animateDelay)
         {
             if (RelatedGameObject == null)
                 SetRelatedGameObject(CardFactory.Instance.CreateCardObjectFromDataInUICanvas(Data, this));
@@ -128,12 +131,11 @@ namespace SolitaireSettlement
                 return;
             }
 
-            SetCardAnimationValues(RelatedGameObject.transform.position,
-                HandManager.Instance.DrawnCardTargetPosition,
-                onComplete);
+            SetCardAnimationValues(RelatedGameObject.transform.position, HandManager.Instance.DrawnCardTargetPosition,
+                animateDelay, onComplete);
         }
 
-        private void SetGameObjectDiscardSettings(bool animate)
+        private void SetGameObjectDiscardSettings(bool animate, float animateDelay)
         {
             if (RelatedGameObject == null)
                 return;
@@ -142,12 +144,8 @@ namespace SolitaireSettlement
                 return;
 
             SetGameObjectToScreenSpace();
-            SetCardAnimationValues(Position, DiscardManager.Instance.DiscardCardPosition,
-                () =>
-                {
-                    RelatedGameObject.SetActive(false);
-                    //Object.Destroy(RelatedGameObject);
-                });
+            SetCardAnimationValues(Position, DiscardManager.Instance.DiscardCardPosition, animateDelay,
+                () => { RelatedGameObject.SetActive(false); });
         }
 
         private void SetGameObjectToScreenSpace()
@@ -164,10 +162,10 @@ namespace SolitaireSettlement
             cardTransform.localScale = ScreenSpaceElementScale;
         }
 
-        private void SetCardAnimationValues(Vector3 from, Vector3 target, Action onComplete)
+        private void SetCardAnimationValues(Vector3 from, Vector3 target, float delay, Action onComplete)
         {
             var cardAnimator = RelatedGameObject.GetComponent<CardAnimator>();
-            cardAnimator.AnimateTo(from, target, onComplete);
+            cardAnimator.AnimateTo(from, target, delay, onComplete);
         }
     }
 }
