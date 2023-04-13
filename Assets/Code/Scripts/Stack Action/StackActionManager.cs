@@ -31,7 +31,7 @@ namespace SolitaireSettlement
         public void GatherCurrentStacks()
         {
             CurrentPossibleStackActions.Clear();
-            var cardObjects = GameObject.FindGameObjectsWithTag("Card");
+            var cardObjects = FindObjectsOfType<Card>();
             var cardComponents = cardObjects.Select(c => c.GetComponent<Card>());
             var uniqueStacks = new List<CardStack>();
             foreach (var card in cardComponents)

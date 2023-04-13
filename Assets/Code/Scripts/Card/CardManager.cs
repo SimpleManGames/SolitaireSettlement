@@ -29,7 +29,7 @@ namespace SolitaireSettlement
         private void Start()
         {
             // Grab the initial cards
-            AllCardsInfo = GameObject.FindGameObjectsWithTag("Card")
+            AllCardsInfo = GameObject.FindObjectsOfType<Card>()
                 .Select(c => c.GetComponent<Card>().Info)
                 .ToList();
         }
@@ -40,7 +40,8 @@ namespace SolitaireSettlement
                 DeleteCardObject(destroy);
         }
 
-        public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location, bool animate = false, Vector3 initialPosition = default)
+        public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location, bool animate = false,
+            Vector3 initialPosition = default)
         {
             var runtimeInfo = new CardRuntimeInfo(data, location, animate, initialPosition);
             AllCardsInfo.Add(runtimeInfo);

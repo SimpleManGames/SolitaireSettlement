@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Simplicity.GameEvent;
 using Simplicity.UI;
 using Sirenix.OdinInspector;
@@ -57,7 +58,7 @@ namespace SolitaireSettlement
 
         public void HandleInteractionResults()
         {
-            HandleCardStackInteraction();
+            HandlePlaceableInteraction();
             OnCardInteractedEvent.Raise();
         }
 
@@ -87,7 +88,8 @@ namespace SolitaireSettlement
 
                 InputInteractions.CurrentDragObject = resultGameObject;
                 InputInteractions.CurrentDraggable = resultGameObject.GetComponent<IUIDrag>();
-                CameraManager.Instance.GetPositionOnGameAreaCanvas(InputInteractions.InteractionPoint, out var position);
+                CameraManager.Instance.GetPositionOnGameAreaCanvas(InputInteractions.InteractionPoint,
+                    out var position);
                 InputInteractions.CurrentDraggable.OnDragStart(position);
                 return true;
             }
@@ -95,23 +97,23 @@ namespace SolitaireSettlement
             return false;
         }
 
-        private void HandleCardStackInteraction()
+        private void HandlePlaceableInteraction()
         {
             if (InputInteractions.CurrentDragObject == null)
                 return;
 
-            LoopThroughAllCardObjects();
+            LoopThroughAllPlaceableObjects();
         }
 
-        private void LoopThroughAllCardObjects()
+        private void LoopThroughAllPlaceableObjects()
         {
             var rectTransform = InputInteractions.CurrentDragObject.GetComponent<RectTransform>();
-            var placeables = GameObject.FindGameObjectsWithTag("Card");
-            foreach (var placeable in placeables)
+            var placeComponents = FindObjectsOfType<MonoBehaviour>().OfType<ICardPlaceable>();
+            foreach (var placeableComponent in placeComponents)
             {
-                var placeableComponent = placeable.GetComponent(typeof(ICardPlaceable)) as ICardPlaceable;
+                var placeable = (placeableComponent as MonoBehaviour)?.gameObject;
 
-                if (placeableComponent == null)
+                if (placeable == null)
                     continue;
 
                 if (placeable == InputInteractions.CurrentDragObject)
@@ -119,6 +121,10 @@ namespace SolitaireSettlement
 
                 var otherRectTransform = placeable.GetComponent<RectTransform>();
                 if (!rectTransform.Overlaps(otherRectTransform))
+                    continue;
+
+                var currentDragPlace = rectTransform.GetComponent<ICardPlaceable>();
+                if (!placeableComponent.IsValidPlacement(currentDragPlace))
                     continue;
 
                 if (placeableComponent.OnPlaced(otherRectTransform.gameObject,

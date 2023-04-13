@@ -7,6 +7,8 @@ namespace SolitaireSettlement
     /// </summary>
     public interface ICardPlaceable
     {
+        bool OnRemoved();
+        
         bool OnPlaced(GameObject target, GameObject place);
         
         bool IsValidPlacement(ICardPlaceable placeable);

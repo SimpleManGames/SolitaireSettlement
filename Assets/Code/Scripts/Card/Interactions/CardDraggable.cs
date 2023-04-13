@@ -1,3 +1,4 @@
+using Simplicity.UI;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -12,21 +13,23 @@ namespace SolitaireSettlement
 
         public bool CanBeDragged { get; set; } = true;
 
-        public bool IsBeDragging { get; set; } = false;
+        public bool IsBeingDragged { get; set; } = false;
+
+        private Vector3 _lastValidDragPosition = Vector3.zero;
 
         private Vector3 _offset = Vector3.zero;
 
         private void Awake()
         {
             CanBeDragged = true;
-            IsBeDragging = false;
+            IsBeingDragged = false;
 
             CardCanvas = CardManager.Instance.GameAreaCanvas.GetComponent<Canvas>();
         }
 
         public void OnDragStart(Vector2 position)
         {
-            IsBeDragging = true;
+            IsBeingDragged = true;
             Card.Info.SetCardLocation(CardRuntimeInfo.CardLocation.GameBoard);
             transform.SetParent(CardCanvas.transform);
 
@@ -42,13 +45,21 @@ namespace SolitaireSettlement
             if (!Card.IsInStack)
                 transform.SetAsLastSibling();
 
-            var vec3Position = (Vector3)position;
-            transform.position = CardCanvas.transform.TransformPoint(vec3Position);
+            _lastValidDragPosition = position;
+
+            transform.position = CardCanvas.transform.TransformPoint(_lastValidDragPosition + _offset);
+            if (!Card.CanLeaveArea)
+            {
+                var areaRectTransform = Card.Area.GetComponent<RectTransform>();
+                var cardRectTransform = GetComponent<RectTransform>();
+
+                cardRectTransform.ClampWithin(areaRectTransform);
+            }
         }
 
         public void OnDragEnd()
         {
-            IsBeDragging = false;
+            IsBeingDragged = false;
         }
     }
 }

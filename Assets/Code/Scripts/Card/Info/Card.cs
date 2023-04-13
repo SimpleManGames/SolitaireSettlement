@@ -29,6 +29,15 @@ namespace SolitaireSettlement
         public bool IsOnBottom => Stack.BottomCard() == this;
         public bool IsOnTop => Stack.TopCard() == this;
 
+        [field: ShowInInspector]
+        [field: ReadOnly]
+        public Area Area { get; set; }
+
+        public bool IsInArea => Area != null;
+
+        public bool CanLeaveArea => Info.Data.CardType != CardData.ECardType.Building &&
+                                    Info.Data.CardType != CardData.ECardType.Gathering;
+
         private void Awake()
         {
             UpdateCardData(InternalDataReference);
@@ -45,7 +54,7 @@ namespace SolitaireSettlement
             if (IsInStack && Stack.Cards.Count <= 1)
                 Stack = null;
 
-            if (IsInStack && !Draggable.IsBeDragging)
+            if (IsInStack && !Draggable.IsBeingDragged)
             {
                 var index = Stack!.Cards.IndexOf(this);
 
@@ -57,6 +66,12 @@ namespace SolitaireSettlement
 
                 var previousCardPosition = Stack.Cards[index - 1].transform.position;
                 transform.position = previousCardPosition + new Vector3(0.0f, -2.0f, 0.0f);
+            }
+
+            if (Draggable.IsBeingDragged && IsInArea && CanLeaveArea)
+            {
+                Area.ShouldRevealAfterPlanning = false;
+                Area = null;
             }
 
             if (Stack == null || !Stack.HasCards)
@@ -92,23 +107,45 @@ namespace SolitaireSettlement
             GetComponent<CardRenderer>().UpdateCardVisuals(Info.Data);
         }
 
+        public bool OnRemoved()
+        {
+            return true;
+        }
+
         public bool OnPlaced(GameObject target, GameObject place)
         {
             var placeOntoCard = target.GetComponent<Card>();
             var draggingCard = place.GetComponent<Card>();
 
-            if (placeOntoCard.Stack != null && placeOntoCard.Stack.Cards.Contains(draggingCard))
+            if (placeOntoCard != null)
+                return OnPlacedCard(placeOntoCard, draggingCard);
+
+            var placeOntoArea = target.GetComponent<Area>();
+
+            return placeOntoArea != null && OnPlacedArea(placeOntoArea, draggingCard);
+        }
+
+        private bool OnPlacedCard(Card placed, Card dragging)
+        {
+            if (placed.Stack != null && placed.Stack.Cards.Contains(dragging))
                 return false;
 
             // if (!placeOntoCard.IsValidPlacement(draggingCard))
             //     return false;
 
-            UpdateStackInfoForDragObject(draggingCard);
-            DetermineStackInteractions(placeOntoCard, draggingCard);
+            UpdateStackInfoForDragObject(dragging);
+            DetermineStackInteractions(placed, dragging);
 
             // if (draggingCard.GetComponent<Card>().IsInHand)
             //     DeckManager.Instance.MoveCardTopCardToGame();
 
+            return true;
+        }
+
+        private bool OnPlacedArea(Area placed, Card dragging)
+        {
+            placed.ShouldRevealAfterPlanning = true;
+            dragging.Area = placed;
             return true;
         }
 

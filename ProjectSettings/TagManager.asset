@@ -8,6 +8,8 @@ TagManager:
   - Game Area Canvas
   - Screen Space Canvas
   - Hand Container
+  - Area
+  - Placeable
   layers:
   - Default
   - TransparentFX

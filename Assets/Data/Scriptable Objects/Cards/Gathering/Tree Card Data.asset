@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: Tree
     - Name: <CardType>k__BackingField
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: <CardUse>k__BackingField
       Entry: 7
       Data: 0|SolitaireSettlement.AmountOfCardUses, Assembly-CSharp

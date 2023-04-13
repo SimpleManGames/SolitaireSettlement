@@ -1481,6 +1481,35 @@ PrefabInstance:
       objectReference: {fileID: 955841288}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+--- !u!1 &1358636309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1104891488343415600, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
+  m_PrefabInstance: {fileID: 1104891487553125925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1358636314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358636309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da8ce3ab7586104ca414789699cbf7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1358636315
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358636309}
+  m_CullTransparentMesh: 1
 --- !u!1 &1389396259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,6 +2288,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 751db2a915e8ba94f912c0c32fd396f4, type: 2}
     - {fileID: 11400000, guid: a7d7f3f778cf3e14d81459c3c3cd62b9, type: 2}
     - {fileID: 11400000, guid: 1eb709b1982099e4d8886e9e544144b3, type: 2}
+    - {fileID: 11400000, guid: ca84322aea979ea4bad49de792ac790d, type: 2}
     - {fileID: 11400000, guid: 9ba3d23391e2d5d49909b9af0956a0ab, type: 2}
     - {fileID: 11400000, guid: 16dfed51e77a23147b41cd1de25d2499, type: 2}
     SerializedBytesString: 
@@ -2272,7 +2302,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 7
       Data: 1|SolitaireSettlement.InvokeEventStage, Assembly-CSharp
@@ -2314,22 +2344,34 @@ MonoBehaviour:
       Data: 3
     - Name: <DelayBeforeNextStage>k__BackingField
       Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|SolitaireSettlement.InvokeEventStage, Assembly-CSharp
+    - Name: <Event>k__BackingField
+      Entry: 10
+      Data: 4
+    - Name: <DelayBeforeNextStage>k__BackingField
+      Entry: 4
       Data: 0.2
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 5|SolitaireSettlement.InvokeEventAfterConditionStage, Assembly-CSharp
+      Data: 6|SolitaireSettlement.InvokeEventAfterConditionStage, Assembly-CSharp
     - Name: <Event>k__BackingField
       Entry: 10
-      Data: 4
+      Data: 5
     - Name: <DelayBeforeNextStage>k__BackingField
       Entry: 4
       Data: 0
     - Name: <Condition>k__BackingField
       Entry: 7
-      Data: 6|SolitaireSettlement.EnoughCardsForDrawCondition, Assembly-CSharp
+      Data: 7|SolitaireSettlement.EnoughCardsForDrawCondition, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -2464,6 +2506,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1104891488343415600, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
       propertyPath: m_Name
+      value: Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104891488343415600, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
+      propertyPath: m_TagString
       value: Area
       objectReference: {fileID: 0}
     - target: {fileID: 1104891488343415603, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
@@ -2621,11 +2667,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4551055902058276964, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9659258
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4551055902058276964, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.2588191
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4551055902058276964, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2645,7 +2691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4551055902058276964, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4551055902058276964, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
