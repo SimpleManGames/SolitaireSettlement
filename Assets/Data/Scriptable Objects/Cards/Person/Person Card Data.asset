@@ -21,13 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <Name>k__BackingField
-      Entry: 1
-      Data: Person
-    - Name: <CardType>k__BackingField
-      Entry: 3
-      Data: 0
     - Name: <CardUse>k__BackingField
       Entry: 6
       Data: 
+  <Name>k__BackingField: Person
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 982ebd69dc8ac20479a5d967fe0e53fe, type: 2}
+  <CardType>k__BackingField: 0

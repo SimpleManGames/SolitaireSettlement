@@ -21,12 +21,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <Name>k__BackingField
-      Entry: 1
-      Data: Tree
-    - Name: <CardType>k__BackingField
-      Entry: 3
-      Data: 3
     - Name: <CardUse>k__BackingField
       Entry: 7
       Data: 0|SolitaireSettlement.AmountOfCardUses, Assembly-CSharp
@@ -36,4 +30,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <Name>k__BackingField: Tree
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 8ab39691ef4d2b049a368f67c5b14bca, type: 2}
+  <CardType>k__BackingField: 3

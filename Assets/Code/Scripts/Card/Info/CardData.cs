@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -15,16 +16,24 @@ namespace SolitaireSettlement
         }
 
         [field: Title("Visuals")]
-        [field: SerializeField]
-        public string Name { get; }
+        [field: SerializeField, Delayed]
+        public string Name { get; private set; }
 
         [field: SerializeField, AssetsOnly, Required]
         public CardPaletteData ColorPalette { get; private set; }
 
         [field: Title("Settings")]
-        [field: SerializeField] public ECardType CardType { get; }
+        [field: SerializeField]
+        public ECardType CardType { get; private set; }
 
-        [field: SerializeField] public IStackActionCardUse CardUse { get; set; }
+        [field: SerializeField]
+        public IStackActionCardUse CardUse { get; set; }
+
+        private void OnValidate()
+        {
+            var path = AssetDatabase.GetAssetPath(GetInstanceID());
+            AssetDatabase.RenameAsset(path, Name + " Card Data");
+        }
 
         public override int GetHashCode()
         {
