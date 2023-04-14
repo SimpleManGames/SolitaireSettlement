@@ -224,14 +224,14 @@ namespace SolitaireSettlement
                 // And we re-find the asset as the Drawer class using the reference to the scriptable object it stores
                 var childMenuRecursive = window.MenuTree.RootMenuItem.GetChildMenuItemsRecursive(true);
                 var scriptableObjectDrawers = childMenuRecursive.Where(
-                    i => i.Value is ScriptableObjectAssetDrawer<CardData>).ToList();
+                    i => i.Value is ScriptableObjectAssetDrawer<T>).ToList();
                 if (scriptableObjectDrawers.Count == 0)
                     return;
 
                 var matchingAsset = scriptableObjectDrawers.First(
                     c =>
                     {
-                        var soA = ((ScriptableObjectAssetDrawer<CardData>)c.Value).ScriptableObject;
+                        var soA = ((ScriptableObjectAssetDrawer<T>)c.Value).ScriptableObject;
                         var soB = ScriptableObject;
                         return soA == soB;
                     });
