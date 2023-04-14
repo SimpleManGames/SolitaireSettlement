@@ -40,10 +40,10 @@ namespace SolitaireSettlement
                 DeleteCardObject(destroy);
         }
 
-        public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location, bool animate = false,
-            Vector3 initialPosition = default)
+        public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location,
+            bool animate = false, Vector3 initialPosition = default, float animateDelay = 0.0f)
         {
-            var runtimeInfo = new CardRuntimeInfo(data, location, animate, initialPosition);
+            var runtimeInfo = new CardRuntimeInfo(data, location, animate, initialPosition, animateDelay);
             AllCardsInfo.Add(runtimeInfo);
         }
 

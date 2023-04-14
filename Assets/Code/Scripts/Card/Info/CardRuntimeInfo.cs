@@ -39,11 +39,11 @@ namespace SolitaireSettlement
         public Vector3 GameBoardScale { get; private set; } = new Vector3(1, 1, 1);
 
         public CardRuntimeInfo(CardData data, CardLocation location, bool animate = false,
-            Vector3 initialPosition = default)
+            Vector3 initialPosition = default, float animationDelay = 0.0f)
         {
             Data = data;
             SetPosition(initialPosition);
-            SetCardLocation(location, animate);
+            SetCardLocation(location, animate, animationDelay);
         }
 
         public void SetCardLocation(CardLocation location, bool animate = false, float animateDelay = 0.0f)
