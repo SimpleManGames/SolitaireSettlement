@@ -30,10 +30,12 @@ namespace SolitaireSettlement
         public void OnDragStart(Vector2 position)
         {
             IsBeingDragged = true;
+
+            if (Card.Info.Location != CardRuntimeInfo.CardLocation.Hand)
+                _offset = transform.position - (Vector3)position;
+
             Card.Info.SetCardLocation(CardRuntimeInfo.CardLocation.GameBoard);
             transform.SetParent(CardCanvas.transform);
-
-            _offset = transform.position - (Vector3)position;
         }
 
         public void OnDrag(Vector2 position)
