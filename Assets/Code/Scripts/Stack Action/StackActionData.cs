@@ -38,7 +38,7 @@ namespace SolitaireSettlement
         private static List<StackActionData> CheckConflicts(StackActionData data, bool checkOther = true)
         {
             var results = new List<StackActionData>();
-            var otherStackActions = AssetParsingUtility.FindAssetsByType<StackActionData>()
+            var otherStackActions = AssetParsingUtility.FindAssetsByType<StackActionData, List<StackActionData>>()
                 .Where(s => data != s).ToList();
 
             foreach (var otherStack in otherStackActions)

@@ -5,15 +5,15 @@ namespace Simplicity.Utility
 {
     public static class AssetParsingUtility
     {
-        public static List<T> FindAssetsByType<T>() where T : UnityEngine.Object
+        public static T1 FindAssetsByType<T0, T1>() where T0 : UnityEngine.Object where T1 : ICollection<T0>, new()
         {
-            var assets = new List<T>();
-            var guids = AssetDatabase.FindAssets($"t:{typeof(T)}");
+            T1 assets = new();
+            var guids = AssetDatabase.FindAssets($"t:{typeof(T0)}");
 
             for (var i = 0; i < guids.Length; i++)
             {
                 var assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-                var asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+                var asset = AssetDatabase.LoadAssetAtPath<T0>(assetPath);
                 if (asset != null)
                     assets.Add(asset);
             }

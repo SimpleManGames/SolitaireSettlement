@@ -29,7 +29,7 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
-        [field: SerializeField]
+        [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]
         public IStackActionCardUse CardUse { get; set; }
 
         [ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f), ReadOnly]
@@ -47,7 +47,7 @@ namespace SolitaireSettlement
         private List<StackActionData> CreatedByStackActions()
         {
             var results = new List<StackActionData>();
-            var addCardResults = AssetParsingUtility.FindAssetsByType<StackActionData>()
+            var addCardResults = AssetParsingUtility.FindAssetsByType<StackActionData, List<StackActionData>>()
                 .Where(s => s.Results != null).Select(data => (data, data.Results));
 
             foreach (var kv in addCardResults)
@@ -70,7 +70,7 @@ namespace SolitaireSettlement
 
         private List<StackActionData> UsedInStackActions()
         {
-            return AssetParsingUtility.FindAssetsByType<StackActionData>()
+            return AssetParsingUtility.FindAssetsByType<StackActionData, List<StackActionData>>()
                 .Where(s => s.NeededCardsInStack.Any(c => c.Name == Name)).ToList();
         }
 

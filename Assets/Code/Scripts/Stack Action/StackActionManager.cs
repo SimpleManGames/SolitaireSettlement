@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Simplicity.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -120,6 +121,12 @@ namespace SolitaireSettlement
             }
 
             CurrentPossibleStackActions.Clear();
+        }
+
+        [Button]
+        private void GatherStackActionAssetsIntoList()
+        {
+            StackActions = AssetParsingUtility.FindAssetsByType<StackActionData, HashSet<StackActionData>>();
         }
     }
 }
