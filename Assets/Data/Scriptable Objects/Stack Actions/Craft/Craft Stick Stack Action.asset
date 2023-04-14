@@ -22,45 +22,23 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <Result>k__BackingField
+    - Name: <Results>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.ChanceToAddCardsResult, Assembly-CSharp
-    - Name: <Cards>k__BackingField
-      Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[SolitaireSettlement.ChanceAddCardResult+CardChance,
-        Assembly-CSharp]], mscorlib
+      Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
-      Data: 0
-    - Name: <Chance>k__BackingField
-      Entry: 4
       Data: 1
     - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
+      Data: 1|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
     - Name: <ProducedCard>k__BackingField
       Entry: 10
       Data: 0
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 0.45
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: 
       Entry: 8

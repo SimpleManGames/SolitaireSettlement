@@ -48,15 +48,18 @@ namespace SolitaireSettlement
         {
             var results = new List<StackActionData>();
             var addCardResults = AssetParsingUtility.FindAssetsByType<StackActionData>()
-                .Where(s => s.Result != null).Select(data => (data, data.Result)).ToList();
+                .Where(s => s.Results != null).Select(data => (data, data.Results));
 
             foreach (var kv in addCardResults)
             {
-                if (kv.Result is not AddCardResult cast)
-                    continue;
-
-                if (cast.AddedCardData().Any(c => c.Name == Name))
+                foreach (var result in kv.Results)
                 {
+                    if (result is not AddCardResult cast)
+                        continue;
+
+                    if (cast.AddedCardData().All(c => c.Name != Name))
+                        continue;
+
                     results.Add(kv.data);
                     break;
                 }

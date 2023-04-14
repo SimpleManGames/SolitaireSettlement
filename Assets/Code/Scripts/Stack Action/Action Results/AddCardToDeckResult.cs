@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace SolitaireSettlement
 {
     public class AddCardToDeckResult : AddCardResult
     {
-        [field: SerializeField]
+        [field: SerializeField, HideLabel, Title("Card")]
         public CardData ProducedCard { get; private set; }
 
         public override void OnResult(IEnumerable<Card> relatedCardStack)

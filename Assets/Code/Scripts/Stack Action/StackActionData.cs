@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,13 +16,18 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public List<CardData> NeededCardsInStack { get; private set; }
 
-        [field: SerializeField]
-        public IStackActionResult Result { get; private set; }
+        [field: SerializeField, Required, HideReferenceObjectPicker]
+        public IStackActionResult[] Results { get; private set; }
 
-        public bool Conflict { get; private set; }
+        public bool Conflict => _conflictedStackActions.Count > 0 || Results == null || Results.Length == 0;
 
-        [Title("Conflicts"), ShowInInspector, ReadOnly, ShowIf("@this.Conflict")]
-        private List<StackActionData> ConflictedStackActions => CheckConflicts(this, true);
+        private List<StackActionData> _conflictedStackActions;
+
+        [Title("Conflicts"), ShowInInspector, ReadOnly, ShowIf("@this.ConflictedStackActions.Count > 0")]
+        private List<StackActionData> ConflictedStackActions
+        {
+            get { return _conflictedStackActions = CheckConflicts(this, true); }
+        }
 
         private void OnValidate()
         {
@@ -34,7 +38,6 @@ namespace SolitaireSettlement
         private static List<StackActionData> CheckConflicts(StackActionData data, bool checkOther = true)
         {
             var results = new List<StackActionData>();
-            data.Conflict = false;
             var otherStackActions = AssetParsingUtility.FindAssetsByType<StackActionData>()
                 .Where(s => data != s).ToList();
 
@@ -48,8 +51,6 @@ namespace SolitaireSettlement
                     results.Add(otherStack);
                     if (checkOther)
                         CheckConflicts(otherStack, false);
-
-                    data.Conflict = true;
                 }
             }
 

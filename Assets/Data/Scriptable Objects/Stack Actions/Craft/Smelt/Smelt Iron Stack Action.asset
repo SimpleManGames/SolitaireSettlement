@@ -22,12 +22,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <Result>k__BackingField
+    - Name: <Results>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
+      Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
     - Name: <ProducedCard>k__BackingField
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 

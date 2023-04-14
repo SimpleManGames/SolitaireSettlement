@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class ChanceAddCardResult : AddCardResult
+    public abstract class ChanceAddCardResult : AddCardResult
     {
         public struct CardChance
         {
-            [field: SerializeField, HorizontalGroup("Info"), Required]
+            [field: SerializeField, HorizontalGroup("Info"), Required, HideLabel]
             public CardData ProducedCard { get; private set; }
 
             [field: SerializeField, HorizontalGroup("Info", 0.2f), Range(0.0f, 1.0f), HideLabel]

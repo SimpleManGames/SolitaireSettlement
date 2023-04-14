@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: Craft Block Stack Action
+  m_Name: Grow Berry Bush Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 479a7789b2a346a49bd585ce0f107967, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,24 +26,14 @@ MonoBehaviour:
       Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 1|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
       Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  <Name>k__BackingField: Craft Block
+  <Name>k__BackingField: Grow Berry Bush
   <NeededCardsInStack>k__BackingField:
-  - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
-  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
+  - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
+  - {fileID: 11400000, guid: 873ae9b4da31ee346800da862bd3ff68, type: 2}

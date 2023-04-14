@@ -17,76 +17,46 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
-    - {fileID: 11400000, guid: 3506e1ef357f88647ab2b247c9709e6b, type: 2}
-    - {fileID: 11400000, guid: 769d289a8a1000e4c9f4ccad7e7925aa, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <Result>k__BackingField
+    - Name: <Results>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.ChanceToAddCardsResult, Assembly-CSharp
-    - Name: <Cards>k__BackingField
-      Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[SolitaireSettlement.ChanceAddCardResult+CardChance,
-        Assembly-CSharp]], mscorlib
+      Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
-      Data: 0
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
-      Data: 0
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 0.3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
-      Data: 1
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
       Data: 2
+    - Name: 
+      Entry: 7
+      Data: 1|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
+    - Name: <ProducedCard>k__BackingField
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
+    - Name: <CardChances>k__BackingField
+      Entry: 7
+      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
+    - Name: <ProducedCard>k__BackingField
+      Entry: 10
+      Data: 0
     - Name: <Chance>k__BackingField
       Entry: 4
-      Data: 0.1
+      Data: 0.25
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: 
       Entry: 8
