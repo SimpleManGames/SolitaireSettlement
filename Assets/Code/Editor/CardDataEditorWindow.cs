@@ -40,7 +40,10 @@ namespace SolitaireSettlement
             // And we re-find the asset as the Drawer class using the reference to the scriptable object it stores
             var childMenuRecursive = MenuTree.RootMenuItem.GetChildMenuItemsRecursive(true);
             var scriptableObjectDrawers = childMenuRecursive.Where(
-                i => i.Value is ScriptableObjectAssetDrawer<CardData>);
+                i => i.Value is ScriptableObjectAssetDrawer<CardData>).ToList();
+            if (scriptableObjectDrawers.Count == 0)
+                return;
+
             var matchingAsset = scriptableObjectDrawers.First(
                 c =>
                 {
@@ -83,56 +86,42 @@ namespace SolitaireSettlement
 
         private void SetupCardDataTreeMenu()
         {
-            var addedAssets = _tree.AddAllAssetsAtPath("Cards", CARD_DATA_ASSET_PATH,
-                typeof(CardData), true, false).AddThumbnailIcons();
-
-            var folders = _tree.RootMenuItem.GetChildMenuItemsRecursive(true)
-                .Where(m => m.ChildMenuItems.Count > 0 && addedAssets.Contains(m));
-
-            foreach (var folder in folders)
-                folder.Value = new FolderAssetDrawer<CardData>(_tree, this, folder, folder.GetFullPath());
-
-            var nonFolderItems = _tree.RootMenuItem.GetChildMenuItemsRecursive(true)
-                .Where(m => addedAssets.Contains(m)).Except(folders);
-
-            foreach (var cardDataItem in nonFolderItems)
-            {
-                var path = SCRIPTABLE_OBJECTS_ASSET_PATH + "/" + cardDataItem.GetFullPath() + ".asset";
-                var cardData = AssetDatabase.LoadAssetAtPath<CardData>(path);
-
-                cardDataItem.Value =
-                    new ScriptableObjectAssetDrawer<CardData>(_tree, this, cardDataItem, cardData, null);
-            }
+            SetupTreeMenu<CardData>("Cards", CARD_DATA_ASSET_PATH, null);
         }
 
         private void SetupStackActionsTreeMenu()
         {
-            var addedAssets = _tree.AddAllAssetsAtPath("Stack Actions", STACK_ACTIONS_ASSET_PATH,
-                typeof(StackActionData), true, false).AddThumbnailIcons();
+            SetupTreeMenu<StackActionData>("Stack Actions", STACK_ACTIONS_ASSET_PATH, asset => !asset.Conflict);
+        }
+
+        private void SetupPaletteTreeMenu()
+        {
+            SetupTreeMenu<CardPaletteData>("Palette", PALETTE_ASSET_PATH, null);
+        }
+
+        private void SetupTreeMenu<T>(string menuPath, string assetPath, Func<T, bool> validEntryCheck)
+            where T : ScriptableObject
+        {
+            var addedAssets = _tree.AddAllAssetsAtPath(menuPath, assetPath,
+                typeof(T), true, false).AddThumbnailIcons();
 
             var folders = _tree.RootMenuItem.GetChildMenuItemsRecursive(true)
                 .Where(m => m.ChildMenuItems.Count > 0 && addedAssets.Contains(m)).ToList();
 
             foreach (var folder in folders)
-                folder.Value = new FolderAssetDrawer<StackActionData>(_tree, this, folder, folder.GetFullPath());
+                folder.Value = new FolderAssetDrawer<T>(_tree, this, folder, folder.GetFullPath());
 
             var nonFolderItems = _tree.RootMenuItem.GetChildMenuItemsRecursive(true)
                 .Where(m => addedAssets.Contains(m)).Except(folders);
 
-            foreach (var stackActionItem in nonFolderItems)
+            foreach (var item in nonFolderItems)
             {
-                var path = SCRIPTABLE_OBJECTS_ASSET_PATH + "/" + stackActionItem.GetFullPath() + ".asset";
-                var stackAction = AssetDatabase.LoadAssetAtPath<StackActionData>(path);
+                var path = SCRIPTABLE_OBJECTS_ASSET_PATH + "/" + item.GetFullPath() + ".asset";
+                var asset = AssetDatabase.LoadAssetAtPath<T>(path);
 
-                stackActionItem.Value = new ScriptableObjectAssetDrawer<StackActionData>(_tree, this, stackActionItem,
-                    stackAction, () => !stackAction.Conflict);
+                item.Value =
+                    new ScriptableObjectAssetDrawer<T>(_tree, this, item, asset, validEntryCheck);
             }
-        }
-
-        private void SetupPaletteTreeMenu()
-        {
-            _tree.AddAllAssetsAtPath("Palette", PALETTE_ASSET_PATH,
-                typeof(CardPaletteData), true, false);
         }
 
         private void OnSelectionChanged(SelectionChangedType type)
@@ -219,12 +208,12 @@ namespace SolitaireSettlement
                         ObjectFieldMode = InlineEditorObjectFieldModes.CompletelyHidden)]
             public T ScriptableObject { get; private set; }
 
-            private readonly Func<bool> _validEntryCheck;
+            private readonly Func<T, bool> _validEntryCheck;
 
-            protected bool ValidEntry => _validEntryCheck?.Invoke() ?? true;
+            protected bool ValidEntry => _validEntryCheck?.Invoke(ScriptableObject) ?? true;
 
             public ScriptableObjectAssetDrawer(OdinMenuTree tree, OdinMenuEditorWindow window,
-                OdinMenuItem item, T scriptableObject, Func<bool> validEntryCheck)
+                OdinMenuItem item, T scriptableObject, Func<T, bool> validEntryCheck)
                 : base(tree, window, item)
             {
                 ScriptableObject = scriptableObject;
