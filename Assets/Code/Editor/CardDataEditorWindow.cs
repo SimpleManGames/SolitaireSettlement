@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
@@ -14,6 +12,8 @@ namespace SolitaireSettlement
         private const string CARD_DATA_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Cards";
         private const string PALETTE_ASSET_PATH = CARD_DATA_ASSET_PATH + "/Palette";
 
+        private const string STACK_ACTIONS_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Stack Actions";
+
         private object _previousSelectedObject;
 
         private OdinMenuTree _tree;
@@ -26,7 +26,7 @@ namespace SolitaireSettlement
 
         private void Update()
         {
-            if (_tree.Selection.SelectedValue == null)
+            if (_tree?.Selection.SelectedValue == null)
                 TrySelectMenuItemWithObject(_previousSelectedObject);
         }
 
@@ -40,21 +40,45 @@ namespace SolitaireSettlement
                 }
             };
 
-            _tree.AddAllAssetsAtPath("Cards", CARD_DATA_ASSET_PATH,
+            _tree.Selection.SelectionChanged += OnSelectionChanged;
+
+            SetupCardDataTreeMenu();
+
+            SetupStackActionsTreeMenu();
+
+            SetupPaletteTreeMenu();
+
+            return _tree;
+        }
+
+        private void SetupCardDataTreeMenu()
+        {
+            var addedAssets = _tree.AddAllAssetsAtPath("Cards", CARD_DATA_ASSET_PATH,
                 typeof(CardData), true, false).AddThumbnailIcons();
 
             var folders = _tree.RootMenuItem.GetChildMenuItemsRecursive(true)
-                .Where(m => m.ChildMenuItems.Count > 0);
+                .Where(m => m.ChildMenuItems.Count > 0 && addedAssets.Contains(m));
 
             foreach (var folder in folders)
-                folder.Value = new CardDataFolderUtility(folder.GetFullPath(), _tree, this);
+                folder.Value = new CreateAssetDrawer<CardData>(folder.GetFullPath(), _tree, this);
+        }
 
+        private void SetupStackActionsTreeMenu()
+        {
+            var addedAssets = _tree.AddAllAssetsAtPath("Stack Actions", STACK_ACTIONS_ASSET_PATH,
+                typeof(StackActionData), true, false).AddThumbnailIcons();
+
+            var folders = _tree.RootMenuItem.GetChildMenuItemsRecursive(true)
+                .Where(m => m.ChildMenuItems.Count > 0 && addedAssets.Contains(m));
+
+            foreach (var folder in folders)
+                folder.Value = new CreateAssetDrawer<StackActionData>(folder.GetFullPath(), _tree, this);
+        }
+
+        private void SetupPaletteTreeMenu()
+        {
             _tree.AddAllAssetsAtPath("Palette", PALETTE_ASSET_PATH,
                 typeof(CardPaletteData), true, false);
-
-            _tree.Selection.SelectionChanged += OnSelectionChanged;
-
-            return _tree;
         }
 
         private void OnSelectionChanged(SelectionChangedType type)
@@ -63,7 +87,7 @@ namespace SolitaireSettlement
                 _previousSelectedObject = _tree.Selection.SelectedValue;
         }
 
-        private class CardDataFolderUtility
+        private class CreateAssetDrawer<T> where T : ScriptableObject
         {
             private readonly string _folderPath;
 
@@ -72,20 +96,30 @@ namespace SolitaireSettlement
 
             private string AssetFolderPath => SCRIPTABLE_OBJECTS_ASSET_PATH + "/" + _folderPath;
 
-            private string NewCardDataName => "New Card Data.asset";
+            private static string AssetExtension => ".asset";
 
-            [Button(ButtonSizes.Large)]
-            public void NewCardData()
+            private string NewAssetName => typeof(T).Name;
+
+            private string ButtonName => $"Create New {NewAssetName} at {_folderPath}";
+
+            [Button(ButtonSizes.Large, ButtonStyle.CompactBox, ButtonAlignment = 0.5f, Stretch = false,
+                Name = "$ButtonName")]
+            public void New()
             {
-                var newInstance = CreateInstance<CardData>();
-                AssetDatabase.CreateAsset(newInstance, AssetFolderPath + "/" + NewCardDataName);
+                CreateNewAsset();
+            }
+
+            private void CreateNewAsset()
+            {
+                var newInstance = CreateInstance<T>();
+                AssetDatabase.CreateAsset(newInstance, AssetFolderPath + "/" + NewAssetName + AssetExtension);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 
                 _window.TrySelectMenuItemWithObject(newInstance);
             }
 
-            public CardDataFolderUtility(string folderPath, OdinMenuTree tree, OdinMenuEditorWindow window)
+            public CreateAssetDrawer(string folderPath, OdinMenuTree tree, OdinMenuEditorWindow window)
             {
                 _folderPath = folderPath;
                 _tree = tree;
