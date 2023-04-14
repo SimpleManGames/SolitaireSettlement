@@ -23,22 +23,18 @@ namespace SolitaireSettlement
         public bool Conflict { get; private set; }
 
         [Title("Conflicts"), ShowInInspector, ReadOnly, ShowIf("@this.Conflict")]
-        private List<StackActionData> _conflictedStackActions = new();
+        private List<StackActionData> ConflictedStackActions => CheckConflicts(this, true);
 
         private void OnValidate()
         {
             var path = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(path, Name + " Stack Action");
-
-            foreach (var conflicts in _conflictedStackActions)
-                CheckConflicts(conflicts, false);
-
-            CheckConflicts(this);
         }
 
-        private static void CheckConflicts(StackActionData data, bool checkOther = true)
+        private static List<StackActionData> CheckConflicts(StackActionData data, bool checkOther = true)
         {
-            data._conflictedStackActions.Clear();
+            var results = new List<StackActionData>();
+            data.Conflict = false;
             var otherStackActions = AssetParsingUtility.FindAssetsByType<StackActionData>()
                 .Where(s => data != s).ToList();
 
@@ -49,16 +45,15 @@ namespace SolitaireSettlement
 
                 if (StackActionManager.CheckForFullMatching(otherStack, data.NeededCardsInStack))
                 {
-                    data._conflictedStackActions.Add(otherStack);
+                    results.Add(otherStack);
                     if (checkOther)
                         CheckConflicts(otherStack, false);
 
                     data.Conflict = true;
-                    return;
                 }
             }
 
-            data.Conflict = false;
+            return results;
         }
     }
 }

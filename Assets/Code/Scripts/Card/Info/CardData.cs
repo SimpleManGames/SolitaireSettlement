@@ -4,7 +4,6 @@ using Simplicity.Utility;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 namespace SolitaireSettlement
 {
@@ -33,19 +32,21 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public IStackActionCardUse CardUse { get; set; }
 
-        [ShowInInspector, HorizontalGroup("References", Title = "References"), ReadOnly]
-        private List<StackActionData> _createdByStackAction = new();
+        [ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f), ReadOnly]
+        private List<StackActionData> CreatedByStackAction => CreatedByStackActions();
 
-        [ShowInInspector, HorizontalGroup("References"), ReadOnly]
-        private List<StackActionData> _usedInStackAction = new();
+        [ShowInInspector, HorizontalGroup("References", MaxWidth = 0.5f), ReadOnly]
+        private List<StackActionData> UsedInStackAction => UsedInStackActions();
 
         private void OnValidate()
         {
             var path = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(path, Name + " Card Data");
+        }
 
-            _createdByStackAction.Clear();
-            _usedInStackAction.Clear();
+        private List<StackActionData> CreatedByStackActions()
+        {
+            var results = new List<StackActionData>();
             var addCardResults = AssetParsingUtility.FindAssetsByType<StackActionData>()
                 .Where(s => s.Result != null).Select(data => (data, data.Result)).ToList();
 
@@ -56,12 +57,17 @@ namespace SolitaireSettlement
 
                 if (cast.AddedCardData().Any(c => c.Name == Name))
                 {
-                    _createdByStackAction.Add(kv.data);
+                    results.Add(kv.data);
                     break;
                 }
             }
 
-            _usedInStackAction = AssetParsingUtility.FindAssetsByType<StackActionData>()
+            return results;
+        }
+
+        private List<StackActionData> UsedInStackActions()
+        {
+            return AssetParsingUtility.FindAssetsByType<StackActionData>()
                 .Where(s => s.NeededCardsInStack.Any(c => c.Name == Name)).ToList();
         }
 
