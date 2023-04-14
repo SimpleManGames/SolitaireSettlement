@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: Harvest Berry
+  m_Name: Craft Plank Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 51003c1146e72904aa0a6f76757ce881, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -25,11 +26,13 @@ MonoBehaviour:
       Entry: 7
       Data: 0|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
     - Name: <ProducedCard>k__BackingField
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
+  <Name>k__BackingField: Craft Plank
   <NeededCardsInStack>k__BackingField:
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-  - {fileID: 11400000, guid: 586f19e3cd3cff94b8edeabe6f17810d, type: 2}
+  - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+  - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}

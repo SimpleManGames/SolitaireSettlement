@@ -1818,6 +1818,11 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: ccb0102802475614e82d2f87e55cb2bc, type: 2}
     - {fileID: 11400000, guid: d516f24feeecb4442bbb2bfd2f8d9a75, type: 2}
+    - {fileID: 11400000, guid: 99a06bc645e15db4c9efd850f255a367, type: 2}
+    - {fileID: 11400000, guid: 4c83198f3ad92c34b8e41d10d7183825, type: 2}
+    - {fileID: 11400000, guid: 4f4d3db87fe573c42902b902b24fb679, type: 2}
+    - {fileID: 11400000, guid: 9dadc2f20740d9c4baca8e34139384f2, type: 2}
+    - {fileID: 11400000, guid: 531b56e444097ed4994eb6e38f9a45b5, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -1829,13 +1834,28 @@ MonoBehaviour:
         Assembly-CSharp]], System.Core
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 7
     - Name: 
       Entry: 10
       Data: 0
     - Name: 
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 10
+      Data: 6
     - Name: 
       Entry: 13
       Data: 

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: Harvest Stone
+  m_Name: Craft Block Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
+    - {fileID: 11400000, guid: 479a7789b2a346a49bd585ce0f107967, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -31,6 +31,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <Name>k__BackingField: Craft Block
   <NeededCardsInStack>k__BackingField:
-  - {fileID: 11400000, guid: 7b312887a4fa2de46aca92284145affe, type: 2}
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
+  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
+  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
