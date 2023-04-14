@@ -200,6 +200,15 @@ namespace SolitaireSettlement
                 OdinMenuItem item, string folderPath) : base(tree, window, item)
             {
                 _folderPath = folderPath;
+
+                item.IconGetter += IconGetter;
+            }
+
+            private Texture IconGetter()
+            {
+                return item.Toggled
+                    ? EditorGUIUtility.IconContent("FolderOpened On Icon").image
+                    : EditorGUIUtility.IconContent("Folder On Icon").image;
             }
         }
 
