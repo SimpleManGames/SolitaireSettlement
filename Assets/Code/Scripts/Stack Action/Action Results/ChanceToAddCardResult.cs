@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class AddCardToDeckResult : AddCardResult
+    public class ChanceToAddCardResult : ChanceAddCardResult
     {
         [field: SerializeField]
-        private CardData ProducedCard { get; set; }
+        private CardChance CardChances { get; set; }
 
         public override void OnResult(IEnumerable<Card> relatedCardStack)
         {
-            CreateCardToDeck(ProducedCard, relatedCardStack.ElementAt(0).transform.position);
+            ProcessCardChances(CardChances, relatedCardStack.ElementAt(0).transform.position);
         }
     }
 }
