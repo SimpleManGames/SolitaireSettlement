@@ -5,6 +5,7 @@ using Simplicity.Singleton;
 using Simplicity.Utility.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace SolitaireSettlement
 {
@@ -12,10 +13,6 @@ namespace SolitaireSettlement
     {
         [field: ShowInInspector, ReadOnly]
         private List<CardRuntimeInfo> _cardsInDeck;
-
-        [ShowInInspector, ReadOnly]
-        private List<CardRuntimeInfo> _shuffledCards;
-
         public bool HasCardsInDeck => _cardsInDeck.Count > 0;
 
         public bool HasEnoughCardsForFullDraw => _cardsInDeck.Count > CardsDrawnPerRound;
@@ -43,25 +40,18 @@ namespace SolitaireSettlement
                 .ToList();
         }
 
-        public void Shuffle()
-        {
-            UpdateCardsInDeck();
-            _shuffledCards = _cardsInDeck;
-            _shuffledCards.FisherYatesShuffle();
-        }
-
         public void DrawCards()
         {
             var i = 0;
             while (i < CardsDrawnPerRound)
             {
-                if (_shuffledCards.Count <= 0)
+                if (_cardsInDeck.Count <= 0)
                     break;
 
-                var cardDataToDraw = _shuffledCards[0];
+                var cardDataToDraw = _cardsInDeck[Random.Range(0, _cardsInDeck.Count)];
                 cardDataToDraw.SetCardLocation(CardRuntimeInfo.CardLocation.Hand, true, i * DurationBetweenCardDraw);
                 i++;
-                _shuffledCards.Remove(cardDataToDraw);
+                _cardsInDeck.Remove(cardDataToDraw);
             }
         }
     }
