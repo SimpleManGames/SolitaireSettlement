@@ -59,47 +59,53 @@ namespace SolitaireSettlement
             {
                 // We use the InternalDataReference here since the Cloned version has different values and the compare wouldn't work
                 var currentStackData = currentStack.Cards.Select(c => c.InternalDataReference).ToList();
-
-                foreach (var stackAction in StackActions)
-                {
-                    var containsAllCards = stackAction.NeededCardsInStack.All(stackActionCard =>
-                        currentStackData.Contains(stackActionCard));
-
-                    if (!containsAllCards)
-                        continue;
-
-                    var fullMatched = true;
-                    foreach (var card in stackAction.NeededCardsInStack)
-                    {
-                        var currentStackDataMatchCount = currentStackData.Count(c => c == card);
-                        var stackActionMatchCount = stackAction.NeededCardsInStack.Count(c => c == card);
-
-                        if (currentStackDataMatchCount != stackActionMatchCount)
-                            fullMatched = false;
-                    }
-
-                    if (!fullMatched)
-                        continue;
-
-                    var stackInfo = new RelevantStackActionInfo()
-                    {
-                        stackActionData = stackAction,
-                        involvedCards = currentStack.Cards
-                    };
-
-                    CurrentPossibleStackActions.Add(stackInfo);
-                }
-
-                // Select the stackAction that contains all the cards in currentStack
-                // foreach (var stackAction in from stackAction in StackActions.Where(s =>
-                //              s.NeededCardsInStack.Count == currentStackData.Count())
-                //          let containsAllCards = stackAction.NeededCardsInStack.All(stackActionCard =>
-                //              currentStackData.Contains(stackActionCard))
-                //          where containsAllCards
-                //          select stackAction)
-                // {
-                // }
+                CompareCurrentStackToKnownStackActionsForPossibilities(currentStackData, currentStack);
             }
+        }
+
+        private void CompareCurrentStackToKnownStackActionsForPossibilities(List<CardData> currentStackData,
+            CardStack currentStack)
+        {
+            foreach (var stackAction in StackActions)
+            {
+                if (!CheckForSimilarCards(stackAction, currentStackData))
+                    continue;
+
+                if (!CheckForFullMatching(stackAction, currentStackData))
+                    continue;
+
+                CreateAndAddRelevantStackActionInfo(stackAction, currentStack);
+            }
+        }
+
+        private void CreateAndAddRelevantStackActionInfo(StackActionData stackAction, CardStack currentStack)
+        {
+            var stackInfo = new RelevantStackActionInfo()
+            {
+                stackActionData = stackAction,
+                involvedCards = currentStack.Cards
+            };
+
+            CurrentPossibleStackActions.Add(stackInfo);
+        }
+
+        public static bool CheckForSimilarCards(StackActionData stackAction, List<CardData> currentStackData)
+        {
+            return stackAction.NeededCardsInStack.All(currentStackData.Contains);
+        }
+
+        public static bool CheckForFullMatching(StackActionData stackAction, List<CardData> currentStackData)
+        {
+            foreach (var card in stackAction.NeededCardsInStack)
+            {
+                var currentStackDataMatchCount = currentStackData.Count(c => c == card);
+                var stackActionMatchCount = stackAction.NeededCardsInStack.Count(c => c == card);
+
+                if (currentStackDataMatchCount != stackActionMatchCount)
+                    return false;
+            }
+
+            return true;
         }
 
         public void PreformPossibleStackActions()
