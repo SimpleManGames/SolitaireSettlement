@@ -34,26 +34,8 @@ namespace SolitaireSettlement
             if (MenuTree == null)
                 return;
 
-            // Since the CardData can rename itself through a variable field
-            // We need a way to reselect if the user changes the name
-            // So we store the previous selected with the _tree.Selection.SelectionChanged callback
-            // And we re-find the asset as the Drawer class using the reference to the scriptable object it stores
-            var childMenuRecursive = MenuTree.RootMenuItem.GetChildMenuItemsRecursive(true);
-            var scriptableObjectDrawers = childMenuRecursive.Where(
-                i => i.Value is ScriptableObjectAssetDrawer<CardData>).ToList();
-            if (scriptableObjectDrawers.Count == 0)
-                return;
-
-            var matchingAsset = scriptableObjectDrawers.First(
-                c =>
-                {
-                    var soA = ((ScriptableObjectAssetDrawer<CardData>)c.Value).ScriptableObject;
-                    var soB = ((ScriptableObjectAssetDrawer<CardData>)_previousSelectedObject).ScriptableObject;
-                    return soA == soB;
-                });
-
-            MenuTree.Selection.Clear();
-            matchingAsset.Select();
+            if (_previousSelectedObject is CreateAssetDrawer drawer)
+                drawer.Reselect();
         }
 
         protected override OdinMenuTree BuildMenuTree()
@@ -130,7 +112,7 @@ namespace SolitaireSettlement
                 _previousSelectedObject = _tree.Selection.SelectedValue;
         }
 
-        private class CreateAssetDrawer
+        private abstract class CreateAssetDrawer
         {
             protected OdinMenuTree tree;
             protected readonly OdinMenuEditorWindow window;
@@ -142,6 +124,8 @@ namespace SolitaireSettlement
                 this.window = window;
                 this.item = item;
             }
+
+            public abstract void Reselect();
         }
 
         private class FolderAssetDrawer<T> : CreateAssetDrawer where T : ScriptableObject
@@ -199,6 +183,10 @@ namespace SolitaireSettlement
                     ? EditorGUIUtility.IconContent("FolderOpened On Icon").image
                     : EditorGUIUtility.IconContent("Folder On Icon").image;
             }
+
+            public override void Reselect()
+            {
+            }
         }
 
         [Serializable]
@@ -226,6 +214,30 @@ namespace SolitaireSettlement
                 return ValidEntry
                     ? EditorGUIUtility.IconContent("d_ScriptableObject Icon").image
                     : EditorGUIUtility.IconContent("console.erroricon").image;
+            }
+
+            public override void Reselect()
+            {
+                // Since the ScriptableObjects can rename itself through a variable field
+                // We need a way to reselect if the user changes the name
+                // So we store the previous selected with the _tree.Selection.SelectionChanged callback
+                // And we re-find the asset as the Drawer class using the reference to the scriptable object it stores
+                var childMenuRecursive = window.MenuTree.RootMenuItem.GetChildMenuItemsRecursive(true);
+                var scriptableObjectDrawers = childMenuRecursive.Where(
+                    i => i.Value is ScriptableObjectAssetDrawer<CardData>).ToList();
+                if (scriptableObjectDrawers.Count == 0)
+                    return;
+
+                var matchingAsset = scriptableObjectDrawers.First(
+                    c =>
+                    {
+                        var soA = ((ScriptableObjectAssetDrawer<CardData>)c.Value).ScriptableObject;
+                        var soB = ScriptableObject;
+                        return soA == soB;
+                    });
+
+                window.MenuTree.Selection.Clear();
+                matchingAsset.Select();
             }
 
             public override bool Equals(object obj)
