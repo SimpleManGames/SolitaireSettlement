@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -20,17 +21,17 @@ namespace SolitaireSettlement
         private List<CardStack> CurrentStacks { get; set; }
 
         [field: ShowInInspector, ReadOnly]
-        private List<RelevantStackActionInfo> CurrentPossibleStackActions { get; set; }
+        private HashSet<RelevantStackActionInfo> CurrentPossibleStackActions { get; set; }
 
         private void Awake()
         {
             CurrentStacks = new List<CardStack>();
-            CurrentPossibleStackActions = new List<RelevantStackActionInfo>();
+            CurrentPossibleStackActions = new HashSet<RelevantStackActionInfo>();
         }
 
         public void GatherCurrentStacks()
         {
-            CurrentPossibleStackActions.Clear();
+            CurrentStacks.Clear();
             var cardObjects = FindObjectsOfType<Card>();
             var cardComponents = cardObjects.Select(c => c.GetComponent<Card>());
             var uniqueStacks = new List<CardStack>();
@@ -53,24 +54,51 @@ namespace SolitaireSettlement
 
         public void CheckForPossibleStackActions()
         {
+            CurrentPossibleStackActions.Clear();
             foreach (var currentStack in CurrentStacks)
             {
                 // We use the InternalDataReference here since the Cloned version has different values and the compare wouldn't work
-                var currentStackData = currentStack.Cards.Select(c => c.InternalDataReference);
+                var currentStackData = currentStack.Cards.Select(c => c.InternalDataReference).ToList();
 
-                // Select the stackAction that contains all the cards in currentStack
-                foreach (var stackAction in from stackAction in StackActions
-                         let containsAllCards = stackAction.NeededCardsInStack.All(stackActionCard =>
-                             currentStackData.Contains(stackActionCard))
-                         where containsAllCards
-                         select stackAction)
+                foreach (var stackAction in StackActions)
                 {
-                    CurrentPossibleStackActions.Add(new RelevantStackActionInfo()
+                    var containsAllCards = stackAction.NeededCardsInStack.All(stackActionCard =>
+                        currentStackData.Contains(stackActionCard));
+
+                    if (!containsAllCards)
+                        continue;
+
+                    var fullMatched = true;
+                    foreach (var card in stackAction.NeededCardsInStack)
+                    {
+                        var currentStackDataMatchCount = currentStackData.Count(c => c == card);
+                        var stackActionMatchCount = stackAction.NeededCardsInStack.Count(c => c == card);
+
+                        if (currentStackDataMatchCount != stackActionMatchCount)
+                            fullMatched = false;
+                    }
+
+                    if (!fullMatched)
+                        continue;
+
+                    var stackInfo = new RelevantStackActionInfo()
                     {
                         stackActionData = stackAction,
                         involvedCards = currentStack.Cards
-                    });
+                    };
+
+                    CurrentPossibleStackActions.Add(stackInfo);
                 }
+
+                // Select the stackAction that contains all the cards in currentStack
+                // foreach (var stackAction in from stackAction in StackActions.Where(s =>
+                //              s.NeededCardsInStack.Count == currentStackData.Count())
+                //          let containsAllCards = stackAction.NeededCardsInStack.All(stackActionCard =>
+                //              currentStackData.Contains(stackActionCard))
+                //          where containsAllCards
+                //          select stackAction)
+                // {
+                // }
             }
         }
 
