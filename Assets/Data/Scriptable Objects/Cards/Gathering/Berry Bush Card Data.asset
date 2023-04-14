@@ -15,7 +15,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,6 +28,15 @@ MonoBehaviour:
     - Name: <AmountOfUses>k__BackingField
       Entry: 3
       Data: 2
+    - Name: <ResultAfterUses>k__BackingField
+      Entry: 7
+      Data: 1|SolitaireSettlement.ReplaceCardWithOnUse, Assembly-CSharp
+    - Name: <ReplacementCard>k__BackingField
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
