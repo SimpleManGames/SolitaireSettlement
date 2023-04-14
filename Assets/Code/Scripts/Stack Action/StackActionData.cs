@@ -30,10 +30,13 @@ namespace SolitaireSettlement
             var path = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(path, Name + " Stack Action");
 
-            Conflict = CheckConflicts(this);
+            foreach (var conflicts in _conflictedStackActions)
+                CheckConflicts(conflicts, false);
+
+            CheckConflicts(this);
         }
 
-        private static bool CheckConflicts(StackActionData data)
+        private static void CheckConflicts(StackActionData data, bool checkOther = true)
         {
             data._conflictedStackActions.Clear();
             var otherStackActions = AssetParsingUtility.FindAssetsByType<StackActionData>()
@@ -47,11 +50,15 @@ namespace SolitaireSettlement
                 if (StackActionManager.CheckForFullMatching(otherStack, data.NeededCardsInStack))
                 {
                     data._conflictedStackActions.Add(otherStack);
-                    return true;
+                    if (checkOther)
+                        CheckConflicts(otherStack, false);
+
+                    data.Conflict = true;
+                    return;
                 }
             }
 
-            return false;
+            data.Conflict = false;
         }
     }
 }
