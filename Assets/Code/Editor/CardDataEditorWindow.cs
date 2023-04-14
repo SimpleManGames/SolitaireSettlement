@@ -18,7 +18,7 @@ namespace SolitaireSettlement
 
         private OdinMenuTree _tree;
 
-        [MenuItem("Solitaire Settlement/Card Data Window")]
+        [MenuItem("Solitaire Settlement/Data Window")]
         private static void OpenWindow()
         {
             GetWindow<CardDataEditorWindow>().Show();
@@ -37,6 +37,11 @@ namespace SolitaireSettlement
                 Selection =
                 {
                     SupportsMultiSelect = false
+                },
+                Config =
+                {
+                    DrawSearchToolbar = true,
+                    AutoFocusSearchBar = false
                 }
             };
 
@@ -47,6 +52,8 @@ namespace SolitaireSettlement
             SetupStackActionsTreeMenu();
 
             SetupPaletteTreeMenu();
+
+            _tree.SortMenuItemsByName(true);
 
             return _tree;
         }
@@ -102,9 +109,10 @@ namespace SolitaireSettlement
 
             private string ButtonName => $"Create New {NewAssetName} at {_folderPath}";
 
+
             [Button(ButtonSizes.Large, ButtonStyle.CompactBox, ButtonAlignment = 0.5f, Stretch = false,
                 Name = "$ButtonName")]
-            public void New()
+            public void NewAsset()
             {
                 CreateNewAsset();
             }
