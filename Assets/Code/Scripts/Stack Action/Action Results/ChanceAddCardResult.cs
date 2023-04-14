@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -5,10 +6,10 @@ namespace SolitaireSettlement
 {
     public class ChanceAddCardResult : AddCardResult
     {
-        protected struct CardChance
+        public struct CardChance
         {
             [field: SerializeField, HorizontalGroup("Info"), Required]
-            public CardData ProducedCard { get; set; }
+            public CardData ProducedCard { get; private set; }
 
             [field: SerializeField, HorizontalGroup("Info", 0.2f), Range(0.0f, 1.0f), HideLabel]
             public float Chance { get; set; }
@@ -21,6 +22,11 @@ namespace SolitaireSettlement
 
             CreateCardToDeck(card.ProducedCard, spawnPosition, animateDelay);
             return true;
+        }
+
+        public override List<CardData> AddedCardData()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

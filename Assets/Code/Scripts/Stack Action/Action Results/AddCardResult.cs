@@ -17,5 +17,7 @@ namespace SolitaireSettlement
             CardManager.Instance.CreateNewCardRuntimeInfo(card, CardRuntimeInfo.CardLocation.Deck,
                 true, pos, animationDelay);
         }
+
+        public abstract List<CardData> AddedCardData();
     }
 }

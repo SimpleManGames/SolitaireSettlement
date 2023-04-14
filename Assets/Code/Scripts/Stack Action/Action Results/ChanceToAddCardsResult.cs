@@ -8,7 +8,7 @@ namespace SolitaireSettlement
     public class ChanceToAddCardsResult : ChanceAddCardResult
     {
         [field: SerializeField, TableList]
-        private List<CardChance> Cards { get; set; }
+        public List<CardChance> Cards { get; private set; }
 
         public override void OnResult(IEnumerable<Card> relatedCardStack)
         {
@@ -19,6 +19,11 @@ namespace SolitaireSettlement
                 if (ProcessCardChances(cardChance, position, success * DELAY_BETWEEN_CARD_SPAWNS))
                     success++;
             }
+        }
+
+        public override List<CardData> AddedCardData()
+        {
+            return Cards.Select(c => c.ProducedCard).ToList();
         }
     }
 }

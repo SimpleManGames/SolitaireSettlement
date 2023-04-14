@@ -7,7 +7,7 @@ namespace SolitaireSettlement
     public class AddCardsToDeckResult : AddCardResult
     {
         [field: SerializeField]
-        private CardData[] ProducedCard { get; set; }
+        public CardData[] ProducedCard { get; private set; }
 
         public override void OnResult(IEnumerable<Card> relatedCardStack)
         {
@@ -17,6 +17,11 @@ namespace SolitaireSettlement
                 var card = ProducedCard[i];
                 CreateCardToDeck(card, position, i * DELAY_BETWEEN_CARD_SPAWNS);
             }
+        }
+
+        public override List<CardData> AddedCardData()
+        {
+            return ProducedCard.ToList();
         }
     }
 }
