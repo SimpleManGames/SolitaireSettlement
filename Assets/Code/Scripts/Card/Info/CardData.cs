@@ -29,22 +29,31 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
-        [field: SerializeField, AssetsOnly]
+        [field: SerializeField, AssetsOnly, AssetSelector(DropdownTitle = "Select Card Data")]
         public List<CardData> ValidStackableCards { get; private set; }
 
         [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]
         public IStackActionCardUse CardUse { get; set; }
 
-        [ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f), ReadOnly]
-        private List<StackActionData> CreatedByStackAction => CreatedByStackActions();
+        [field: ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f)]
+        private List<StackActionData> CreatedByStackAction { get; set; }
 
-        [ShowInInspector, HorizontalGroup("References", MaxWidth = 0.5f), ReadOnly]
-        private List<StackActionData> UsedInStackAction => UsedInStackActions();
+        [field: ShowInInspector, HorizontalGroup("References", MaxWidth = 0.5f),
+                InlineButton("RefreshReferences", Label = "", Icon = SdfIconType.ArrowRepeat)]
+        private List<StackActionData> UsedInStackAction { get; set; }
 
         private void OnValidate()
         {
             var path = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(path, Name + " Card Data");
+
+            RefreshReferences();
+        }
+
+        private void RefreshReferences()
+        {
+            CreatedByStackAction = CreatedByStackActions();
+            UsedInStackAction = UsedInStackActions();
         }
 
         private List<StackActionData> CreatedByStackActions()

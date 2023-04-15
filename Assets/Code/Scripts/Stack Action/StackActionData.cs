@@ -13,7 +13,7 @@ namespace SolitaireSettlement
         [field: SerializeField, Delayed]
         private string Name { get; set; }
 
-        [field: SerializeField]
+        [field: SerializeField, AssetSelector(DropdownTitle = "Select Card Data", IsUniqueList = false)]
         public List<CardData> NeededCardsInStack { get; private set; }
 
         [field: SerializeField, Required, HideReferenceObjectPicker]
@@ -21,12 +21,22 @@ namespace SolitaireSettlement
 
         public bool Conflict => _conflictedStackActions.Count > 0 || Results == null || Results.Length == 0;
 
+        private int _lastAmountOfNeededCards = 0;
         private List<StackActionData> _conflictedStackActions;
 
         [Title("Conflicts"), ShowInInspector, ReadOnly, ShowIf("@this.ConflictedStackActions.Count > 0")]
         private List<StackActionData> ConflictedStackActions
         {
-            get { return _conflictedStackActions = CheckConflicts(this, true); }
+            get
+            {
+                if (_lastAmountOfNeededCards != NeededCardsInStack.Count)
+                {
+                    _lastAmountOfNeededCards = NeededCardsInStack.Count;
+                    _conflictedStackActions = CheckConflicts(this, true);
+                }
+
+                return _conflictedStackActions;
+            }
         }
 
         private void OnValidate()
