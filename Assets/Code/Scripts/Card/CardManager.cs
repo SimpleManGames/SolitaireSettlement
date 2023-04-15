@@ -25,6 +25,7 @@ namespace SolitaireSettlement
         private float DurationBetweenCardDiscard { get; set; } = 0.5f;
 
         private readonly Queue<GameObject> _toBeDestroyed = new();
+        private readonly Queue<KeyValuePair<CardData, Card>> _toBeReplaced = new();
 
         private void Start()
         {
@@ -38,6 +39,9 @@ namespace SolitaireSettlement
         {
             while (_toBeDestroyed.TryDequeue(out var destroy) && destroy != null)
                 DeleteCardObject(destroy);
+
+            while (_toBeReplaced.TryDequeue(out var replace) && replace.Value != null)
+                ReplaceCardDatFromRequested(replace.Key, replace.Value);
         }
 
         public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location,
@@ -83,6 +87,17 @@ namespace SolitaireSettlement
                 leftOverCardsOnBoard[i].SetPosition(position);
                 leftOverCardsOnBoard[i].SetCardLocation(CardRuntimeInfo.CardLocation.Discard, true);
             }
+        }
+
+        public void RequestToReplaceCardData(Card actualTargetCard, CardData replacementCard)
+        {
+            _toBeReplaced.Enqueue(new KeyValuePair<CardData, Card>(replacementCard, actualTargetCard));
+        }
+
+
+        private void ReplaceCardDatFromRequested(CardData replacementData, Card card)
+        {
+            card.UpdateCardData(replacementData);
         }
     }
 }
