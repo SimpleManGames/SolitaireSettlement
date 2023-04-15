@@ -27,3 +27,5 @@ MonoBehaviour:
   <Name>k__BackingField: Hut
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 2b570ff481835b44bbd774cc487c91b7, type: 2}
   <CardType>k__BackingField: 2
+  <ValidStackableCards>k__BackingField:
+  - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
