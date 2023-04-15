@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: Harvest Log Stack Action
+  m_Name: Construct House Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+    - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
+    - {fileID: 11400000, guid: 310ef1731f2ba114d810540a612bedb1, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,31 +28,16 @@ MonoBehaviour:
       Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 1|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
+      Data: 1|SolitaireSettlement.ReplaceCardWithResults, Assembly-CSharp
+    - Name: <TargetCard>k__BackingField
       Entry: 10
       Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
-    - Name: <CardChances>k__BackingField
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
+    - Name: <ReplacementCard>k__BackingField
       Entry: 10
-      Data: 0
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 0.4
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -61,7 +47,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <Name>k__BackingField: Harvest Log
+  <Name>k__BackingField: Construct House
   <NeededCardsInStack>k__BackingField:
+  - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-  - {fileID: 11400000, guid: 0138928352434fe4e80d9f4b3737a47f, type: 2}
+  - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+  - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+  - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
+  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
+  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}

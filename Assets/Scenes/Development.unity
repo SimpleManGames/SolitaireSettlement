@@ -2214,8 +2214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DestroyOnLoad>k__BackingField: 0
-  <CardsDrawnPerRound>k__BackingField: 3
-  <DurationBetweenCardDraw>k__BackingField: 0.5
+  <CardsDrawnPerRound>k__BackingField: 7
+  <DurationBetweenCardDraw>k__BackingField: 0.2
   <DeckGameObject>k__BackingField: {fileID: 2098008757}
 --- !u!114 &1836932399
 MonoBehaviour:
