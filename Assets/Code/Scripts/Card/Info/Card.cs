@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -200,19 +202,11 @@ namespace SolitaireSettlement
 
         public static bool CanPlaceCardOnTarget(Card target, Card placing)
         {
-            switch (target.Info.Data.CardType)
-            {
-                case CardData.ECardType.Resource:
-                    return placing.Info.Data.CardType == CardData.ECardType.Resource;
-                case CardData.ECardType.Building:
-                    return placing.Info.Data.CardType == CardData.ECardType.Person;
-                case CardData.ECardType.Person:
-                    return placing.Info.Data.CardType == CardData.ECardType.Resource;
-                case CardData.ECardType.Gathering:
-                    return placing.Info.Data.CardType == CardData.ECardType.Person;
-                default:
-                    return false;
-            }
+            var validCardsOnStack = target.IsInStack
+                ? target.Stack.Cards.SelectMany(c => c.InternalDataReference.ValidStackableCards)
+                : new[] { target.InternalDataReference };
+
+            return validCardsOnStack.Any(c => placing.InternalDataReference);
         }
     }
 }
