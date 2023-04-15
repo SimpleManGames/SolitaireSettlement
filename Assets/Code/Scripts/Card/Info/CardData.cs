@@ -29,6 +29,9 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
+        [field: SerializeField, AssetsOnly]
+        public HashSet<CardData> ValidStackableCards { get; private set; }
+
         [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]
         public IStackActionCardUse CardUse { get; set; }
 
