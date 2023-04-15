@@ -1,8 +1,6 @@
 using System;
-using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace SolitaireSettlement
 {
