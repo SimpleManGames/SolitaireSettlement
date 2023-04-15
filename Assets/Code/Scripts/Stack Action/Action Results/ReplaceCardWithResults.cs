@@ -15,8 +15,8 @@ namespace SolitaireSettlement
 
         public virtual void OnResult(IEnumerable<Card> relatedCardStack)
         {
-            var actualTargetCard = relatedCardStack.First(c => c.Info.Data == TargetCard);
-            actualTargetCard.UpdateCardData(ReplacementCard);
+            var actualTargetCard = relatedCardStack.First(c => c.InternalDataReference == TargetCard);
+            CardManager.Instance.RequestToReplaceCardData(actualTargetCard, ReplacementCard);
         }
     }
 }

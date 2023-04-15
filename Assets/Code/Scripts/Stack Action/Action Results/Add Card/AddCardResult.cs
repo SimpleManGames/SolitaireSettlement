@@ -9,6 +9,7 @@ namespace SolitaireSettlement
 
         public virtual void OnResult(IEnumerable<Card> relatedCardStack)
         {
+
         }
 
         protected static void CreateCardToDeck(CardData card, Vector3 spawnPosition, float animationDelay = 0.0f)

@@ -94,7 +94,6 @@ namespace SolitaireSettlement
             _toBeReplaced.Enqueue(new KeyValuePair<CardData, Card>(replacementCard, actualTargetCard));
         }
 
-
         private void ReplaceCardDatFromRequested(CardData replacementData, Card card)
         {
             card.UpdateCardData(replacementData);

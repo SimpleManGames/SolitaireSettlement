@@ -203,10 +203,11 @@ namespace SolitaireSettlement
         public static bool CanPlaceCardOnTarget(Card target, Card placing)
         {
             var validCardsOnStack = target.IsInStack
-                ? target.Stack.Cards.SelectMany(c => c.InternalDataReference.ValidStackableCards)
-                : new[] { target.InternalDataReference };
+                ? target.Stack.Cards.SelectMany(c =>
+                    c.InternalDataReference.ValidStackableCards)
+                : target.InternalDataReference.ValidStackableCards;
 
-            return validCardsOnStack.Any(c => placing.InternalDataReference);
+            return validCardsOnStack.Any(c => c == placing.InternalDataReference);
         }
     }
 }
