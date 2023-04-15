@@ -27,3 +27,4 @@ MonoBehaviour:
   <Name>k__BackingField: Person
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 982ebd69dc8ac20479a5d967fe0e53fe, type: 2}
   <CardType>k__BackingField: 0
+  <ValidStackableCards>k__BackingField: []
