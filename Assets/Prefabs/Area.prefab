@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: 886bc85761db83b4c9a9e79e75ff40bb, type: 2}
+  <ShownGameObject>k__BackingField: {fileID: 1104891487415016928}
 --- !u!114 &1104891488343415613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 2754591137482393890, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
     - target: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_Name
-      value: Card 2
+      value: Card
       objectReference: {fileID: 0}
     - target: {fileID: 3066733035232729278, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_Pivot.x
@@ -383,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 2754591137482393890, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
     - target: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_Name
-      value: Card 3
+      value: Card
       objectReference: {fileID: 0}
     - target: {fileID: 3066733035232729278, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_Pivot.x
@@ -505,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 2754591137482393890, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
     - target: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_Name
-      value: Card 4
+      value: Card
       objectReference: {fileID: 0}
     - target: {fileID: 3066733035232729278, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_Pivot.x

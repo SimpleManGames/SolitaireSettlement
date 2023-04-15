@@ -15,23 +15,71 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 0138928352434fe4e80d9f4b3737a47f, type: 2}
+    - {fileID: 11400000, guid: 7b312887a4fa2de46aca92284145affe, type: 2}
+    - {fileID: 11400000, guid: 586f19e3cd3cff94b8edeabe6f17810d, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <ValidCardDataInArea>k__BackingField
+    - Name: <PossibleCardSpawnsInArea>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.HashSet`1[[SolitaireSettlement.CardData,
-        Assembly-CSharp]], System.Core
+      Data: 0|System.Collections.Generic.List`1[[SolitaireSettlement.AreaData+CardDataSpawnChance,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.AreaData+CardDataSpawnChance, Assembly-CSharp
+    - Name: card
+      Entry: 10
       Data: 0
+    - Name: weight
+      Entry: 4
+      Data: 80
+    - Name: guaranteedOne
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.AreaData+CardDataSpawnChance, Assembly-CSharp
+    - Name: card
+      Entry: 10
+      Data: 1
+    - Name: weight
+      Entry: 4
+      Data: 50
+    - Name: guaranteedOne
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.AreaData+CardDataSpawnChance, Assembly-CSharp
+    - Name: card
+      Entry: 10
+      Data: 2
+    - Name: weight
+      Entry: 4
+      Data: 30
+    - Name: guaranteedOne
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  <MaxCardCount>k__BackingField: 4
+  <MaxCardCount>k__BackingField: 6

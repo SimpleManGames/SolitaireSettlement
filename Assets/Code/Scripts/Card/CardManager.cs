@@ -21,6 +21,12 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public Camera GameCamera { get; private set; }
 
+        [field: SerializeField, AssetsOnly]
+        public GameObject CardPrefab { get; private set; }
+
+        [field: SerializeField, AssetsOnly]
+        public CardData EmptyPlotCard { get; private set; }
+
         [field: SerializeField]
         private float DurationBetweenCardDiscard { get; set; } = 0.5f;
 

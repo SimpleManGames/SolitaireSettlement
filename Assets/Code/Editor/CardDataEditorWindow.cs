@@ -11,6 +11,7 @@ namespace SolitaireSettlement
     public class CardDataEditorWindow : OdinMenuEditorWindow
     {
         private const string SCRIPTABLE_OBJECTS_ASSET_PATH = "Assets/Data/Scriptable Objects";
+        private const string AREA_DATA_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Areas";
         private const string CARD_DATA_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Cards";
         private const string PALETTE_ASSET_PATH = CARD_DATA_ASSET_PATH + "/Palette";
 
@@ -55,6 +56,8 @@ namespace SolitaireSettlement
 
             _tree.Selection.SelectionChanged += OnSelectionChanged;
 
+            SetupAreaDataTreeMenu();
+            
             SetupCardDataTreeMenu();
 
             SetupStackActionsTreeMenu();
@@ -66,6 +69,11 @@ namespace SolitaireSettlement
             return _tree;
         }
 
+        private void SetupAreaDataTreeMenu()
+        {
+            SetupTreeMenu<AreaData>("Areas", AREA_DATA_ASSET_PATH, null);
+        }
+        
         private void SetupCardDataTreeMenu()
         {
             SetupTreeMenu<CardData>("Cards", CARD_DATA_ASSET_PATH, null);

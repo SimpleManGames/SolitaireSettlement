@@ -1816,6 +1816,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 0fe6f74929c56fc4094b6e7745458933, type: 2}
     - {fileID: 11400000, guid: 9dadc2f20740d9c4baca8e34139384f2, type: 2}
     - {fileID: 11400000, guid: 4f4d3db87fe573c42902b902b24fb679, type: 2}
     - {fileID: 11400000, guid: 531b56e444097ed4994eb6e38f9a45b5, type: 2}
@@ -1838,7 +1839,7 @@ MonoBehaviour:
         Assembly-CSharp]], System.Core
     - Name: 
       Entry: 12
-      Data: 11
+      Data: 12
     - Name: 
       Entry: 10
       Data: 0
@@ -1872,6 +1873,9 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 10
+    - Name: 
+      Entry: 10
+      Data: 11
     - Name: 
       Entry: 13
       Data: 
@@ -2166,6 +2170,8 @@ MonoBehaviour:
   <GameAreaCanvas>k__BackingField: {fileID: 1513576520}
   <ScreenSpaceCanvas>k__BackingField: {fileID: 223687256}
   <GameCamera>k__BackingField: {fileID: 519420031}
+  <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+  <EmptyPlotCard>k__BackingField: {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
   <DurationBetweenCardDiscard>k__BackingField: 0.5
 --- !u!1 &1836932396
 GameObject:
@@ -2614,11 +2620,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1104891488343415603, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1104891488343415603, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 11.92
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1104891488343415603, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
