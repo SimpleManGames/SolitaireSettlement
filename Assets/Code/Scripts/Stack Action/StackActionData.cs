@@ -19,33 +19,25 @@ namespace SolitaireSettlement
         [field: SerializeField, Required, HideReferenceObjectPicker]
         public IStackActionResult[] Results { get; private set; }
 
-        public bool Conflict => _conflictedStackActions.Count > 0 || Results == null || Results.Length == 0;
+        public bool Conflict => ConflictedStackActions?.Count > 0 || Results?.Length == 0;
 
         private int _lastAmountOfNeededCards = 0;
-        private List<StackActionData> _conflictedStackActions;
 
-        [Title("Conflicts"), ShowInInspector, ReadOnly, ShowIf("@this.ConflictedStackActions.Count > 0")]
-        private List<StackActionData> ConflictedStackActions
-        {
-            get
-            {
-                if (_lastAmountOfNeededCards != NeededCardsInStack.Count)
-                {
-                    _lastAmountOfNeededCards = NeededCardsInStack.Count;
-                    _conflictedStackActions = CheckConflicts(this, true);
-                }
-
-                return _conflictedStackActions;
-            }
-        }
+        [Title("Conflicts"), ShowInInspector, ShowIf("@this.ConflictedStackActions.Count > 0"),
+         InlineButton("CheckConflicts", Label = "", Icon = SdfIconType.ArrowRepeat),
+         ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true,
+             IsReadOnly = true)]
+        private List<StackActionData> ConflictedStackActions { get; set; }
 
         private void OnValidate()
         {
             var path = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(path, Name + " Stack Action");
+
+            CheckConflicts();
         }
 
-        private static List<StackActionData> CheckConflicts(StackActionData data, bool checkOther = true)
+        private static List<StackActionData> GetConflicts(StackActionData data, bool checkOther = true)
         {
             var results = new List<StackActionData>();
             var otherStackActions = AssetParsingUtility.FindAssetsByType<StackActionData, List<StackActionData>>()
@@ -60,11 +52,22 @@ namespace SolitaireSettlement
                 {
                     results.Add(otherStack);
                     if (checkOther)
-                        CheckConflicts(otherStack, false);
+                        otherStack.CheckConflicts(true);
                 }
             }
 
             return results;
+        }
+
+        private void CheckConflicts(bool calledFromOther = false)
+        {
+            _lastAmountOfNeededCards = -1;
+
+            if (_lastAmountOfNeededCards != NeededCardsInStack.Count)
+            {
+                _lastAmountOfNeededCards = NeededCardsInStack.Count;
+                ConflictedStackActions = GetConflicts(this, !calledFromOther);
+            }
         }
     }
 }
