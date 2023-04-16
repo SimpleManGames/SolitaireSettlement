@@ -35,10 +35,14 @@ namespace SolitaireSettlement
         [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]
         public IStackActionCardUse CardUse { get; set; }
 
-        [field: ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f)]
+        [field: ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f),
+                ListDrawerSettings(Expanded = true, HideAddButton = true, HideRemoveButton = true,
+                    DraggableItems = false, IsReadOnly = true)]
         private List<StackActionData> CreatedByStackAction { get; set; }
 
         [field: ShowInInspector, HorizontalGroup("References", MaxWidth = 0.5f),
+                ListDrawerSettings(Expanded = true, HideAddButton = true, HideRemoveButton = true,
+                    DraggableItems = false, IsReadOnly = true),
                 InlineButton("RefreshReferences", Label = "", Icon = SdfIconType.ArrowRepeat)]
         private List<StackActionData> UsedInStackAction { get; set; }
 
