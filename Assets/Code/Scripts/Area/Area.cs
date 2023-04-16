@@ -39,11 +39,17 @@ namespace SolitaireSettlement
             if (areaSpawnedCards.Count != _cardObjectsInArea.Count)
                 Debug.LogError("Area Spawned Cards returned to many cards to fit in Area!");
 
+            var areaRectTransform = GetComponent<RectTransform>();
+            
             for (var i = 0; i < _cardObjectsInArea.Count; i++)
             {
                 var card = _cardObjectsInArea[i];
                 card.UpdateCardData(areaSpawnedCards[i]);
                 card.Area = this;
+                var rectTransform = card.GetComponent<RectTransform>();
+                card.transform.position = rectTransform.RandomPointWithinRectBounds();
+
+                rectTransform.ClampWithin(areaRectTransform);
             }
         }
 

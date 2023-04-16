@@ -4,6 +4,14 @@ namespace Simplicity.UI
 {
     public static class RectTransformExtensions
     {
+        public static Vector3 RandomPointWithinRectBounds(this RectTransform rect)
+        {
+            var bounds = rect.Bounds();
+            return new Vector3(Random.Range(bounds.min.x, bounds.max.x),
+                Random.Range(bounds.min.y, bounds.max.y),
+                Random.Range(bounds.min.z, bounds.max.z));
+        }
+
         public static void ClampWithin(this RectTransform a, RectTransform b)
         {
             var aBounds = a.Bounds();
