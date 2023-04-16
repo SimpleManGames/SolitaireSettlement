@@ -1,14 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace SolitaireSettlement
 {
-    [CreateAssetMenu(menuName = "Solitaire Settlement/Area Data", fileName = "Area Data")]
+    [CreateAssetMenu(menuName = "Solitaire Settlement/Area Data", fileName = "Area Data"), System.Serializable]
     public class AreaData : SerializedScriptableObject
     {
+        [field: SerializeField, Delayed]
+        public string Name { get; private set; }
+
+        [field: SerializeField]
+        public Color Color { get; private set; }
+
         public struct CardDataSpawnChance
         {
             [AssetSelector, HorizontalGroup, HideLabel]
@@ -62,6 +69,12 @@ namespace SolitaireSettlement
             }
 
             return null;
+        }
+
+        private void OnValidate()
+        {
+            var path = AssetDatabase.GetAssetPath(GetInstanceID());
+            AssetDatabase.RenameAsset(path, Name + " Area Data");
         }
     }
 }

@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SolitaireSettlement
 {
@@ -14,6 +15,9 @@ namespace SolitaireSettlement
 
         [field: SerializeField, ChildGameObjectsOnly]
         private GameObject RevealedArea { get; set; }
+
+        [field: SerializeField, Range(0, 1)]
+        private float ColorReductionPercent { get; set; } = 0.1f;
 
         private void Start()
         {
@@ -35,6 +39,19 @@ namespace SolitaireSettlement
             RevealedArea.SetActive(true);
 
             Area.OnRevealed();
+        }
+
+        public void SetAreaDataColor(Color color)
+        {
+            var percentageColor = new Color(color.r * ColorReductionPercent, color.g * ColorReductionPercent,
+                color.b * ColorReductionPercent);
+
+            var hiddenImage = HiddenArea.GetComponent<Image>();
+            var reducedColor = color - percentageColor;
+            hiddenImage.color = new Color(reducedColor.r, reducedColor.g, reducedColor.b, 1.0f);
+
+            var shownImage = RevealedArea.GetComponent<Image>();
+            shownImage.color = color;
         }
     }
 }

@@ -225,6 +225,7 @@ MonoBehaviour:
   <Area>k__BackingField: {fileID: 1104891488343415612}
   <HiddenArea>k__BackingField: {fileID: 1104891486855645668}
   <RevealedArea>k__BackingField: {fileID: 1104891487415016928}
+  <ColorReductionPercent>k__BackingField: 0.5
 --- !u!114 &1104891488343415602
 MonoBehaviour:
   m_ObjectHideFlags: 0

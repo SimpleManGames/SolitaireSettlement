@@ -24,7 +24,25 @@ namespace SolitaireSettlement
         [field: ShowInInspector]
         public bool Revealed { get; set; } = false;
 
+        private AreaVisual _areaVisual;
+
         private void OnEnable()
+        {
+            _areaVisual = GetComponent<AreaVisual>();
+
+            // SetupAreaData();
+        }
+
+        private void SetupAreaData()
+        {
+            CreateInitialCardsBasedOnAreaData();
+
+            DetermineSpawnedCardsBasedOnAreaData();
+
+            ApplyAreaDataVisuals();
+        }
+
+        private void CreateInitialCardsBasedOnAreaData()
         {
             _cardObjectsInArea = ShownGameObject.transform.GetComponentsInChildren<Card>().ToList();
             var initialCardObjectCount = _cardObjectsInArea.Count;
@@ -34,14 +52,23 @@ namespace SolitaireSettlement
                 var newCardObject = Instantiate(CardManager.Instance.CardPrefab, ShownGameObject.transform);
                 _cardObjectsInArea.Add(newCardObject.GetComponent<Card>());
             }
+        }
 
+        private void DetermineSpawnedCardsBasedOnAreaData()
+        {
             var areaSpawnedCards = Data.GetSpawnedCards(true);
-            if (areaSpawnedCards.Count != _cardObjectsInArea.Count)
-                Debug.LogError("Area Spawned Cards returned to many cards to fit in Area!");
+            if (areaSpawnedCards.Count == 0)
+            {
+                Debug.LogError($"AreaData, {Data.Name}, Spawned Cards failed to determine what cards to spawn!");
+                return;
+            }
+
+            if (areaSpawnedCards.Count > _cardObjectsInArea.Count)
+                Debug.LogError($"AreaData, {Data.Name}, Spawned Cards returned to many cards to fit in Area!");
 
             var areaRectTransform = GetComponent<RectTransform>();
-            
-            for (var i = 0; i < _cardObjectsInArea.Count; i++)
+
+            for (var i = 0; i < areaSpawnedCards.Count; i++)
             {
                 var card = _cardObjectsInArea[i];
                 card.UpdateCardData(areaSpawnedCards[i]);
@@ -53,11 +80,22 @@ namespace SolitaireSettlement
             }
         }
 
+        private void ApplyAreaDataVisuals()
+        {
+            _areaVisual.SetAreaDataColor(Data.Color);
+        }
+
         private void Update()
         {
             // This shouldn't be called every frame. Only should happen when dropping a card
             // Could use an event for it.
             ShouldRevealAfterPlanning = AnyPersonCardOverlapping();
+        }
+
+        public void SetAreaData(AreaData data)
+        {
+            Data = data;
+            SetupAreaData();
         }
 
         public void OnRevealed()

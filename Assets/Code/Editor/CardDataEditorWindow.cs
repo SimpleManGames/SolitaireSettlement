@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Simplicity.GameEvent;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -57,7 +58,7 @@ namespace SolitaireSettlement
             _tree.Selection.SelectionChanged += OnSelectionChanged;
 
             SetupAreaDataTreeMenu();
-            
+
             SetupCardDataTreeMenu();
 
             SetupStackActionsTreeMenu();
@@ -73,7 +74,7 @@ namespace SolitaireSettlement
         {
             SetupTreeMenu<AreaData>("Areas", AREA_DATA_ASSET_PATH, null);
         }
-        
+
         private void SetupCardDataTreeMenu()
         {
             SetupTreeMenu<CardData>("Cards", CARD_DATA_ASSET_PATH, null);
