@@ -72,6 +72,74 @@ namespace SolitaireSettlement
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Camera Controls"",
+            ""id"": ""454dfe6c-3227-4896-9b23-38782bf8774a"",
+            ""actions"": [
+                {
+                    ""name"": ""Pan"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""11e84537-3494-46c2-ab1c-40cfd15adb59"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""abf83c65-df77-49ba-a689-86f7806877c6"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba6b71b1-9647-48d8-9242-bb40237e195d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""17f16dd5-fc72-4aef-b554-4dbbd22b2a36"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80e8dd02-d5c2-4d91-9cc1-5e2770283311"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""groups"": ""Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56c39a1a-adef-4ada-8696-bdf075eecc65"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse"",
+                    ""action"": ""Drag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -92,6 +160,11 @@ namespace SolitaireSettlement
             m_Interactions = asset.FindActionMap("Interactions", throwIfNotFound: true);
             m_Interactions_Press = m_Interactions.FindAction("Press", throwIfNotFound: true);
             m_Interactions_InteractionPoint = m_Interactions.FindAction("Interaction Point", throwIfNotFound: true);
+            // Camera Controls
+            m_CameraControls = asset.FindActionMap("Camera Controls", throwIfNotFound: true);
+            m_CameraControls_Pan = m_CameraControls.FindAction("Pan", throwIfNotFound: true);
+            m_CameraControls_Zoom = m_CameraControls.FindAction("Zoom", throwIfNotFound: true);
+            m_CameraControls_Drag = m_CameraControls.FindAction("Drag", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -203,6 +276,68 @@ namespace SolitaireSettlement
             }
         }
         public InteractionsActions @Interactions => new InteractionsActions(this);
+
+        // Camera Controls
+        private readonly InputActionMap m_CameraControls;
+        private List<ICameraControlsActions> m_CameraControlsActionsCallbackInterfaces = new List<ICameraControlsActions>();
+        private readonly InputAction m_CameraControls_Pan;
+        private readonly InputAction m_CameraControls_Zoom;
+        private readonly InputAction m_CameraControls_Drag;
+        public struct CameraControlsActions
+        {
+            private @GameInputs m_Wrapper;
+            public CameraControlsActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Pan => m_Wrapper.m_CameraControls_Pan;
+            public InputAction @Zoom => m_Wrapper.m_CameraControls_Zoom;
+            public InputAction @Drag => m_Wrapper.m_CameraControls_Drag;
+            public InputActionMap Get() { return m_Wrapper.m_CameraControls; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CameraControlsActions set) { return set.Get(); }
+            public void AddCallbacks(ICameraControlsActions instance)
+            {
+                if (instance == null || m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Add(instance);
+                @Pan.started += instance.OnPan;
+                @Pan.performed += instance.OnPan;
+                @Pan.canceled += instance.OnPan;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
+                @Drag.started += instance.OnDrag;
+                @Drag.performed += instance.OnDrag;
+                @Drag.canceled += instance.OnDrag;
+            }
+
+            private void UnregisterCallbacks(ICameraControlsActions instance)
+            {
+                @Pan.started -= instance.OnPan;
+                @Pan.performed -= instance.OnPan;
+                @Pan.canceled -= instance.OnPan;
+                @Zoom.started -= instance.OnZoom;
+                @Zoom.performed -= instance.OnZoom;
+                @Zoom.canceled -= instance.OnZoom;
+                @Drag.started -= instance.OnDrag;
+                @Drag.performed -= instance.OnDrag;
+                @Drag.canceled -= instance.OnDrag;
+            }
+
+            public void RemoveCallbacks(ICameraControlsActions instance)
+            {
+                if (m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ICameraControlsActions instance)
+            {
+                foreach (var item in m_Wrapper.m_CameraControlsActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public CameraControlsActions @CameraControls => new CameraControlsActions(this);
         private int m_MouseSchemeIndex = -1;
         public InputControlScheme MouseScheme
         {
@@ -216,6 +351,12 @@ namespace SolitaireSettlement
         {
             void OnPress(InputAction.CallbackContext context);
             void OnInteractionPoint(InputAction.CallbackContext context);
+        }
+        public interface ICameraControlsActions
+        {
+            void OnPan(InputAction.CallbackContext context);
+            void OnZoom(InputAction.CallbackContext context);
+            void OnDrag(InputAction.CallbackContext context);
         }
     }
 }

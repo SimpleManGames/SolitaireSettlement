@@ -154,6 +154,9 @@ namespace SolitaireSettlement
 
         private void UpdateVisualizer()
         {
+            if (_visualizer == null || _visualizerMeshRenderer == null)
+                return;
+
             _visualizerMeshRenderer.sharedMaterial.mainTexture = _noiseTexture;
             _visualizer.transform.localScale = new Vector3(MapWidth, MapHeight, 1.0f);
         }
@@ -190,12 +193,6 @@ namespace SolitaireSettlement
 
         private void OnValidate()
         {
-            if (transform.childCount > 0)
-            {
-                _visualizer = transform.GetChild(0).gameObject;
-                _visualizerMeshRenderer = _visualizer.GetComponent<MeshRenderer>();
-            }
-
             if (AutoUpdate)
                 GenerateRegions(GenerateNoise());
         }
