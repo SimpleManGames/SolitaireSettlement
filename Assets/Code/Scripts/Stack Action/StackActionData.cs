@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor.Drawers;
+using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,7 +15,9 @@ namespace SolitaireSettlement
         [field: SerializeField, Delayed]
         private string Name { get; set; }
 
-        [field: SerializeField, AssetSelector(DropdownTitle = "Select Card Data", IsUniqueList = false)]
+        [field: SerializeField, AssetSelector(DropdownTitle = "Select Card Data", IsUniqueList = false),
+                ListDrawerSettings(Expanded = true, OnBeginListElementGUI = "NeededCardsInStackListBeginGUI",
+                    OnEndListElementGUI = "NeededCardsInStackListEndGUI")]
         public List<CardData> NeededCardsInStack { get; private set; }
 
         [field: SerializeField, Required, HideReferenceObjectPicker]
@@ -67,6 +71,28 @@ namespace SolitaireSettlement
             {
                 _lastAmountOfNeededCards = NeededCardsInStack.Count;
                 ConflictedStackActions = GetConflicts(this, !calledFromOther);
+            }
+        }
+
+        private void NeededCardsInStackListBeginGUI(int index)
+        {
+        }
+
+        private void NeededCardsInStackListEndGUI(int index)
+        {
+            var buttonCardData = NeededCardsInStack.ElementAt(index);
+            foreach (var needed in NeededCardsInStack.Except(new[] { buttonCardData }))
+            {
+                if (buttonCardData.ValidStackableCards.Contains(needed))
+                    continue;
+
+                SirenixEditorGUI.WarningMessageBox(
+                    $"{buttonCardData.Name}'s Valid Cards doesn't contain {needed.Name}");
+                if (!SirenixEditorGUI.IconButton(EditorIcons.Plus))
+                    continue;
+
+                if (!buttonCardData.ValidStackableCards.Contains(needed))
+                    buttonCardData.ValidStackableCards.Add(needed);
             }
         }
     }

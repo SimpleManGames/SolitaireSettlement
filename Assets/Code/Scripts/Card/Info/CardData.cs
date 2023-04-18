@@ -34,7 +34,7 @@ namespace SolitaireSettlement
         [field: SerializeField, AssetsOnly, AssetSelector(DropdownTitle = "Select Card Data"),
                 ListDrawerSettings(OnTitleBarGUI = "ValidStackableCardItemSyncAllGUI",
                     OnBeginListElementGUI = "ValidStackableCardElementBeginGUI",
-                    OnEndListElementGUI = "ValidStackableCardElementEndGUI")]
+                    OnEndListElementGUI = "ValidStackableCardElementEndGUI", Expanded = true)]
         public List<CardData> ValidStackableCards { get; private set; }
 
         [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]

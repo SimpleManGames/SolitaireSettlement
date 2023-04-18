@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
@@ -97,6 +96,9 @@ namespace SolitaireSettlement
 
         public static bool CheckForFullMatching(StackActionData stackAction, List<CardData> currentStackData)
         {
+            if (currentStackData.Count != stackAction.NeededCardsInStack.Count)
+                return false;
+            
             foreach (var card in stackAction.NeededCardsInStack)
             {
                 var currentStackDataMatchCount = currentStackData.Count(c => c == card);
