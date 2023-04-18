@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Singleton;
@@ -9,9 +8,11 @@ namespace SolitaireSettlement
 {
     public class CardManager : Singleton<CardManager>
     {
+        [field: Title("Data")]
         [field: SerializeField, ReadOnly]
         public List<CardRuntimeInfo> AllCardsInfo { get; private set; }
 
+        [field: Title("Scene References")]
         [field: SerializeField]
         public GameObject GameAreaCanvas { get; private set; }
 
@@ -21,6 +22,7 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public Camera GameCamera { get; private set; }
 
+        [field: Title("Prefabs")]
         [field: SerializeField, AssetsOnly]
         public GameObject CardPrefab { get; private set; }
 
@@ -103,6 +105,20 @@ namespace SolitaireSettlement
         private void ReplaceCardDatFromRequested(CardData replacementData, Card card)
         {
             card.UpdateCardData(replacementData);
+        }
+
+        public void ProgressCardData()
+        {
+            var possibleCardProgress = AllCardsInfo.Where(r => r.Data.OnTurnProgress != null);
+            var correctLocationCardProgress =
+                possibleCardProgress.Where(r => r.Location == CardRuntimeInfo.CardLocation.GameBoard);
+
+            foreach (var card in correctLocationCardProgress)
+            {
+                var cardObject = card.RelatedGameObject.GetComponent<Card>();
+                foreach (var progress in card.Data.OnTurnProgress)
+                    progress.Progress(cardObject);
+            }
         }
     }
 }

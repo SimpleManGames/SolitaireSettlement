@@ -31,13 +31,22 @@ namespace SolitaireSettlement
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private TextMeshProUGUI NameText { get; set; }
 
+        [field: SerializeField, ChildGameObjectsOnly, Required]
+        private TextMeshProUGUI HungerText { get; set; }
+
         public void UpdateCardVisuals(CardData data)
         {
             Palette = data.ColorPalette;
             NameText.text = data.Name;
             gameObject.name = data.Name;
 
+            UpdateDynamicTextFields(data);
             SetVisuals();
+        }
+
+        public void UpdateDynamicTextFields(CardData data)
+        {
+            UpdateHungerText(data);
         }
 
         private void SetVisuals()
@@ -49,6 +58,14 @@ namespace SolitaireSettlement
             SetGraphicColor(NameUnderlineImage, Palette.BorderColor);
 
             SetGraphicColor(NameText, Palette.NameColor);
+        }
+
+        private void UpdateHungerText(CardData data)
+        {
+            if (data.CardUse is PersonHungerCardUse hungerCardUse)
+                HungerText.text = $"{hungerCardUse.CurrentHunger}/{hungerCardUse.HungerCap}";
+            else
+                HungerText.text = "";
         }
 
         private static void SetGraphicColor(Graphic image, Color color)

@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2411471f6c0a22645b902fe0866aa401, type: 3}
-  m_Name: Forest Area Data
+  m_Name: Starting Area Area Data
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 0138928352434fe4e80d9f4b3737a47f, type: 2}
-    - {fileID: 11400000, guid: 7b312887a4fa2de46aca92284145affe, type: 2}
     - {fileID: 11400000, guid: 586f19e3cd3cff94b8edeabe6f17810d, type: 2}
+    - {fileID: 11400000, guid: 7b312887a4fa2de46aca92284145affe, type: 2}
+    - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -30,7 +31,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: SolitaireSettlement.AreaData+CardDataSpawnChance, Assembly-CSharp
@@ -39,7 +40,7 @@ MonoBehaviour:
       Data: 0
     - Name: weight
       Entry: 4
-      Data: 100
+      Data: 0
     - Name: guaranteedOne
       Entry: 5
       Data: true
@@ -54,10 +55,10 @@ MonoBehaviour:
       Data: 1
     - Name: weight
       Entry: 4
-      Data: 40
+      Data: 0
     - Name: guaranteedOne
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -69,10 +70,25 @@ MonoBehaviour:
       Data: 2
     - Name: weight
       Entry: 4
-      Data: 60
+      Data: 0
     - Name: guaranteedOne
       Entry: 5
-      Data: false
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.AreaData+CardDataSpawnChance, Assembly-CSharp
+    - Name: card
+      Entry: 10
+      Data: 3
+    - Name: weight
+      Entry: 4
+      Data: 0
+    - Name: guaranteedOne
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -82,6 +98,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <Name>k__BackingField: Forest
-  <Color>k__BackingField: {r: 0.17301531, g: 0.4528302, b: 0.20917606, a: 1}
+  <Name>k__BackingField: Starting Area
+  <Color>k__BackingField: {r: 0.17254902, g: 0.4509804, b: 0.20784314, a: 1}
   <MaxCardCount>k__BackingField: 4

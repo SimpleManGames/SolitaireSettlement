@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ec9af6a283c3f4e8bd53136d9f5d47, type: 3}
-  m_Name: Carrot Card Data
+  m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
+  m_Name: Eat Berry Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,17 +21,28 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: <CardUse>k__BackingField
+    - Name: <Results>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.DestroyOnCardUse, Assembly-CSharp
+      Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|SolitaireSettlement.IncreasePersonHunger, Assembly-CSharp
+    - Name: <IncreaseHungerAmount>k__BackingField
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
-    - Name: <OnTurnProgress>k__BackingField
-      Entry: 6
+    - Name: 
+      Entry: 13
       Data: 
-  <Name>k__BackingField: Carrot
-  <ColorPalette>k__BackingField: {fileID: 11400000, guid: 1ef65f7aec3f91c46bc235b941424692, type: 2}
-  <CardType>k__BackingField: 4
-  <ValidStackableCards>k__BackingField:
+    - Name: 
+      Entry: 8
+      Data: 
+  <Name>k__BackingField: Eat Berry
+  <NeededCardsInStack>k__BackingField:
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
+  - {fileID: 11400000, guid: 873ae9b4da31ee346800da862bd3ff68, type: 2}

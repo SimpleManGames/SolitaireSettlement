@@ -11,6 +11,11 @@ namespace SolitaireSettlement
         [field: SerializeField, HideLabel, HorizontalGroup, InlineProperty, Title("Result")]
         private IStackActionCardUse ResultAfterUses { get; set; }
 
+        public void Initialize()
+        {
+            
+        }
+
         public void OnCardUse(Card cardObject)
         {
             AmountOfUses--;

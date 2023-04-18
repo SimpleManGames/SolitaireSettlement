@@ -22,6 +22,15 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: <CardUse>k__BackingField
+      Entry: 7
+      Data: 0|SolitaireSettlement.PersonHungerCardUse, Assembly-CSharp
+    - Name: <HungerCap>k__BackingField
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <OnTurnProgress>k__BackingField
       Entry: 6
       Data: 
   <Name>k__BackingField: Person
@@ -29,3 +38,4 @@ MonoBehaviour:
   <CardType>k__BackingField: 0
   <ValidStackableCards>k__BackingField:
   - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+  - {fileID: 11400000, guid: 873ae9b4da31ee346800da862bd3ff68, type: 2}

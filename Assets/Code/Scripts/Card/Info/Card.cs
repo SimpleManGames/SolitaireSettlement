@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -18,6 +16,9 @@ namespace SolitaireSettlement
 
         [field: SerializeField]
         private IUIDrag Draggable { get; set; }
+
+        [field: SerializeField]
+        public CardRenderer Render { get; private set; }
 
         public bool IsInHand => Info.Location == CardRuntimeInfo.CardLocation.Hand;
 
@@ -44,11 +45,13 @@ namespace SolitaireSettlement
         {
             UpdateCardData(InternalDataReference);
             Draggable = GetComponent<CardDraggable>();
+            Render = GetComponent<CardRenderer>();
         }
 
         private void Start()
         {
             Info.SetRelatedGameObject(gameObject);
+            Info.Data.CardUse?.Initialize();
         }
 
         private void Update()
@@ -106,6 +109,7 @@ namespace SolitaireSettlement
             InternalDataReference = data;
 
             Info.Data = Instantiate(InternalDataReference);
+            Info.Data.CardUse?.Initialize();
             GetComponent<CardRenderer>().UpdateCardVisuals(Info.Data);
         }
 

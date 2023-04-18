@@ -19,18 +19,29 @@ namespace SolitaireSettlement
         private List<Card> _cardObjectsInArea;
 
         [field: ShowInInspector]
+        public bool Discovered { get; set; }
+
+        [field: ShowInInspector]
         public bool ShouldRevealAfterPlanning { get; set; } = false;
 
         [field: ShowInInspector]
         public bool Revealed { get; set; } = false;
+
+        public int Index { get; set; }
 
         private AreaVisual _areaVisual;
 
         private void OnEnable()
         {
             _areaVisual = GetComponent<AreaVisual>();
+        }
 
-            // SetupAreaData();
+        #region Setup
+
+        public void SetAreaData(AreaData data)
+        {
+            Data = data;
+            SetupAreaData();
         }
 
         private void SetupAreaData()
@@ -46,6 +57,8 @@ namespace SolitaireSettlement
         {
             _cardObjectsInArea = ShownGameObject.transform.GetComponentsInChildren<Card>().ToList();
             var initialCardObjectCount = _cardObjectsInArea.Count;
+
+            if (Data == null) return;
 
             for (var i = 0; i < Data.MaxCardCount - initialCardObjectCount; i++)
             {
@@ -85,6 +98,8 @@ namespace SolitaireSettlement
             _areaVisual.SetAreaDataColor(Data.Color);
         }
 
+        #endregion
+
         private void Update()
         {
             // This shouldn't be called every frame. Only should happen when dropping a card
@@ -92,14 +107,39 @@ namespace SolitaireSettlement
             ShouldRevealAfterPlanning = AnyPersonCardOverlapping();
         }
 
-        public void SetAreaData(AreaData data)
-        {
-            Data = data;
-            SetupAreaData();
-        }
-
         public void OnRevealed()
         {
+            var northIndex = Index - AreaManager.Instance.AreaCountWidth;
+            if (northIndex >= 0)
+            {
+                var obj = AreaManager.Instance.GeneratedAreaObjects[northIndex];
+                obj.GetComponent<Area>().Discovered = true;
+                obj.SetActive(true);
+            }
+
+            var southIndex = Index + AreaManager.Instance.AreaCountWidth;
+            if (southIndex >= 0)
+            {
+                var obj = AreaManager.Instance.GeneratedAreaObjects[southIndex];
+                obj.GetComponent<Area>().Discovered = true;
+                obj.SetActive(true);
+            }
+
+            var eastIndex = Index + 1;
+            if (eastIndex >= 0)
+            {
+                var obj = AreaManager.Instance.GeneratedAreaObjects[eastIndex];
+                obj.GetComponent<Area>().Discovered = true;
+                obj.SetActive(true);
+            }
+
+            var westIndex = Index - 1;
+            if (westIndex >= 0)
+            {
+                var obj = AreaManager.Instance.GeneratedAreaObjects[westIndex];
+                obj.GetComponent<Area>().Discovered = true;
+                obj.SetActive(true);
+            }
         }
 
         public bool AnyPersonCardOverlapping()

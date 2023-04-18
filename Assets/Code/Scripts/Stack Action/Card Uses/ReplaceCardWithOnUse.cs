@@ -7,7 +7,12 @@ namespace SolitaireSettlement
     {
         [field: SerializeField, HideLabel, Title("Replacement Card"), HorizontalGroup]
         private CardData ReplacementCard { get; set; }
-        
+
+        public void Initialize()
+        {
+            
+        }
+
         public void OnCardUse(Card cardObject)
         {
             cardObject.UpdateCardData(ReplacementCard);

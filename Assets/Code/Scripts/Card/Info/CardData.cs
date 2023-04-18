@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +16,8 @@ namespace SolitaireSettlement
             Person,
             Resource,
             Building,
-            Gathering
+            Gathering,
+            Food
         }
 
         [field: Title("Visuals")]
@@ -29,11 +31,17 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
-        [field: SerializeField, AssetsOnly, AssetSelector(DropdownTitle = "Select Card Data")]
+        [field: SerializeField, AssetsOnly, AssetSelector(DropdownTitle = "Select Card Data"),
+                ListDrawerSettings(OnTitleBarGUI = "ValidStackableCardItemSyncAllGUI",
+                    OnBeginListElementGUI = "ValidStackableCardElementBeginGUI",
+                    OnEndListElementGUI = "ValidStackableCardElementEndGUI")]
         public List<CardData> ValidStackableCards { get; private set; }
 
         [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]
         public IStackActionCardUse CardUse { get; set; }
+
+        [field: SerializeField, InlineProperty, HideLabel, Title("On Turn Progress")]
+        public List<ICardTurnProgress> OnTurnProgress { get; set; }
 
         [field: ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f),
                 ListDrawerSettings(Expanded = true, HideAddButton = true, HideRemoveButton = true,
@@ -52,6 +60,30 @@ namespace SolitaireSettlement
             AssetDatabase.RenameAsset(path, Name + " Card Data");
 
             RefreshReferences();
+        }
+
+        private void ValidStackableCardItemSyncAllGUI()
+        {
+            if (SirenixEditorGUI.ToolbarButton(EditorIcons.Refresh))
+            {
+                for (var i = 0; i < ValidStackableCards.Count; i++)
+                {
+                    var buttonCardData = ValidStackableCards.ElementAt(i);
+                    if (!buttonCardData.ValidStackableCards.Contains(this))
+                        buttonCardData.ValidStackableCards.Add(this);
+                }
+            }
+        }
+
+        private void ValidStackableCardElementBeginGUI(int index)
+        {
+        }
+
+        private void ValidStackableCardElementEndGUI(int index)
+        {
+            var buttonCardData = ValidStackableCards.ElementAt(index);
+            if (!buttonCardData.ValidStackableCards.Contains(this))
+                SirenixEditorGUI.WarningMessageBox($"{buttonCardData.Name}'s Valid Cards doesn't contain {Name}");
         }
 
         private void RefreshReferences()

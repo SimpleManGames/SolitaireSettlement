@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -15,6 +16,9 @@ namespace SolitaireSettlement
         [field: SerializeField]
         private GameEvent OnAreaRevealedEvent { get; set; }
 
+        [field: SerializeField, AssetsOnly]
+        private AreaData StartingAreaData { get; set; }
+
         [field: SerializeField]
         private GameObject GameAreaCanvas { get; set; }
 
@@ -29,15 +33,21 @@ namespace SolitaireSettlement
 
         private AreaGenerator _areaGenerator;
 
+        public int AreaCountWidth => _areaGenerator.MapWidth;
+        public int AreaCountHeight => _areaGenerator.MapHeight;
+
         private AreaData[] _generatedAreaData;
-        private List<GameObject> _generatedAreaObjects = new List<GameObject>();
+        public List<GameObject> GeneratedAreaObjects { get; private set; } = new();
+        public List<Area> GeneratedAreaComponents { get; private set; } = new();
 
         [field: SerializeField]
         private PolygonCollider2D CameraBoundsCollider { get; set; }
 
-        private Vector2 _minPosition;
+        [field: ShowInInspector]
+        public Vector2 MinPosition { get; private set; }
 
-        private Vector2 _maxPosition;
+        [field: ShowInInspector]
+        public Vector2 MaxPosition { get; private set; }
 
         private void Start()
         {
@@ -45,18 +55,33 @@ namespace SolitaireSettlement
             _generatedAreaData = _areaGenerator.GenerateRegions(_areaGenerator.GenerateNoise());
             SpawnGeneratedAreas();
 
-            _minPosition.x = _generatedAreaObjects.Min(obj => obj.transform.position.x);
-            _minPosition.y = _generatedAreaObjects.Min(obj => obj.transform.position.y);
-            _maxPosition.x = _generatedAreaObjects.Max(obj => obj.transform.position.x);
-            _maxPosition.y = _generatedAreaObjects.Max(obj => obj.transform.position.y);
+            var offset = new Vector3((AreaCountWidth * _areaSize.x + AreaCountWidth * AreaBuffer.x) / 2,
+                (AreaCountHeight * _areaSize.y + AreaCountHeight * AreaBuffer.y) / 2, 0.0f);
 
-            CameraBoundsCollider.points = new[]
-            {
-                new Vector2(_minPosition.x, _minPosition.y),
-                new Vector2(_minPosition.x, _maxPosition.y),
-                new Vector2(_maxPosition.x, _maxPosition.y),
-                new Vector2(_maxPosition.x, _minPosition.y),
-            };
+            DetermineMaxBounds();
+
+            foreach (var obj in GeneratedAreaObjects)
+                obj.transform.position -= offset - new Vector3(_areaSize.x / 2, _areaSize.y / 2);
+
+            var centerAreaObject = GeneratedAreaObjects.ElementAt(AreaCountWidth * AreaCountHeight / 2)
+                .GetComponent<Area>();
+            centerAreaObject.SetAreaData(StartingAreaData);
+            centerAreaObject.Discovered = true;
+            centerAreaObject.gameObject.SetActive(true);
+        }
+
+
+        public void DetermineMaxBounds()
+        {
+            var discovered = GeneratedAreaComponents.Where(c => c.Discovered).ToList();
+
+            if (!(discovered.Count > 0))
+                return;
+
+            MinPosition = new Vector2(discovered.Min(obj => obj.transform.position.x),
+                discovered.Min(obj => obj.transform.position.y));
+            MaxPosition = new Vector2(discovered.Max(obj => obj.transform.position.x),
+                discovered.Max(obj => obj.transform.position.y));
         }
 
         private void SpawnGeneratedAreas()
@@ -69,19 +94,23 @@ namespace SolitaireSettlement
                 for (int x = 0; x < _areaGenerator.MapWidth; x++, i++)
                 {
                     var areaData = _generatedAreaData[i];
-                    InstantiateArea(areaData, x, y);
+                    InstantiateArea(areaData, x, y, i);
                 }
             }
         }
 
-        private void InstantiateArea(AreaData generatedData, int x, int y)
+        private void InstantiateArea(AreaData generatedData, int x, int y, int i)
         {
             var newAreaGameObject = Instantiate(AreaPrefab, GameAreaCanvas.transform, true);
+            newAreaGameObject.SetActive(false);
+
             var newArea = newAreaGameObject.GetComponent<Area>();
             newArea.SetAreaData(generatedData);
+            newArea.Index = i;
             newAreaGameObject.transform.localPosition =
                 new Vector3(x * _areaSize.x + x * AreaBuffer.x, y * _areaSize.y + y * AreaBuffer.y);
-            _generatedAreaObjects.Add(newAreaGameObject);
+            GeneratedAreaObjects.Add(newAreaGameObject);
+            GeneratedAreaComponents.Add(newArea);
         }
 
         private void OnValidate()

@@ -570,7 +570,6 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
-  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -629,7 +628,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.26179245, g: 0.5, b: 0.26401052, a: 1}
+  m_BackGroundColor: {r: 0.12156863, g: 0.12156863, b: 0.12156863, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -750,23 +749,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 299580792}
---- !u!114 &519420035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ConfineMode: 0
-  m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 1378696971}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
 --- !u!1 &609083707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,6 +1250,7 @@ GameObject:
   - component: {fileID: 1082791692}
   - component: {fileID: 1082791694}
   - component: {fileID: 1082791693}
+  - component: {fileID: 1082791695}
   m_Layer: 0
   m_Name: Area Manager
   m_TagString: Untagged
@@ -1286,8 +1269,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1378696970}
+  m_Children: []
   m_Father: {fileID: 1507109860}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1303,8 +1285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6beb3fda113c8449d34c317ccea0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MapWidth>k__BackingField: 10
-  <MapHeight>k__BackingField: 10
+  <MapWidth>k__BackingField: 9
+  <MapHeight>k__BackingField: 9
   <NoiseScale>k__BackingField: 20.5
   <Octaves>k__BackingField: 3
   <Persistence>k__BackingField: 0.48
@@ -1367,9 +1349,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DestroyOnLoad>k__BackingField: 0
   <OnAreaRevealedEvent>k__BackingField: {fileID: 0}
+  <StartingAreaData>k__BackingField: {fileID: 11400000, guid: dd9280485b9c90644b3d6d2567e04d32, type: 2}
   <GameAreaCanvas>k__BackingField: {fileID: 1513576520}
   <AreaPrefab>k__BackingField: {fileID: 1104891488343415600, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
   <AreaBuffer>k__BackingField: {x: 1, y: 1}
+  <CameraBoundsCollider>k__BackingField: {fileID: 0}
+--- !u!114 &1082791695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082791691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b333e1896f19b4b8aede7b33ded7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: faf7ff39819549d4eb131e934acdf025, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1082791694}
+        m_TargetAssemblyTypeName: SolitaireSettlement.AreaManager, Assembly-CSharp
+        m_MethodName: DetermineMaxBounds
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1095685319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1699,7 +1711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3066733035232729278, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -9.41
+      value: -18.4
       objectReference: {fileID: 0}
     - target: {fileID: 3066733035232729278, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1731,68 +1743,6 @@ PrefabInstance:
       objectReference: {fileID: 955841288}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
---- !u!1 &1378696969
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1378696970}
-  - component: {fileID: 1378696971}
-  m_Layer: 0
-  m_Name: Bounds
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1378696970
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378696969}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1082791692}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1378696971
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378696969}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 0.9510565, y: 0.30901712}
 --- !u!1 &1389396259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,7 +1946,7 @@ MonoBehaviour:
   <GameAreaCanvas>k__BackingField: {fileID: 955841288}
   <ZoomSpeed>k__BackingField: 8
   <ZoomInMinMax>k__BackingField: {x: 15, y: 80}
-  <StartingPanSpeed>k__BackingField: 10
+  <StartingPanSpeed>k__BackingField: 25
   <MaxPanSpeed>k__BackingField: 60
   <TimeToReachMaxPanSpeed>k__BackingField: 4
   <PanSpeedRampUpCurve>k__BackingField:
@@ -2138,6 +2088,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4c83198f3ad92c34b8e41d10d7183825, type: 2}
     - {fileID: 11400000, guid: d5e5d5171e4507f419c2976dc5bb4cf5, type: 2}
     - {fileID: 11400000, guid: 1b9576a8c6a37c143b9bc840aee68848, type: 2}
+    - {fileID: 11400000, guid: 6e91cdc647e81ce49a0c5db613e78270, type: 2}
     - {fileID: 11400000, guid: af0df2c8144c2c143a458fa7117432c9, type: 2}
     - {fileID: 11400000, guid: 7fef76171ee46224dbc9ad1e30bc75c6, type: 2}
     - {fileID: 11400000, guid: ddf433ab5adb83e44b6a63779e915133, type: 2}
@@ -2155,7 +2106,7 @@ MonoBehaviour:
         Assembly-CSharp]], System.Core
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 14
     - Name: 
       Entry: 10
       Data: 0
@@ -2195,6 +2146,9 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 12
+    - Name: 
+      Entry: 10
+      Data: 13
     - Name: 
       Entry: 13
       Data: 
@@ -2422,6 +2376,7 @@ GameObject:
   - component: {fileID: 1775970099}
   - component: {fileID: 1775970101}
   - component: {fileID: 1775970100}
+  - component: {fileID: 1775970102}
   m_Layer: 0
   m_Name: Card Manager
   m_TagString: Untagged
@@ -2492,6 +2447,34 @@ MonoBehaviour:
   <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
   <EmptyPlotCard>k__BackingField: {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
   <DurationBetweenCardDiscard>k__BackingField: 0.5
+--- !u!114 &1775970102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775970098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b333e1896f19b4b8aede7b33ded7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: fbe727cc475be87499a33339b33309d1, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1775970101}
+        m_TargetAssemblyTypeName: SolitaireSettlement.CardManager, Assembly-CSharp
+        m_MethodName: ProgressCardData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1836932396
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,19 +2568,7 @@ MonoBehaviour:
   gameEvent: {fileID: 11400000, guid: 16dfed51e77a23147b41cd1de25d2499, type: 2}
   response:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1836932398}
-        m_TargetAssemblyTypeName: SolitaireSettlement.DeckManager, Assembly-CSharp
-        m_MethodName: Shuffle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1847008663
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2620,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 751db2a915e8ba94f912c0c32fd396f4, type: 2}
     - {fileID: 11400000, guid: a7d7f3f778cf3e14d81459c3c3cd62b9, type: 2}
     - {fileID: 11400000, guid: 1eb709b1982099e4d8886e9e544144b3, type: 2}
+    - {fileID: 11400000, guid: fbe727cc475be87499a33339b33309d1, type: 2}
     - {fileID: 11400000, guid: ca84322aea979ea4bad49de792ac790d, type: 2}
+    - {fileID: 11400000, guid: faf7ff39819549d4eb131e934acdf025, type: 2}
     - {fileID: 11400000, guid: 9ba3d23391e2d5d49909b9af0956a0ab, type: 2}
     - {fileID: 11400000, guid: 16dfed51e77a23147b41cd1de25d2499, type: 2}
     SerializedBytesString: 
@@ -2663,7 +2636,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 8
     - Name: 
       Entry: 7
       Data: 1|SolitaireSettlement.InvokeEventStage, Assembly-CSharp
@@ -2717,22 +2690,46 @@ MonoBehaviour:
       Data: 4
     - Name: <DelayBeforeNextStage>k__BackingField
       Entry: 4
-      Data: 0.2
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|SolitaireSettlement.InvokeEventAfterConditionStage, Assembly-CSharp
+      Data: 6|SolitaireSettlement.InvokeEventStage, Assembly-CSharp
     - Name: <Event>k__BackingField
       Entry: 10
       Data: 5
     - Name: <DelayBeforeNextStage>k__BackingField
       Entry: 4
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|SolitaireSettlement.InvokeEventStage, Assembly-CSharp
+    - Name: <Event>k__BackingField
+      Entry: 10
+      Data: 6
+    - Name: <DelayBeforeNextStage>k__BackingField
+      Entry: 4
+      Data: 0.2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|SolitaireSettlement.InvokeEventAfterConditionStage, Assembly-CSharp
+    - Name: <Event>k__BackingField
+      Entry: 10
+      Data: 7
+    - Name: <DelayBeforeNextStage>k__BackingField
+      Entry: 4
+      Data: 0
     - Name: <Condition>k__BackingField
       Entry: 7
-      Data: 7|SolitaireSettlement.EnoughCardsForDrawCondition, Assembly-CSharp
+      Data: 9|SolitaireSettlement.EnoughCardsForDrawCondition, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

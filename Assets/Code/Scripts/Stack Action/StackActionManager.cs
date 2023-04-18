@@ -113,10 +113,11 @@ namespace SolitaireSettlement
         {
             foreach (var stackActionInfo in CurrentPossibleStackActions)
             {
+                var involvedCards = stackActionInfo.involvedCards;
                 foreach (var result in stackActionInfo.stackActionData.Results)
-                    result.OnResult(stackActionInfo.involvedCards);
+                    result.OnResult(involvedCards);
 
-                foreach (var card in stackActionInfo.involvedCards.Where(card => card.Info.Data.CardUse != null))
+                foreach (var card in involvedCards.Where(card => card.Info.Data.CardUse != null))
                     card.Info.Data.CardUse.OnCardUse(card);
             }
 

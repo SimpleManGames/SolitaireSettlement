@@ -62,7 +62,6 @@ namespace SolitaireSettlement
 
         private Vector2 _mousePosition;
 
-        [ShowInInspector]
         private Vector3 WorldMousePosition => MainCamera.ScreenToWorldPoint(
             new Vector3(_mousePosition.x, _mousePosition.y, -MainCamera.transform.position.z));
 
@@ -104,6 +103,11 @@ namespace SolitaireSettlement
                 var diff = WorldMousePosition - cameraPosition;
                 MainCamera.transform.position = _dragOrigin - diff;
             }
+
+            var clamp = MainCamera.transform.position;
+            clamp.x = Mathf.Clamp(clamp.x, AreaManager.Instance.MinPosition.x, AreaManager.Instance.MaxPosition.x);
+            clamp.y = Mathf.Clamp(clamp.y, AreaManager.Instance.MinPosition.y, AreaManager.Instance.MaxPosition.y);
+            MainCamera.transform.position = clamp;
         }
 
         public bool GetPositionOnGameAreaCanvas(Vector2 screenPoint, out Vector2 position)
