@@ -10,50 +10,76 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: Collect From Quarry Stack Action
+  m_Name: Harvest From Quarry Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
+    - {fileID: 11400000, guid: 18de3e9fcb86ac84680982e86fb5bc32, type: 2}
     - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
-    - {fileID: 11400000, guid: 769d289a8a1000e4c9f4ccad7e7925aa, type: 2}
-    - {fileID: 11400000, guid: 3ca7c13d36862eb4383dddda82da2d2f, type: 2}
+    - {fileID: 11400000, guid: 3506e1ef357f88647ab2b247c9709e6b, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <NeededCardsInStack>k__BackingField
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[SolitaireSettlement.StackActionData+NeededCard,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 0
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 1
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <Results>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
+      Data: 1|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 1|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
+      Data: 2|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
     - Name: <ProducedCard>k__BackingField
       Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
-    - Name: <CardChances>k__BackingField
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
-      Data: 1
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 0.2
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -66,6 +92,24 @@ MonoBehaviour:
     - Name: <ProducedCard>k__BackingField
       Entry: 10
       Data: 2
+    - Name: <Chance>k__BackingField
+      Entry: 4
+      Data: 0.2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
+    - Name: <CardChances>k__BackingField
+      Entry: 7
+      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
+    - Name: <ProducedCard>k__BackingField
+      Entry: 10
+      Data: 3
     - Name: <Chance>k__BackingField
       Entry: 4
       Data: 0.1
@@ -81,7 +125,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <Name>k__BackingField: Collect From Quarry
-  <NeededCardsInStack>k__BackingField:
-  - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-  - {fileID: 11400000, guid: 18de3e9fcb86ac84680982e86fb5bc32, type: 2}
+  <Name>k__BackingField: Harvest From Quarry

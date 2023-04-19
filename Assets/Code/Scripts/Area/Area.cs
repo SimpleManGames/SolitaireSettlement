@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.UI;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -109,42 +110,47 @@ namespace SolitaireSettlement
 
         public void OnRevealed()
         {
-            var northIndex = Index - AreaManager.Instance.AreaCountWidth;
-            if (northIndex >= 0)
+            var objs = new Area[AreaManager.Instance.AreaCountWidth, AreaManager.Instance.AreaCountHeight];
+            for (int y = 0; y < AreaManager.Instance.AreaCountHeight; y++)
             {
-                var obj = AreaManager.Instance.GeneratedAreaObjects[northIndex];
-                obj.GetComponent<Area>().Discovered = true;
-                obj.SetActive(true);
+                for (int x = 0; x < AreaManager.Instance.AreaCountHeight; x++)
+                {
+                    objs[x, y] =
+                        AreaManager.Instance.GeneratedAreaComponents[y * AreaManager.Instance.AreaCountWidth + x];
+                }
             }
 
-            var southIndex = Index + AreaManager.Instance.AreaCountWidth;
-            if (southIndex >= 0)
+            var arrayX = Index % AreaManager.Instance.AreaCountWidth;
+            var arrayY = Index / AreaManager.Instance.AreaCountWidth;
+
+            if(arrayY + 1 < AreaManager.Instance.AreaCountHeight)
             {
-                var obj = AreaManager.Instance.GeneratedAreaObjects[southIndex];
-                obj.GetComponent<Area>().Discovered = true;
-                obj.SetActive(true);
+                objs[arrayX, arrayY + 1].Discovered = true;
+                objs[arrayX, arrayY + 1].gameObject.SetActive(true);
             }
 
-            var eastIndex = Index + 1;
-            if (eastIndex >= 0)
+            if(arrayY - 1 >= 0)
             {
-                var obj = AreaManager.Instance.GeneratedAreaObjects[eastIndex];
-                obj.GetComponent<Area>().Discovered = true;
-                obj.SetActive(true);
+                objs[arrayX, arrayY - 1].Discovered = true;
+                objs[arrayX, arrayY - 1].gameObject.SetActive(true);
             }
 
-            var westIndex = Index - 1;
-            if (westIndex >= 0)
+            if(arrayX + 1 < AreaManager.Instance.AreaCountWidth)
             {
-                var obj = AreaManager.Instance.GeneratedAreaObjects[westIndex];
-                obj.GetComponent<Area>().Discovered = true;
-                obj.SetActive(true);
+                objs[arrayX + 1, arrayY].Discovered = true;
+                objs[arrayX + 1, arrayY].gameObject.SetActive(true);
+            }
+
+            if(arrayX - 1 >= 0)
+            {
+                objs[arrayX - 1, arrayY].Discovered = true;
+                objs[arrayX - 1, arrayY].gameObject.SetActive(true);
             }
         }
 
         public bool AnyPersonCardOverlapping()
         {
-            return GetOverlappingCards().Any(c => c.Info.Data.CardType == CardData.ECardType.Person);
+            return GetOverlappingCards().Any(c => c.Info.Data.CardType == CardData.ECardType.Person && !c.IsInStack);
         }
 
         private List<Card> GetOverlappingCards()

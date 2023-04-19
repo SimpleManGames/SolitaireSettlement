@@ -15,21 +15,66 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
+    - {fileID: 11400000, guid: 873ae9b4da31ee346800da862bd3ff68, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <NeededCardsInStack>k__BackingField
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[SolitaireSettlement.StackActionData+NeededCard,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 0
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 1
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 0
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: <Results>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
+      Data: 1|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|SolitaireSettlement.IncreasePersonHunger, Assembly-CSharp
+      Data: 2|SolitaireSettlement.IncreasePersonHunger, Assembly-CSharp
     - Name: <IncreaseHungerAmount>k__BackingField
       Entry: 3
       Data: 2
@@ -43,6 +88,3 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <Name>k__BackingField: Eat Berry
-  <NeededCardsInStack>k__BackingField:
-  - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-  - {fileID: 11400000, guid: 873ae9b4da31ee346800da862bd3ff68, type: 2}

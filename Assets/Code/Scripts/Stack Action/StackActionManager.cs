@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
@@ -91,18 +92,40 @@ namespace SolitaireSettlement
 
         public static bool CheckForSimilarCards(StackActionData stackAction, List<CardData> currentStackData)
         {
-            return stackAction.NeededCardsInStack.All(currentStackData.Contains);
+            if (stackAction == null)
+            {
+                Debug.LogError($"StackAction was null during StackActionManager:CheckForSimilarCards");
+                throw new NullReferenceException();
+            }
+
+            if (stackAction.NeededCardsInStack == null)
+            {
+                Debug.LogError(
+                    $"StackAction:NeededCardsInStack for {stackAction.name} was null during StackActionManager:CheckForSimilarCards");
+                throw new NullReferenceException();
+            }
+
+            if (currentStackData == null)
+            {
+                Debug.LogError($"CurrentStackData was null during StackActionManager:CheckForSimilarCards");
+                throw new NullReferenceException();
+            }
+
+            return stackAction.NeededCardsInStack.Select(n => n.Card).All(currentStackData.Contains);
         }
 
         public static bool CheckForFullMatching(StackActionData stackAction, List<CardData> currentStackData)
         {
-            if (currentStackData.Count != stackAction.NeededCardsInStack.Count)
+            if (stackAction.NeededCardsInStack.Any(c => c.AnyAmount))
+                return true;
+
+            if (currentStackData.Count != stackAction.NeededCardsInStack.Sum(c => c.Count))
                 return false;
-            
-            foreach (var card in stackAction.NeededCardsInStack)
+
+            foreach (var need in stackAction.NeededCardsInStack)
             {
-                var currentStackDataMatchCount = currentStackData.Count(c => c == card);
-                var stackActionMatchCount = stackAction.NeededCardsInStack.Count(c => c == card);
+                var currentStackDataMatchCount = currentStackData.Count(c => c == need.Card);
+                var stackActionMatchCount = stackAction.NeededCardsInStack.First(c => c.Card == need.Card).Count;
 
                 if (currentStackDataMatchCount != stackActionMatchCount)
                     return false;

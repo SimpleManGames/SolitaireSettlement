@@ -8,10 +8,10 @@ namespace SolitaireSettlement
     public class ReplaceCardWithResults : IStackActionResult
     {
         [field: SerializeField, HideLabel, Title("Target Card"), HorizontalGroup]
-        private CardData TargetCard { get; set; }
+        public CardData TargetCard { get; private set; }
 
         [field: SerializeField, HideLabel, Title("Replacement Card"), HorizontalGroup]
-        private CardData ReplacementCard { get; set; }
+        public CardData ReplacementCard { get; private set; }
 
         public virtual void OnResult(IEnumerable<Card> relatedCardStack)
         {

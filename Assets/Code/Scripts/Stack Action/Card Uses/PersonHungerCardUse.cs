@@ -26,6 +26,7 @@ namespace SolitaireSettlement
                     return;
 
             CurrentHunger--;
+            CurrentHunger = Mathf.Clamp(CurrentHunger, 0, HungerCap);
             card.Render.UpdateDynamicTextFields(card.Info.Data);
         }
 

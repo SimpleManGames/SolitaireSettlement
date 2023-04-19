@@ -18,7 +18,7 @@ namespace SolitaireSettlement
                     if (x.Info.Data.CardUse is not PersonHungerCardUse hungerCardUse)
                         return;
 
-                    hungerCardUse.ModifyHungerBy(IncreaseHungerAmount);
+                    hungerCardUse.ModifyHungerBy(IncreaseHungerAmount * relatedCardStack.Except(new[] { x }).Count());
                     x.Render.UpdateDynamicTextFields(x.Info.Data);
                 });
         }

@@ -15,7 +15,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 7b312887a4fa2de46aca92284145affe, type: 2}
+    - {fileID: 11400000, guid: 0138928352434fe4e80d9f4b3737a47f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,7 +29,37 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.AreaData+CardDataSpawnChance, Assembly-CSharp
+    - Name: card
+      Entry: 10
       Data: 0
+    - Name: weight
+      Entry: 4
+      Data: 100
+    - Name: guaranteedOne
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.AreaData+CardDataSpawnChance, Assembly-CSharp
+    - Name: card
+      Entry: 10
+      Data: 1
+    - Name: weight
+      Entry: 4
+      Data: 20
+    - Name: guaranteedOne
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

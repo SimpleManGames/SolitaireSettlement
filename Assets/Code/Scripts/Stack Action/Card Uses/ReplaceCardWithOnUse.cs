@@ -15,7 +15,8 @@ namespace SolitaireSettlement
 
         public void OnCardUse(Card cardObject)
         {
-            cardObject.UpdateCardData(ReplacementCard);
+            var actualTargetCard = cardObject.GetComponent<Card>();
+            CardManager.Instance.RequestToReplaceCardData(actualTargetCard, ReplacementCard);
         }
     }
 }

@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: Harvest Berry Stack Action
+  m_Name: Construct Sawmill Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
     - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-    - {fileID: 11400000, guid: 586f19e3cd3cff94b8edeabe6f17810d, type: 2}
-    - {fileID: 11400000, guid: 873ae9b4da31ee346800da862bd3ff68, type: 2}
+    - {fileID: 11400000, guid: 5dc79e23fa7a3c74b86ba1ea1b736b5c, type: 2}
+    - {fileID: 11400000, guid: 51003c1146e72904aa0a6f76757ce881, type: 2}
+    - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
+    - {fileID: 11400000, guid: 69e6a5f6e4f00ca4f81d113031c51dfc, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -30,7 +33,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 5
     - Name: 
       Entry: 7
       Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
@@ -62,6 +65,51 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 2
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 3
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 4
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -72,22 +120,16 @@ MonoBehaviour:
       Data: 1|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 2|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
+      Data: 2|SolitaireSettlement.ReplaceCardWithResults, Assembly-CSharp
+    - Name: <TargetCard>k__BackingField
       Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
+      Data: 0
+    - Name: <ReplacementCard>k__BackingField
       Entry: 10
-      Data: 2
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -97,4 +139,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <Name>k__BackingField: Harvest Berry
+  <Name>k__BackingField: Construct Sawmill

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Drawers;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -12,13 +11,23 @@ namespace SolitaireSettlement
     [CreateAssetMenu(menuName = "Solitaire Settlement/Stack Action Data", fileName = "New Stack Action")]
     public class StackActionData : SerializedScriptableObject
     {
+        public struct NeededCard
+        {
+            [field: SerializeField, AssetSelector(DropdownTitle = "Select Card Data", IsUniqueList = false)]
+            public CardData Card { get; private set; }
+
+            [field: SerializeField, HorizontalGroup, DisableIf("@this.AnyAmount")]
+            public int Count { get; private set; }
+
+            [field: SerializeField, HorizontalGroup(Width = 0.1f)]
+            public bool AnyAmount { get; private set; }
+        }
+
         [field: SerializeField, Delayed]
         private string Name { get; set; }
 
-        [field: SerializeField, AssetSelector(DropdownTitle = "Select Card Data", IsUniqueList = false),
-                ListDrawerSettings(Expanded = true, OnBeginListElementGUI = "NeededCardsInStackListBeginGUI",
-                    OnEndListElementGUI = "NeededCardsInStackListEndGUI")]
-        public List<CardData> NeededCardsInStack { get; private set; }
+        [field: SerializeField, ListDrawerSettings(Expanded = true)]
+        public List<NeededCard> NeededCardsInStack { get; private set; }
 
         [field: SerializeField, Required, HideReferenceObjectPicker]
         public IStackActionResult[] Results { get; private set; }
@@ -49,10 +58,18 @@ namespace SolitaireSettlement
 
             foreach (var otherStack in otherStackActions)
             {
-                if (!StackActionManager.CheckForSimilarCards(otherStack, data.NeededCardsInStack))
+                var otherNeededCards = otherStack.NeededCardsInStack.Select(a => a.Card).ToList();
+
+                if (!StackActionManager.CheckForSimilarCards(data, otherNeededCards))
                     continue;
 
-                if (StackActionManager.CheckForFullMatching(otherStack, data.NeededCardsInStack))
+                var otherCardCount = otherStack.NeededCardsInStack.Sum(c => c.Count);
+                var dataCardCount = data.NeededCardsInStack.Sum(c => c.Count);
+
+                if (dataCardCount != otherCardCount)
+                    continue;
+
+                if (StackActionManager.CheckForFullMatching(data, otherNeededCards))
                 {
                     results.Add(otherStack);
                     if (checkOther)
@@ -83,16 +100,16 @@ namespace SolitaireSettlement
             var buttonCardData = NeededCardsInStack.ElementAt(index);
             foreach (var needed in NeededCardsInStack.Except(new[] { buttonCardData }))
             {
-                if (buttonCardData.ValidStackableCards.Contains(needed))
+                if (buttonCardData.Card.ValidStackableCards.Contains(needed.Card))
                     continue;
 
                 SirenixEditorGUI.WarningMessageBox(
-                    $"{buttonCardData.Name}'s Valid Cards doesn't contain {needed.Name}");
+                    $"{buttonCardData.Card.Name}'s Valid Cards doesn't contain {needed.Card.Name}");
                 if (!SirenixEditorGUI.IconButton(EditorIcons.Plus))
                     continue;
 
-                if (!buttonCardData.ValidStackableCards.Contains(needed))
-                    buttonCardData.ValidStackableCards.Add(needed);
+                if (!buttonCardData.Card.ValidStackableCards.Contains(needed.Card))
+                    buttonCardData.Card.ValidStackableCards.Add(needed.Card);
             }
         }
     }

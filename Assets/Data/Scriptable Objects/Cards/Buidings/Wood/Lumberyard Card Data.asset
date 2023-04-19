@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73ec9af6a283c3f4e8bd53136d9f5d47, type: 3}
-  m_Name: Quarry Card Data
+  m_Name: Lumberyard Card Data
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -24,8 +24,11 @@ MonoBehaviour:
     - Name: <CardUse>k__BackingField
       Entry: 6
       Data: 
-  <Name>k__BackingField: Quarry
+    - Name: <OnTurnProgress>k__BackingField
+      Entry: 6
+      Data: 
+  <Name>k__BackingField: Lumberyard
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 2b570ff481835b44bbd774cc487c91b7, type: 2}
-  <CardType>k__BackingField: 0
+  <CardType>k__BackingField: 2
   <ValidStackableCards>k__BackingField:
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}

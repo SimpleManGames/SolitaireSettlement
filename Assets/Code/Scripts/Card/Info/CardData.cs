@@ -31,7 +31,7 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
-        [field: SerializeField, AssetsOnly, AssetSelector(DropdownTitle = "Select Card Data"),
+        [field: SerializeField, AssetsOnly, 
                 ListDrawerSettings(OnTitleBarGUI = "ValidStackableCardItemSyncAllGUI",
                     OnBeginListElementGUI = "ValidStackableCardElementBeginGUI",
                     OnEndListElementGUI = "ValidStackableCardElementEndGUI", Expanded = true)]
@@ -95,20 +95,19 @@ namespace SolitaireSettlement
         private List<StackActionData> CreatedByStackActions()
         {
             var results = new List<StackActionData>();
-            var addCardResults = AssetParsingUtility.FindAssetsByType<StackActionData, List<StackActionData>>()
+            var cardResults = AssetParsingUtility.FindAssetsByType<StackActionData, List<StackActionData>>()
                 .Where(s => s.Results != null).Select(data => (data, data.Results));
 
-            foreach (var kv in addCardResults)
+            foreach (var kv in cardResults)
             {
                 foreach (var result in kv.Results)
                 {
-                    if (result is not AddCardResult cast)
+                    if (CheckStackActionResultsForAddCardResult(result, results, kv))
                         continue;
 
-                    if (cast.AddedCardData().All(c => c.Name != Name))
+                    if (CheckStackActionResultsForReplaceCardResult(result, results, kv))
                         continue;
-
-                    results.Add(kv.data);
+                    
                     break;
                 }
             }
@@ -116,10 +115,36 @@ namespace SolitaireSettlement
             return results;
         }
 
+        private bool CheckStackActionResultsForAddCardResult(IStackActionResult result, List<StackActionData> results,
+            (StackActionData data, IStackActionResult[] Results) kv)
+        {
+            if (result is not AddCardResult cast)
+                return false;
+
+            if (cast.AddedCardData().All(c => c.Name != Name))
+                return false;
+
+            results.Add(kv.data);
+            return true;
+        }
+
+        private bool CheckStackActionResultsForReplaceCardResult(IStackActionResult result,
+            List<StackActionData> results, (StackActionData data, IStackActionResult[] Results) kv)
+        {
+            if (result is not ReplaceCardWithResults cast)
+                return false;
+
+            if (cast.ReplacementCard.Name != Name)
+                return false;
+
+            results.Add(kv.data);
+            return true;
+        }
+
         private List<StackActionData> UsedInStackActions()
         {
             return AssetParsingUtility.FindAssetsByType<StackActionData, List<StackActionData>>()
-                .Where(s => s.NeededCardsInStack.Any(c => c.Name == Name)).ToList();
+                .Where(s => s.NeededCardsInStack.Any(c => c.Card.Name == Name)).ToList();
         }
 
         public override int GetHashCode()

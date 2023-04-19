@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73ec9af6a283c3f4e8bd53136d9f5d47, type: 3}
-  m_Name: Stone Card Data
+  m_Name: Quarry Card Data
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,18 +22,15 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: <CardUse>k__BackingField
-      Entry: 7
-      Data: 0|SolitaireSettlement.DestroyOnCardUse, Assembly-CSharp
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: <OnTurnProgress>k__BackingField
       Entry: 6
       Data: 
-  <Name>k__BackingField: Stone
-  <ColorPalette>k__BackingField: {fileID: 11400000, guid: 1ef65f7aec3f91c46bc235b941424692, type: 2}
-  <CardType>k__BackingField: 1
+  <Name>k__BackingField: Quarry
+  <ColorPalette>k__BackingField: {fileID: 11400000, guid: 2b570ff481835b44bbd774cc487c91b7, type: 2}
+  <CardType>k__BackingField: 2
   <ValidStackableCards>k__BackingField:
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-  - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
-  - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+  - {fileID: 11400000, guid: 479a7789b2a346a49bd585ce0f107967, type: 2}
+  - {fileID: 11400000, guid: 51003c1146e72904aa0a6f76757ce881, type: 2}
