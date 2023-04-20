@@ -2468,6 +2468,7 @@ MonoBehaviour:
   <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
   <EmptyPlotCard>k__BackingField: {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
   <PersonCard>k__BackingField: {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
+  <BasePopulateCap>k__BackingField: 2
   <DurationBetweenCardDiscard>k__BackingField: 0.1
 --- !u!114 &1775970102
 MonoBehaviour:

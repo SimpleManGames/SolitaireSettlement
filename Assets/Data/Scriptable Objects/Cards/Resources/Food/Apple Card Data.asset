@@ -23,12 +23,44 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <CardUse>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.DestroyOnCardUse, Assembly-CSharp
+      Data: 0|System.Collections.Generic.List`1[[SolitaireSettlement.IStackActionCardUse,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 1|SolitaireSettlement.ModifyPersonHungerCardUse, Assembly-CSharp
+    - Name: <ModifyAmount>k__BackingField
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
-    - Name: <OnTurnProgress>k__BackingField
-      Entry: 6
+    - Name: 
+      Entry: 7
+      Data: 2|SolitaireSettlement.DestroyOnCardUse, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <OnTurnUpdate>k__BackingField
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[SolitaireSettlement.ICardUniqueImpl,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
   <Name>k__BackingField: Apple
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 1ef65f7aec3f91c46bc235b941424692, type: 2}

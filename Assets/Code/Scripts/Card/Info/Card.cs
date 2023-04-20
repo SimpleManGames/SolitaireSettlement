@@ -23,6 +23,8 @@ namespace SolitaireSettlement
 
         public bool IsInHand => Info.Location == CardRuntimeInfo.CardLocation.Hand;
 
+        public StackActionData InvolvedStackAction { get; set; }
+        
         [field: ShowInInspector]
         [field: ReadOnly]
         public CardStack Stack { get; set; }
@@ -53,7 +55,7 @@ namespace SolitaireSettlement
         {
             Info.SetRelatedGameObject(gameObject);
 
-            Info.Data.CardUse?.Initialize();
+            Info.Data.CardUse?.ForEach(u => u.Initialize());
             Info.Data.OnTurnUpdate?.ForEach(t => t.Initialize(this));
         }
 
@@ -113,7 +115,7 @@ namespace SolitaireSettlement
 
             Info.Data = Instantiate(InternalDataReference);
 
-            Info.Data.CardUse?.Initialize();
+            Info.Data.CardUse?.ForEach(u => u.Initialize());
             Info.Data.OnTurnUpdate?.ForEach(t => t.Initialize(this));
             GetComponent<CardRenderer>().UpdateCardVisuals(Info.Data);
         }

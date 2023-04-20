@@ -40,10 +40,13 @@ namespace SolitaireSettlement
         public List<CardData> ValidStackableCards { get; private set; }
 
         [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]
-        public IStackActionCardUse CardUse { get; set; }
+        public List<IStackActionCardUse> CardUse { get; set; }
 
         [field: SerializeField, InlineProperty, HideLabel, Title("On Turn Updates")]
         public List<ICardUniqueImpl> OnTurnUpdate { get; set; }
+
+        [field: SerializeField, InlineProperty, HideLabel, Title("Bonuses"), ListDrawerSettings(Expanded = true)]
+        public List<ICardBonus> CardBonuses { get; private set; }
 
         [field: ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f),
                 ListDrawerSettings(Expanded = true, HideAddButton = true, HideRemoveButton = true,
@@ -55,6 +58,8 @@ namespace SolitaireSettlement
                     DraggableItems = false, IsReadOnly = true),
                 InlineButton("RefreshReferences", Label = "", Icon = SdfIconType.ArrowRepeat)]
         private List<StackActionData> UsedInStackAction { get; set; }
+
+        public bool Invalid => ValidStackableCards == null || CardUse == null || OnTurnUpdate == null;
 
         private void OnValidate()
         {

@@ -15,7 +15,7 @@ namespace SolitaireSettlement
         {
         }
 
-        protected static void CreateCardToDeck(CardData card, CardRuntimeInfo.CardLocation location,
+        protected static void CreateCardTo(CardData card, CardRuntimeInfo.CardLocation location,
             Vector3 spawnPosition, float animationDelay = 0.0f)
         {
             CameraManager.Instance.GetPositionOnScreenSpaceCanvas(spawnPosition, out var pos);

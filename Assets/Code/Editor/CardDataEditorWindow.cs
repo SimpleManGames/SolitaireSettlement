@@ -77,7 +77,7 @@ namespace SolitaireSettlement
 
         private void SetupCardDataTreeMenu()
         {
-            SetupTreeMenu<CardData>("Cards", CARD_DATA_ASSET_PATH, null);
+            SetupTreeMenu<CardData>("Cards", CARD_DATA_ASSET_PATH, asset => !asset.Invalid);
         }
 
         private void SetupStackActionsTreeMenu()

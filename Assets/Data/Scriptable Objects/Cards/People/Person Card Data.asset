@@ -15,7 +15,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 6e91cdc647e81ce49a0c5db613e78270, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -23,20 +24,52 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <CardUse>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.PersonHungerCardUse, Assembly-CSharp
+      Data: 0|System.Collections.Generic.List`1[[SolitaireSettlement.IStackActionCardUse,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|SolitaireSettlement.ModifyPersonHungerCardUse, Assembly-CSharp
+    - Name: <ModifyAmount>k__BackingField
+      Entry: 3
+      Data: -1
+    - Name: <IgnoreStarvingWhileDoingStackActions>k__BackingField
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[SolitaireSettlement.StackActionData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: <OnTurnUpdate>k__BackingField
       Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[SolitaireSettlement.ICardUniqueImpl,
+      Data: 3|System.Collections.Generic.List`1[[SolitaireSettlement.ICardUniqueImpl,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 2|SolitaireSettlement.PersonCardHealthImpl, Assembly-CSharp
+      Data: 4|SolitaireSettlement.PersonCardHealthImpl, Assembly-CSharp
     - Name: <MaxHealth>k__BackingField
       Entry: 3
       Data: 3
@@ -48,7 +81,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|SolitaireSettlement.HungerCardImpl, Assembly-CSharp
+      Data: 5|SolitaireSettlement.HungerCardImpl, Assembly-CSharp
     - Name: <HungerCap>k__BackingField
       Entry: 3
       Data: 5

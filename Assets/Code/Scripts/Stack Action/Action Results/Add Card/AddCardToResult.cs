@@ -12,7 +12,7 @@ namespace SolitaireSettlement
 
         public override void OnResult(IEnumerable<Card> relatedCardStack)
         {
-            CreateCardToDeck(ProducedCard, Location, relatedCardStack.ElementAt(0).transform.position);
+            CreateCardTo(ProducedCard, Location, relatedCardStack.ElementAt(0).transform.position);
         }
 
         public override List<CardData> AddedCardData()

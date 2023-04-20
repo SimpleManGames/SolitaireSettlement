@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Singleton;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -9,7 +10,7 @@ namespace SolitaireSettlement
     public class CardManager : Singleton<CardManager>
     {
         [field: Title("Data")]
-        [field: SerializeField, ReadOnly]
+        [field: SerializeField, Sirenix.OdinInspector.ReadOnly]
         public List<CardRuntimeInfo> AllCardsInfo { get; private set; }
 
         [field: Title("Scene References")]
@@ -32,6 +33,13 @@ namespace SolitaireSettlement
         [field: SerializeField, AssetsOnly]
         public CardData PersonCard { get; private set; }
 
+        [field: Title("Info")]
+        [field: SerializeField]
+        public int BasePopulateCap { get; private set; }
+
+        [field: ShowInInspector, ReadOnly]
+        public int PopulationCap { get; private set; }
+
         [field: SerializeField]
         private float DurationBetweenCardDiscard { get; set; } = 0.5f;
 
@@ -40,10 +48,7 @@ namespace SolitaireSettlement
 
         private void Start()
         {
-            // Grab the initial cards
-            AllCardsInfo = GameObject.FindObjectsOfType<Card>()
-                .Select(c => c.GetComponent<Card>().Info)
-                .ToList();
+            GatherCardReferences();
         }
 
         private void LateUpdate()
@@ -60,6 +65,37 @@ namespace SolitaireSettlement
                 if (card.Location == CardRuntimeInfo.CardLocation.Delete)
                     AllCardsInfo.Remove(card);
             }
+
+            DeterminePopulationCap();
+        }
+
+        public void AddCardFromAreaReveal(List<Card> areaCards)
+        {
+            AllCardsInfo.AddRange(areaCards.Select(c => c.Info));
+        }
+
+        private void GatherCardReferences()
+        {
+            AllCardsInfo = FindObjectsOfType<Card>()
+                .Select(c => c.GetComponent<Card>().Info)
+                .ToList();
+        }
+
+        private void DeterminePopulationCap()
+        {
+            var capBonusFromCards = 0;
+
+            var validCardBonuses = AllCardsInfo?.Where(w => !w.Data.CardBonuses.IsNullOrEmpty()).ToList();
+            if (validCardBonuses != null)
+            {
+                var cardBonuses = validCardBonuses.SelectMany(c => c.Data.CardBonuses)
+                    .Where(cardBonus => cardBonus is GlobalPopulateBonus)
+                    .Cast<GlobalPopulateBonus>().ToList();
+
+                capBonusFromCards = cardBonuses.Sum(b => b.BonusToPopulateCap);
+            }
+
+            PopulationCap = BasePopulateCap + capBonusFromCards;
         }
 
         public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location,

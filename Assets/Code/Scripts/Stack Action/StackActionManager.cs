@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -87,6 +88,7 @@ namespace SolitaireSettlement
                 involvedCards = currentStack.Cards
             };
 
+            currentStack.Cards.ForEach(c => c.InvolvedStackAction = stackAction);
             CurrentPossibleStackActions.Add(stackInfo);
         }
 
@@ -139,11 +141,15 @@ namespace SolitaireSettlement
             foreach (var stackActionInfo in CurrentPossibleStackActions)
             {
                 var involvedCards = stackActionInfo.involvedCards;
-                foreach (var result in stackActionInfo.stackActionData.Results)
-                    result.OnResult(involvedCards);
+                if (!stackActionInfo.stackActionData.Results.IsNullOrEmpty())
+                    foreach (var result in stackActionInfo.stackActionData.Results)
+                        result.OnResult(involvedCards);
 
                 foreach (var card in involvedCards.Where(card => card.Info.Data.CardUse != null))
-                    card.Info.Data.CardUse.OnCardUse(card);
+                {
+                    foreach (var cardUse in card.Info.Data.CardUse)
+                        cardUse.OnCardUse(card);
+                }
             }
 
             CurrentPossibleStackActions.Clear();

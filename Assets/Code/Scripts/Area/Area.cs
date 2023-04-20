@@ -119,6 +119,8 @@ namespace SolitaireSettlement
 
             DiscoverNeighborAreas();
 
+            CardManager.Instance.AddCardFromAreaReveal(_cardObjectsInArea);
+
             Revealed = true;
             ShouldRevealAfterPlanning = false;
         }
@@ -134,7 +136,7 @@ namespace SolitaireSettlement
 
             if (!_overlappingPersons.Any())
                 return;
-            
+
             // Expend hunger for the first detected person in the area
             var personCard = _overlappingPersons.First();
             var hungerCardUse = personCard.Info.Data.OnTurnUpdate
@@ -154,6 +156,9 @@ namespace SolitaireSettlement
                 CardManager.Instance.AllCardsInfo.Count(c => c.Data.CardType == CardData.ECardType.Person);
 
             if (personCount <= 0)
+                return;
+
+            if (personCount >= CardManager.Instance.PopulationCap)
                 return;
 
             var areaCount = AreaManager.Instance.GeneratedAreaComponents.Count(a => a.Revealed);

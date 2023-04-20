@@ -24,18 +24,44 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <CardUse>k__BackingField
       Entry: 7
-      Data: 0|SolitaireSettlement.AmountOfCardUses, Assembly-CSharp
+      Data: 0|System.Collections.Generic.List`1[[SolitaireSettlement.IStackActionCardUse,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|SolitaireSettlement.AmountOfCardUses, Assembly-CSharp
     - Name: <AmountOfUses>k__BackingField
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: <ResultAfterUses>k__BackingField
       Entry: 7
-      Data: 1|SolitaireSettlement.ReplaceCardWithOnUse, Assembly-CSharp
+      Data: 2|SolitaireSettlement.ReplaceCardWithOnUse, Assembly-CSharp
     - Name: <ReplacementCard>k__BackingField
       Entry: 10
       Data: 0
     - Name: 
       Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <OnTurnUpdate>k__BackingField
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[SolitaireSettlement.ICardUniqueImpl,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
       Data: 
     - Name: 
       Entry: 8

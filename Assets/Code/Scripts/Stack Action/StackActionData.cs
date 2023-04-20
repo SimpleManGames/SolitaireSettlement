@@ -32,7 +32,7 @@ namespace SolitaireSettlement
         [field: SerializeField, Required, HideReferenceObjectPicker]
         public IStackActionResult[] Results { get; private set; }
 
-        public bool Conflict => ConflictedStackActions?.Count > 0 || Results?.Length == 0;
+        public bool Conflict => ConflictedStackActions?.Count > 0;
 
         private int _lastAmountOfNeededCards = 0;
 
