@@ -18,6 +18,9 @@ namespace SolitaireSettlement
         protected static void CreateCardTo(CardData card, CardRuntimeInfo.CardLocation location,
             Vector3 spawnPosition, float animationDelay = 0.0f)
         {
+            if (card.CardType == CardData.ECardType.Person && !CardManager.Instance.CanAddToPopulation)
+                return;
+
             CameraManager.Instance.GetPositionOnScreenSpaceCanvas(spawnPosition, out var pos);
             CardManager.Instance.CreateNewCardRuntimeInfo(card, location, true, pos, animationDelay);
         }

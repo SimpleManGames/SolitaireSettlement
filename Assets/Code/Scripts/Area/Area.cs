@@ -152,13 +152,12 @@ namespace SolitaireSettlement
 
         private void AddPersonToAreaIfNeeded()
         {
-            var personCount =
-                CardManager.Instance.AllCardsInfo.Count(c => c.Data.CardType == CardData.ECardType.Person);
+            var personCount = CardManager.Instance.PersonCount;
 
             if (personCount <= 0)
                 return;
 
-            if (personCount >= CardManager.Instance.PopulationCap)
+            if (!CardManager.Instance.CanAddToPopulation)
                 return;
 
             var areaCount = AreaManager.Instance.GeneratedAreaComponents.Count(a => a.Revealed);
@@ -166,11 +165,11 @@ namespace SolitaireSettlement
             if (areaCount <= 0)
                 return;
 
-            if (areaCount / personCount >= AreaManager.Instance.AreaPersonRatio)
-            {
-                CardManager.Instance.CreateNewCardRuntimeInfo(CardManager.Instance.PersonCard,
-                    CardRuntimeInfo.CardLocation.GameBoard, false, transform.position, 0);
-            }
+            if (areaCount / personCount < AreaManager.Instance.AreaPersonRatio)
+                return;
+
+            CardManager.Instance.CreateNewCardRuntimeInfo(CardManager.Instance.PersonCard,
+                CardRuntimeInfo.CardLocation.GameBoard, false, transform.position, 0);
         }
 
         private void DiscoverNeighborAreas()

@@ -39,6 +39,11 @@ namespace SolitaireSettlement
 
         [field: ShowInInspector, ReadOnly]
         public int PopulationCap { get; private set; }
+        
+        [ShowInInspector]
+        public int PersonCount => Instance.AllCardsInfo.Count(c => c.Data.CardType == CardData.ECardType.Person);
+
+        public bool CanAddToPopulation => PersonCount < CardManager.Instance.PopulationCap;
 
         [field: SerializeField]
         private float DurationBetweenCardDiscard { get; set; } = 0.5f;
