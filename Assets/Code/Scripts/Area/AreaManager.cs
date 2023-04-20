@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using Simplicity.GameEvent;
 using Simplicity.Singleton;
-using Simplicity.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -40,14 +37,17 @@ namespace SolitaireSettlement
         public List<GameObject> GeneratedAreaObjects { get; private set; } = new();
         public List<Area> GeneratedAreaComponents { get; private set; } = new();
 
-        [field: SerializeField]
-        private PolygonCollider2D CameraBoundsCollider { get; set; }
-
         [field: ShowInInspector]
         public Vector2 MinPosition { get; private set; }
 
         [field: ShowInInspector]
         public Vector2 MaxPosition { get; private set; }
+        
+        [field: SerializeField, Min(0)]
+        public int AreaPersonRatio { get; private set; }
+        
+        [field: SerializeField, Min(0)]
+        public int AreaDiscoverHungerCost { get; private set; }
 
         private void Start()
         {

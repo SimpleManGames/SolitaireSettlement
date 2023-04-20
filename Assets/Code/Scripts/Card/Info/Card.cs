@@ -1,4 +1,5 @@
 using System.Linq;
+using Simplicity.Utility.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -51,7 +52,9 @@ namespace SolitaireSettlement
         private void Start()
         {
             Info.SetRelatedGameObject(gameObject);
+
             Info.Data.CardUse?.Initialize();
+            Info.Data.OnTurnUpdate?.ForEach(t => t.Initialize(this));
         }
 
         private void Update()
@@ -109,7 +112,9 @@ namespace SolitaireSettlement
             InternalDataReference = data;
 
             Info.Data = Instantiate(InternalDataReference);
+
             Info.Data.CardUse?.Initialize();
+            Info.Data.OnTurnUpdate?.ForEach(t => t.Initialize(this));
             GetComponent<CardRenderer>().UpdateCardVisuals(Info.Data);
         }
 

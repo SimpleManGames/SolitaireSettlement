@@ -76,7 +76,10 @@ MonoBehaviour:
       Data: 3
     - Name: 
       Entry: 7
-      Data: 2|SolitaireSettlement.AddCardToDeckResult, Assembly-CSharp
+      Data: 2|SolitaireSettlement.AddCardToResult, Assembly-CSharp
+    - Name: <Location>k__BackingField
+      Entry: 3
+      Data: 1
     - Name: <ProducedCard>k__BackingField
       Entry: 10
       Data: 2
@@ -86,6 +89,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 3|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
+    - Name: <Location>k__BackingField
+      Entry: 3
+      Data: 1
     - Name: <CardChances>k__BackingField
       Entry: 7
       Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
@@ -104,6 +110,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 4|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
+    - Name: <Location>k__BackingField
+      Entry: 3
+      Data: 1
     - Name: <CardChances>k__BackingField
       Entry: 7
       Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp

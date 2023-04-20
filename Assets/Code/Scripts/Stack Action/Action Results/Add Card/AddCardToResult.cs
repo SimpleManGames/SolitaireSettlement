@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class AddCardToDeckResult : AddCardResult
+    public class AddCardToResult : AddCardResult
     {
         [field: SerializeField, HideLabel, Title("Card")]
         public CardData ProducedCard { get; private set; }
 
         public override void OnResult(IEnumerable<Card> relatedCardStack)
         {
-            CreateCardToDeck(ProducedCard, relatedCardStack.ElementAt(0).transform.position);
+            CreateCardToDeck(ProducedCard, Location, relatedCardStack.ElementAt(0).transform.position);
         }
 
         public override List<CardData> AddedCardData()

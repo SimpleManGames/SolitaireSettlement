@@ -1353,7 +1353,8 @@ MonoBehaviour:
   <GameAreaCanvas>k__BackingField: {fileID: 1513576520}
   <AreaPrefab>k__BackingField: {fileID: 1104891488343415600, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
   <AreaBuffer>k__BackingField: {x: 1, y: 1}
-  <CameraBoundsCollider>k__BackingField: {fileID: 0}
+  <AreaPersonRatio>k__BackingField: 3
+  <AreaDiscoverHungerCost>k__BackingField: 1
 --- !u!114 &1082791695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2466,6 +2467,7 @@ MonoBehaviour:
   <GameCamera>k__BackingField: {fileID: 519420031}
   <CardPrefab>k__BackingField: {fileID: 3066733035232729277, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
   <EmptyPlotCard>k__BackingField: {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
+  <PersonCard>k__BackingField: {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
   <DurationBetweenCardDiscard>k__BackingField: 0.1
 --- !u!114 &1775970102
 MonoBehaviour:

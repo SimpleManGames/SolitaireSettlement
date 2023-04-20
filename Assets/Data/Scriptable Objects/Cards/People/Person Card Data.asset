@@ -24,14 +24,42 @@ MonoBehaviour:
     - Name: <CardUse>k__BackingField
       Entry: 7
       Data: 0|SolitaireSettlement.PersonHungerCardUse, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <OnTurnUpdate>k__BackingField
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[SolitaireSettlement.ICardUniqueImpl,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 2|SolitaireSettlement.PersonCardHealthImpl, Assembly-CSharp
+    - Name: <MaxHealth>k__BackingField
+      Entry: 3
+      Data: 3
+    - Name: <HealthLostWhileStarving>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|SolitaireSettlement.HungerCardImpl, Assembly-CSharp
     - Name: <HungerCap>k__BackingField
       Entry: 3
       Data: 5
     - Name: 
       Entry: 8
       Data: 
-    - Name: <OnTurnProgress>k__BackingField
-      Entry: 6
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
   <Name>k__BackingField: Person
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 982ebd69dc8ac20479a5d967fe0e53fe, type: 2}
@@ -39,3 +67,4 @@ MonoBehaviour:
   <ValidStackableCards>k__BackingField:
   - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
   - {fileID: 11400000, guid: 873ae9b4da31ee346800da862bd3ff68, type: 2}
+  - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}

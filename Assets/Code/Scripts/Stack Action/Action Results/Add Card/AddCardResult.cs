@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -7,16 +8,18 @@ namespace SolitaireSettlement
     {
         protected const float DELAY_BETWEEN_CARD_SPAWNS = 0.2f;
 
+        [field: SerializeField, LabelText("Location of Added Card")]
+        protected CardRuntimeInfo.CardLocation Location { get; set; } = CardRuntimeInfo.CardLocation.Deck;
+
         public virtual void OnResult(IEnumerable<Card> relatedCardStack)
         {
-
         }
 
-        protected static void CreateCardToDeck(CardData card, Vector3 spawnPosition, float animationDelay = 0.0f)
+        protected static void CreateCardToDeck(CardData card, CardRuntimeInfo.CardLocation location,
+            Vector3 spawnPosition, float animationDelay = 0.0f)
         {
             CameraManager.Instance.GetPositionOnScreenSpaceCanvas(spawnPosition, out var pos);
-            CardManager.Instance.CreateNewCardRuntimeInfo(card, CardRuntimeInfo.CardLocation.Deck,
-                true, pos, animationDelay);
+            CardManager.Instance.CreateNewCardRuntimeInfo(card, location, true, pos, animationDelay);
         }
 
         public abstract List<CardData> AddedCardData();

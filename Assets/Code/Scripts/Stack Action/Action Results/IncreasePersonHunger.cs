@@ -15,11 +15,14 @@ namespace SolitaireSettlement
             relatedCardStack.Where(c => c.Info.Data.CardType == CardData.ECardType.Person)
                 .ForEach(x =>
                 {
-                    if (x.Info.Data.CardUse is not PersonHungerCardUse hungerCardUse)
-                        return;
+                    var hungerImplList = x.Info.Data.OnTurnUpdate
+                        .Where(w => w is HungerCardImpl)
+                        .Cast<HungerCardImpl>().ToList();
 
-                    hungerCardUse.ModifyHungerBy(IncreaseHungerAmount * relatedCardStack.Except(new[] { x }).Count());
-                    x.Render.UpdateDynamicTextFields(x.Info.Data);
+                    foreach (var hungerImpl in hungerImplList)
+                    {
+                        hungerImpl.ModifyHungerBy(IncreaseHungerAmount);
+                    }
                 });
         }
     }

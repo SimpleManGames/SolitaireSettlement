@@ -32,9 +32,6 @@ namespace SolitaireSettlement
             if (!Area.ShouldRevealAfterPlanning)
                 return;
 
-            Area.Revealed = true;
-            Area.ShouldRevealAfterPlanning = false;
-
             HiddenArea.SetActive(false);
             RevealedArea.SetActive(true);
 

@@ -20,7 +20,7 @@ namespace SolitaireSettlement
             if (!(Random.value <= card.Chance))
                 return false;
 
-            CreateCardToDeck(card.ProducedCard, spawnPosition, animateDelay);
+            CreateCardToDeck(card.ProducedCard, Location, spawnPosition, animateDelay);
             return true;
         }
 

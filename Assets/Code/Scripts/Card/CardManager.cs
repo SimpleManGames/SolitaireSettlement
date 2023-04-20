@@ -29,6 +29,9 @@ namespace SolitaireSettlement
         [field: SerializeField, AssetsOnly]
         public CardData EmptyPlotCard { get; private set; }
 
+        [field: SerializeField, AssetsOnly]
+        public CardData PersonCard { get; private set; }
+
         [field: SerializeField]
         private float DurationBetweenCardDiscard { get; set; } = 0.5f;
 
@@ -50,6 +53,13 @@ namespace SolitaireSettlement
 
             while (_toBeReplaced.TryDequeue(out var replace) && replace.Value != null)
                 ReplaceCardDatFromRequested(replace.Key, replace.Value);
+
+            for (var i = AllCardsInfo.Count - 1; i >= 0; i--)
+            {
+                var card = AllCardsInfo[i];
+                if (card.Location == CardRuntimeInfo.CardLocation.Delete)
+                    AllCardsInfo.Remove(card);
+            }
         }
 
         public void CreateNewCardRuntimeInfo(CardData data, CardRuntimeInfo.CardLocation location,
@@ -69,6 +79,7 @@ namespace SolitaireSettlement
             var card = cardObject.GetComponent<Card>();
             card.Stack?.RemoveCard(card);
             card.Info.SetCardLocation(CardRuntimeInfo.CardLocation.Delete);
+            AllCardsInfo.Remove(card.Info);
             Destroy(cardObject);
         }
 
@@ -109,15 +120,15 @@ namespace SolitaireSettlement
 
         public void ProgressCardData()
         {
-            var possibleCardProgress = AllCardsInfo.Where(r => r.Data.OnTurnProgress != null);
+            var possibleCardProgress = AllCardsInfo.Where(r => r.Data.OnTurnUpdate != null);
             var correctLocationCardProgress =
                 possibleCardProgress.Where(r => r.Location == CardRuntimeInfo.CardLocation.GameBoard);
 
             foreach (var card in correctLocationCardProgress)
             {
                 var cardObject = card.RelatedGameObject.GetComponent<Card>();
-                foreach (var progress in card.Data.OnTurnProgress)
-                    progress.Progress(cardObject);
+                foreach (var progress in card.Data.OnTurnUpdate)
+                    progress.TurnProgress(cardObject);
             }
         }
     }

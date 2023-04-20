@@ -8,9 +8,7 @@ namespace Simplicity.GameEvent
     [CreateAssetMenu]
     public class GameEvent : ScriptableObject
     {
-        [Header("Listeners")]
-        [HideLabel]
-        [ShowInInspector]
+        [Header("Listeners"), HideLabel, ShowInInspector]
         private readonly List<IGameEventListener> _listeners = new();
 
         [Button]

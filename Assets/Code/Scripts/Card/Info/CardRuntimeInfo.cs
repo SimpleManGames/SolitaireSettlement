@@ -81,6 +81,9 @@ namespace SolitaireSettlement
 
         private void SetGameObjectGameBoardSettings()
         {
+            if (RelatedGameObject == null)
+                SetRelatedGameObject(CardFactory.Instance.CreateCardObjectFromDataInUICanvas(Data, this));
+
             RelatedGameObject.transform.SetParent(CardManager.Instance.GameAreaCanvas.transform);
             RelatedGameObject.transform.localScale = GameBoardScale;
             RelatedGameObject.transform.rotation = CardManager.Instance.GameAreaCanvas.transform.rotation;

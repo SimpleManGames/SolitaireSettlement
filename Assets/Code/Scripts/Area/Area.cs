@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.UI;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -31,6 +29,8 @@ namespace SolitaireSettlement
         public int Index { get; set; }
 
         private AreaVisual _areaVisual;
+
+        private List<Card> _overlappingPersons = new();
 
         private void OnEnable()
         {
@@ -110,6 +110,66 @@ namespace SolitaireSettlement
 
         public void OnRevealed()
         {
+            if (Revealed)
+                return;
+
+            ExpendPersonHungerWhenDiscovering();
+
+            AddPersonToAreaIfNeeded();
+
+            DiscoverNeighborAreas();
+
+            Revealed = true;
+            ShouldRevealAfterPlanning = false;
+        }
+
+        private void ExpendPersonHungerWhenDiscovering()
+        {
+            var areaRevealedCount = AreaManager.Instance.GeneratedAreaComponents.Count(a => a.Revealed);
+            // First one should be free
+            if (areaRevealedCount == 0)
+                return;
+
+            GatherPersonOverlaps();
+
+            if (!_overlappingPersons.Any())
+                return;
+            
+            // Expend hunger for the first detected person in the area
+            var personCard = _overlappingPersons.First();
+            var hungerCardUse = personCard.Info.Data.OnTurnUpdate
+                .Where(c => c is HungerCardImpl)
+                .Cast<HungerCardImpl>().First();
+
+            if (hungerCardUse == null)
+                return;
+
+            hungerCardUse.ModifyHungerBy(-AreaManager.Instance.AreaDiscoverHungerCost);
+            personCard.Render.UpdateDynamicTextFields(personCard.Info.Data);
+        }
+
+        private void AddPersonToAreaIfNeeded()
+        {
+            var personCount =
+                CardManager.Instance.AllCardsInfo.Count(c => c.Data.CardType == CardData.ECardType.Person);
+
+            if (personCount <= 0)
+                return;
+
+            var areaCount = AreaManager.Instance.GeneratedAreaComponents.Count(a => a.Revealed);
+
+            if (areaCount <= 0)
+                return;
+
+            if (areaCount / personCount >= AreaManager.Instance.AreaPersonRatio)
+            {
+                CardManager.Instance.CreateNewCardRuntimeInfo(CardManager.Instance.PersonCard,
+                    CardRuntimeInfo.CardLocation.GameBoard, false, transform.position, 0);
+            }
+        }
+
+        private void DiscoverNeighborAreas()
+        {
             var objs = new Area[AreaManager.Instance.AreaCountWidth, AreaManager.Instance.AreaCountHeight];
             for (int y = 0; y < AreaManager.Instance.AreaCountHeight; y++)
             {
@@ -123,25 +183,25 @@ namespace SolitaireSettlement
             var arrayX = Index % AreaManager.Instance.AreaCountWidth;
             var arrayY = Index / AreaManager.Instance.AreaCountWidth;
 
-            if(arrayY + 1 < AreaManager.Instance.AreaCountHeight)
+            if (arrayY + 1 < AreaManager.Instance.AreaCountHeight)
             {
                 objs[arrayX, arrayY + 1].Discovered = true;
                 objs[arrayX, arrayY + 1].gameObject.SetActive(true);
             }
 
-            if(arrayY - 1 >= 0)
+            if (arrayY - 1 >= 0)
             {
                 objs[arrayX, arrayY - 1].Discovered = true;
                 objs[arrayX, arrayY - 1].gameObject.SetActive(true);
             }
 
-            if(arrayX + 1 < AreaManager.Instance.AreaCountWidth)
+            if (arrayX + 1 < AreaManager.Instance.AreaCountWidth)
             {
                 objs[arrayX + 1, arrayY].Discovered = true;
                 objs[arrayX + 1, arrayY].gameObject.SetActive(true);
             }
 
-            if(arrayX - 1 >= 0)
+            if (arrayX - 1 >= 0)
             {
                 objs[arrayX - 1, arrayY].Discovered = true;
                 objs[arrayX - 1, arrayY].gameObject.SetActive(true);
@@ -150,7 +210,14 @@ namespace SolitaireSettlement
 
         public bool AnyPersonCardOverlapping()
         {
-            return GetOverlappingCards().Any(c => c.Info.Data.CardType == CardData.ECardType.Person && !c.IsInStack);
+            GatherPersonOverlaps();
+            return _overlappingPersons.Any();
+        }
+
+        private void GatherPersonOverlaps()
+        {
+            _overlappingPersons = GetOverlappingCards()
+                .Where(c => c.Info.Data.CardType == CardData.ECardType.Person && !c.IsInStack).ToList();
         }
 
         private List<Card> GetOverlappingCards()

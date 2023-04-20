@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Utility;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -31,7 +33,7 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
-        [field: SerializeField, AssetsOnly, 
+        [field: SerializeField, AssetsOnly,
                 ListDrawerSettings(OnTitleBarGUI = "ValidStackableCardItemSyncAllGUI",
                     OnBeginListElementGUI = "ValidStackableCardElementBeginGUI",
                     OnEndListElementGUI = "ValidStackableCardElementEndGUI", Expanded = true)]
@@ -40,8 +42,8 @@ namespace SolitaireSettlement
         [field: SerializeField, InlineProperty, HideLabel, Title("On Card Use")]
         public IStackActionCardUse CardUse { get; set; }
 
-        [field: SerializeField, InlineProperty, HideLabel, Title("On Turn Progress")]
-        public List<ICardTurnProgress> OnTurnProgress { get; set; }
+        [field: SerializeField, InlineProperty, HideLabel, Title("On Turn Updates")]
+        public List<ICardUniqueImpl> OnTurnUpdate { get; set; }
 
         [field: ShowInInspector, HorizontalGroup("References", Title = "References", MaxWidth = 0.5f),
                 ListDrawerSettings(Expanded = true, HideAddButton = true, HideRemoveButton = true,
@@ -107,7 +109,7 @@ namespace SolitaireSettlement
 
                     if (CheckStackActionResultsForReplaceCardResult(result, results, kv))
                         continue;
-                    
+
                     break;
                 }
             }
@@ -121,7 +123,23 @@ namespace SolitaireSettlement
             if (result is not AddCardResult cast)
                 return false;
 
-            if (cast.AddedCardData().All(c => c.Name != Name))
+            if (cast.AddedCardData().IsNullOrEmpty())
+                return false;
+
+            var addedCards = cast.AddedCardData();
+
+            if (addedCards.All(c =>
+                {
+                    try
+                    {
+                        return c.Name != Name;
+                    }
+                    catch (NullReferenceException e)
+                    {
+                        Debug.LogError($"CardData was Null within AddedCardData of {kv.data.name}");
+                        throw;
+                    }
+                }))
                 return false;
 
             results.Add(kv.data);

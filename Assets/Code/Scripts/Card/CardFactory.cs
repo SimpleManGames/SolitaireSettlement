@@ -46,5 +46,15 @@ namespace SolitaireSettlement
             newCardComponent.UpdateCardData(data);
             return newCardObject;
         }
+
+        public GameObject CreateCardObjectFromDataInGameBoard(CardData data, CardRuntimeInfo info)
+        {
+            var newCardObject = Object.Instantiate(CardPrefab, info.Position, quaternion.identity, GameCanvasTransform);
+            newCardObject.transform.localScale = new Vector3(1, 1, 1);
+            var newCardComponent = newCardObject.GetComponent<Card>();
+            newCardComponent.UpdateCardInfo(info);
+            newCardComponent.UpdateCardData(data);
+            return newCardObject;
+        }
     }
 }
