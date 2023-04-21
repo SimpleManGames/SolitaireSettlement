@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a84125fb781d847bee968b920f97ef, type: 3}
-  m_Name: Harvest From Quarry Stack Action
+  m_Name: Construct Mason Stack Action
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}
     - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-    - {fileID: 11400000, guid: 18de3e9fcb86ac84680982e86fb5bc32, type: 2}
-    - {fileID: 11400000, guid: 10e290ccc7e1aae49b3538cceb9dfe3f, type: 2}
-    - {fileID: 11400000, guid: 3506e1ef357f88647ab2b247c9709e6b, type: 2}
+    - {fileID: 11400000, guid: 5dc79e23fa7a3c74b86ba1ea1b736b5c, type: 2}
+    - {fileID: 11400000, guid: 34830b4fa6f834e4eaab2a398a9cce15, type: 2}
+    - {fileID: 11400000, guid: 479a7789b2a346a49bd585ce0f107967, type: 2}
+    - {fileID: 11400000, guid: b331199cc81b4aa49827304bad7b75c0, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -31,7 +33,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 5
     - Name: 
       Entry: 7
       Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
@@ -63,6 +65,51 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 2
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 3
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SolitaireSettlement.StackActionData+NeededCard, Assembly-CSharp
+    - Name: <Card>k__BackingField
+      Entry: 10
+      Data: 4
+    - Name: <Count>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: <AnyAmount>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -73,58 +120,16 @@ MonoBehaviour:
       Data: 1|SolitaireSettlement.IStackActionResult[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 2|SolitaireSettlement.AddCardToResult, Assembly-CSharp
-    - Name: <Location>k__BackingField
-      Entry: 3
       Data: 1
-    - Name: <ProducedCard>k__BackingField
+    - Name: 
+      Entry: 7
+      Data: 2|SolitaireSettlement.ReplaceCardWithResults, Assembly-CSharp
+    - Name: <TargetCard>k__BackingField
       Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
-    - Name: <Location>k__BackingField
-      Entry: 3
-      Data: 1
-    - Name: <CardChances>k__BackingField
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
+      Data: 0
+    - Name: <ReplacementCard>k__BackingField
       Entry: 10
-      Data: 2
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 0.2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 4|SolitaireSettlement.ChanceToAddCardResult, Assembly-CSharp
-    - Name: <Location>k__BackingField
-      Entry: 3
-      Data: 1
-    - Name: <CardChances>k__BackingField
-      Entry: 7
-      Data: SolitaireSettlement.ChanceAddCardResult+CardChance, Assembly-CSharp
-    - Name: <ProducedCard>k__BackingField
-      Entry: 10
-      Data: 3
-    - Name: <Chance>k__BackingField
-      Entry: 4
-      Data: 0.05
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -134,4 +139,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <Name>k__BackingField: Harvest From Quarry
+  <Name>k__BackingField: Construct Mason

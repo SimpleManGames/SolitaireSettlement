@@ -53,9 +53,11 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <CardBonuses>k__BackingField
+      Entry: 6
+      Data: 
   <Name>k__BackingField: Stick
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 1ef65f7aec3f91c46bc235b941424692, type: 2}
   <CardType>k__BackingField: 1
   <ValidStackableCards>k__BackingField:
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
-  - {fileID: 11400000, guid: 9b8987eda7805c94c8268aa7bc34be94, type: 2}

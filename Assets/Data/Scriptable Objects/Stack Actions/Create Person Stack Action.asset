@@ -77,7 +77,7 @@ MonoBehaviour:
       Data: 2|SolitaireSettlement.AddCardToResult, Assembly-CSharp
     - Name: <Location>k__BackingField
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: <ProducedCard>k__BackingField
       Entry: 10
       Data: 0

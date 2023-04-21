@@ -71,7 +71,7 @@ MonoBehaviour:
       Data: 2
     - Name: <Count>k__BackingField
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: <AnyAmount>k__BackingField
       Entry: 5
       Data: false
@@ -86,7 +86,7 @@ MonoBehaviour:
       Data: 3
     - Name: <Count>k__BackingField
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: <AnyAmount>k__BackingField
       Entry: 5
       Data: false

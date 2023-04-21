@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 1|SolitaireSettlement.AmountOfCardUses, Assembly-CSharp
     - Name: <AmountOfUses>k__BackingField
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: <ResultAfterUses>k__BackingField
       Entry: 7
       Data: 2|SolitaireSettlement.ReplaceCardWithOnUse, Assembly-CSharp
@@ -65,6 +65,9 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 8
+      Data: 
+    - Name: <CardBonuses>k__BackingField
+      Entry: 6
       Data: 
   <Name>k__BackingField: Rock
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 8ab39691ef4d2b049a368f67c5b14bca, type: 2}

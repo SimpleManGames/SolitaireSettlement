@@ -47,6 +47,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <CardBonuses>k__BackingField
+      Entry: 6
+      Data: 
   <Name>k__BackingField: Empty Plot
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 2b570ff481835b44bbd774cc487c91b7, type: 2}
   <CardType>k__BackingField: 2
@@ -59,3 +62,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}
   - {fileID: 11400000, guid: 24087af596830cd4ba553556dc51267f, type: 2}
   - {fileID: 11400000, guid: 3506e1ef357f88647ab2b247c9709e6b, type: 2}
+  - {fileID: 11400000, guid: 5dc79e23fa7a3c74b86ba1ea1b736b5c, type: 2}
