@@ -29,7 +29,7 @@ namespace SolitaireSettlement
         [field: SerializeField, ListDrawerSettings(Expanded = true)]
         public List<NeededCard> NeededCardsInStack { get; private set; }
 
-        [field: SerializeField, Required, HideReferenceObjectPicker]
+        [field: SerializeField, Required]
         public IStackActionResult[] Results { get; private set; }
 
         public bool Conflict => ConflictedStackActions?.Count > 0;
@@ -69,7 +69,14 @@ namespace SolitaireSettlement
                 if (dataCardCount != otherCardCount)
                     continue;
 
-                if (StackActionManager.CheckForFullMatching(data, otherNeededCards))
+                var unfoldedOtherNeededCards = new List<CardData>();
+                foreach (var other in otherStack.NeededCardsInStack)
+                {
+                    for (int i = 0; i < other.Count; i++)
+                        unfoldedOtherNeededCards.Add(other.Card);
+                }
+
+                if (StackActionManager.CheckForFullMatching(data, unfoldedOtherNeededCards))
                 {
                     results.Add(otherStack);
                     if (checkOther)
@@ -84,10 +91,12 @@ namespace SolitaireSettlement
         {
             _lastAmountOfNeededCards = -1;
 
-            if (_lastAmountOfNeededCards != NeededCardsInStack.Count)
+            var count = NeededCardsInStack.Sum(n => n.Count);
+
+            if (_lastAmountOfNeededCards != count)
             {
-                _lastAmountOfNeededCards = NeededCardsInStack.Count;
-                ConflictedStackActions = GetConflicts(this, !calledFromOther);
+                _lastAmountOfNeededCards = count;
+                ConflictedStackActions = GetConflicts(this, calledFromOther);
             }
         }
 

@@ -19,7 +19,8 @@ namespace SolitaireSettlement
             Resource,
             Building,
             Gathering,
-            Food
+            Food,
+            Stockpile
         }
 
         [field: Title("Visuals")]
@@ -33,7 +34,7 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
-        [field: SerializeField, AssetsOnly,
+        [field: SerializeField, AssetsOnly, AssetSelector,
                 ListDrawerSettings(OnTitleBarGUI = "ValidStackableCardItemSyncAllGUI",
                     OnBeginListElementGUI = "ValidStackableCardElementBeginGUI",
                     OnEndListElementGUI = "ValidStackableCardElementEndGUI", Expanded = true)]

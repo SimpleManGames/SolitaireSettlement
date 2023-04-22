@@ -1,6 +1,6 @@
 namespace SolitaireSettlement
 {
-    public class GlobalCardBonus : ICardBonus
+    public abstract class AreaCardBonus : ICardBonus
     {
         
     }

@@ -10,7 +10,7 @@ namespace SolitaireSettlement
     public class CardManager : Singleton<CardManager>
     {
         [field: Title("Data")]
-        [field: SerializeField, Sirenix.OdinInspector.ReadOnly]
+        [field: SerializeField, ReadOnly]
         public List<CardRuntimeInfo> AllCardsInfo { get; private set; }
 
         [field: Title("Scene References")]
@@ -39,11 +39,11 @@ namespace SolitaireSettlement
 
         [field: ShowInInspector, ReadOnly]
         public int PopulationCap { get; private set; }
-        
+
         [ShowInInspector]
         public int PersonCount => Instance.AllCardsInfo.Count(c => c.Data.CardType == CardData.ECardType.Person);
 
-        public bool CanAddToPopulation => PersonCount < CardManager.Instance.PopulationCap;
+        public bool CanAddToPopulation => PersonCount < Instance.PopulationCap;
 
         [field: SerializeField]
         private float DurationBetweenCardDiscard { get; set; } = 0.5f;
@@ -132,8 +132,7 @@ namespace SolitaireSettlement
         private void DiscardCards()
         {
             var leftOverCardsOnBoard = AllCardsInfo.Where(c =>
-                    c.Location == CardRuntimeInfo.CardLocation.GameBoard &&
-                    c.Data.CardType == CardData.ECardType.Resource)
+                    c.RelatedGameObject.GetComponent<Card>().ShouldDiscard)
                 .ToList();
 
             for (var i = leftOverCardsOnBoard.Count - 1; i >= 0; i--)

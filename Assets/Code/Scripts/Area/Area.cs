@@ -15,7 +15,7 @@ namespace SolitaireSettlement
         [field: SerializeField, ChildGameObjectsOnly]
         private GameObject ShownGameObject { get; set; }
 
-        private List<Card> _cardObjectsInArea;
+        public List<Card> CardObjectsInArea { get; private set; }
 
         [field: ShowInInspector]
         public bool Discovered { get; set; }
@@ -56,15 +56,15 @@ namespace SolitaireSettlement
 
         private void CreateInitialCardsBasedOnAreaData()
         {
-            _cardObjectsInArea = ShownGameObject.transform.GetComponentsInChildren<Card>().ToList();
-            var initialCardObjectCount = _cardObjectsInArea.Count;
+            CardObjectsInArea = ShownGameObject.transform.GetComponentsInChildren<Card>().ToList();
+            var initialCardObjectCount = CardObjectsInArea.Count;
 
             if (Data == null) return;
 
             for (var i = 0; i < Data.MaxCardCount - initialCardObjectCount; i++)
             {
                 var newCardObject = Instantiate(CardManager.Instance.CardPrefab, ShownGameObject.transform);
-                _cardObjectsInArea.Add(newCardObject.GetComponent<Card>());
+                CardObjectsInArea.Add(newCardObject.GetComponent<Card>());
             }
         }
 
@@ -77,14 +77,14 @@ namespace SolitaireSettlement
                 return;
             }
 
-            if (areaSpawnedCards.Count > _cardObjectsInArea.Count)
+            if (areaSpawnedCards.Count > CardObjectsInArea.Count)
                 Debug.LogError($"AreaData, {Data.Name}, Spawned Cards returned to many cards to fit in Area!");
 
             var areaRectTransform = GetComponent<RectTransform>();
 
             for (var i = 0; i < areaSpawnedCards.Count; i++)
             {
-                var card = _cardObjectsInArea[i];
+                var card = CardObjectsInArea[i];
                 card.UpdateCardData(areaSpawnedCards[i]);
                 card.Area = this;
                 var rectTransform = card.GetComponent<RectTransform>();
@@ -119,7 +119,7 @@ namespace SolitaireSettlement
 
             DiscoverNeighborAreas();
 
-            CardManager.Instance.AddCardFromAreaReveal(_cardObjectsInArea);
+            CardManager.Instance.AddCardFromAreaReveal(CardObjectsInArea);
 
             Revealed = true;
             ShouldRevealAfterPlanning = false;

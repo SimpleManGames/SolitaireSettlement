@@ -43,7 +43,7 @@ namespace SolitaireSettlement
         {
             for (var i = CardsInHand.Count - 1; i >= 0; i--)
             {
-                CardsInHand[i].SetPosition(CardsInHand[i].RelatedGameObject.transform.position);
+                // CardsInHand[i].SetPosition(CardsInHand[i].RelatedGameObject.transform.position);
                 CardsInHand[i].SetCardLocation(CardRuntimeInfo.CardLocation.Discard, true, i * DurationBetweenCardDiscard);
             }
         }

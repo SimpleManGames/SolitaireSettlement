@@ -24,7 +24,7 @@ namespace SolitaireSettlement
         public bool IsInHand => Info.Location == CardRuntimeInfo.CardLocation.Hand;
 
         public StackActionData InvolvedStackAction { get; set; }
-        
+
         [field: ShowInInspector]
         [field: ReadOnly]
         public CardStack Stack { get; set; }
@@ -43,6 +43,8 @@ namespace SolitaireSettlement
 
         public bool CanLeaveArea => Info.Data.CardType != CardData.ECardType.Building &&
                                     Info.Data.CardType != CardData.ECardType.Gathering;
+
+        public bool ShouldDiscard => DetermineIfShouldBeDiscarded();
 
         private void Awake()
         {
@@ -209,6 +211,28 @@ namespace SolitaireSettlement
         private void AddDraggingCardsStackCards(Card placeOntoCard, Card draggingCard)
         {
             placeOntoCard.Stack.AddCards(draggingCard.Stack.Cards);
+        }
+
+        private bool DetermineIfShouldBeDiscarded()
+        {
+            if (Info.Data.CardType is CardData.ECardType.Person or CardData.ECardType.Gathering
+                or CardData.ECardType.Stockpile or CardData.ECardType.Building)
+                return false;
+
+            if (Stack != null && Stack.HasCards &&
+                Stack.Cards.Any(c => c.Info.Data.CardType == CardData.ECardType.Stockpile))
+            {
+                var stockpiles = Stack.Cards.SelectMany(c => c.Info.Data.OnTurnUpdate)
+                    .Where(i => i is StockpileCardImpl).Cast<StockpileCardImpl>().ToList();
+
+                var cardStoredCount = stockpiles.Sum(s => s.AmountOfCardsStored);
+
+                var cardIndexInStack = Stack!.Cards.IndexOf(this);
+                if (cardIndexInStack <= cardStoredCount)
+                    return false;
+            }
+
+            return true;
         }
 
         public static bool CanPlaceCardOnTarget(Card target, Card placing)

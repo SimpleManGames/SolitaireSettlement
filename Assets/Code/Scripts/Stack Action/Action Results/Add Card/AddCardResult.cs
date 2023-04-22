@@ -21,8 +21,13 @@ namespace SolitaireSettlement
             if (card.CardType == CardData.ECardType.Person && !CardManager.Instance.CanAddToPopulation)
                 return;
 
-            CameraManager.Instance.GetPositionOnScreenSpaceCanvas(spawnPosition, out var pos);
-            CardManager.Instance.CreateNewCardRuntimeInfo(card, location, true, pos, animationDelay);
+            if (location != CardRuntimeInfo.CardLocation.GameBoard)
+            {
+                CameraManager.Instance.GetPositionOnScreenSpaceCanvas(spawnPosition, out var pos);
+                spawnPosition = pos;
+            }
+
+            CardManager.Instance.CreateNewCardRuntimeInfo(card, location, true, spawnPosition, animationDelay);
         }
 
         public abstract List<CardData> AddedCardData();

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace SolitaireSettlement
@@ -12,12 +14,13 @@ namespace SolitaireSettlement
 
         public override void OnResult(IEnumerable<Card> relatedCardStack)
         {
-            CreateCardTo(ProducedCard, Location, relatedCardStack.ElementAt(0).transform.position);
+            var firstCard = relatedCardStack.ElementAt(0);
+            CreateCardTo(ProducedCard, Location, firstCard.transform.position);
         }
 
         public override List<CardData> AddedCardData()
         {
-            return new List<CardData>()
+            return new List<CardData>
             {
                 ProducedCard
             };
