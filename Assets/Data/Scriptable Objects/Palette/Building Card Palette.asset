@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071ad972faee1004e91db526cbf91be3, type: 3}
   m_Name: Building Card Palette
   m_EditorClassIdentifier: 
-  <PrimaryColor>k__BackingField: {r: 0.5, g: 0.2287736, b: 0.2287736, a: 1}
-  <SecondaryColor>k__BackingField: {r: 0.33962262, g: 0.16820931, b: 0.16820931, a: 1}
-  <BorderColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  <PrimaryColor>k__BackingField: {r: 0.16470589, g: 0.17254902, b: 0.14117648, a: 1}
+  <SecondaryColor>k__BackingField: {r: 0.2830189, g: 0.27100393, b: 0.254984, a: 1}
+  <BorderColor>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
   <NameColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
   <ArtColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
