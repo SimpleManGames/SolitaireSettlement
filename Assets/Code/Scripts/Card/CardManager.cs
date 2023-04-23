@@ -132,8 +132,10 @@ namespace SolitaireSettlement
         private void DiscardCards()
         {
             var leftOverCardsOnBoard = AllCardsInfo.Where(c =>
-                    c.RelatedGameObject.GetComponent<Card>().ShouldDiscard)
-                .ToList();
+            {
+                var card = c.RelatedGameObject.GetComponent<Card>();
+                return card.ShouldDiscard && card.Info.Location != CardRuntimeInfo.CardLocation.Hand;
+            }).ToList();
 
             for (var i = leftOverCardsOnBoard.Count - 1; i >= 0; i--)
             {
