@@ -443,7 +443,7 @@ RectTransform:
   - {fileID: 794976035}
   - {fileID: 147934445}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1947,6 +1947,7 @@ MonoBehaviour:
   <GameAreaCanvas>k__BackingField: {fileID: 955841288}
   <ZoomSpeed>k__BackingField: 8
   <ZoomInMinMax>k__BackingField: {x: 15, y: 80}
+  <PercentAroundEdgeToStartPan>k__BackingField: 0.02
   <StartingPanSpeed>k__BackingField: 25
   <MaxPanSpeed>k__BackingField: 60
   <TimeToReachMaxPanSpeed>k__BackingField: 4
@@ -1974,7 +1975,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <DragSpeed>k__BackingField: 34.78
+  <DragSpeed>k__BackingField: 35
 --- !u!1 &1513576520 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4551055902058276968, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
@@ -2927,7 +2928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4551055902058276964, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4551055902058276964, guid: 80798b3b5328de7499a8fafd173cc749, type: 3}
       propertyPath: m_AnchorMax.x

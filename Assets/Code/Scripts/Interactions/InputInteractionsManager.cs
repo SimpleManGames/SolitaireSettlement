@@ -48,9 +48,9 @@ namespace SolitaireSettlement
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
-                    if (HandleInteractionsManager(gameAreaInteractionsManager))
-                        return;
                     if (HandleInteractionsManager(handAreaInteractionsManager))
+                        return;
+                    if (HandleInteractionsManager(gameAreaInteractionsManager))
                         return;
                     break;
                 case InputActionPhase.Canceled:
