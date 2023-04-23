@@ -69,7 +69,7 @@ MonoBehaviour:
       Entry: 6
       Data: 
   <Name>k__BackingField: Apple
-  <ColorPalette>k__BackingField: {fileID: 11400000, guid: 1ef65f7aec3f91c46bc235b941424692, type: 2}
+  <ColorPalette>k__BackingField: {fileID: 11400000, guid: d4ae837931b96304eaec35c4c7bd2274, type: 2}
   <CardImage>k__BackingField: {fileID: 21300000, guid: efcac1c5a0147024c99d1a6146d0a166, type: 3}
   <CardType>k__BackingField: 4
   <ValidStackableCards>k__BackingField:
