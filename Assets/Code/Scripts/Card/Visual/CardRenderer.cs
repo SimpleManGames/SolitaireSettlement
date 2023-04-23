@@ -34,6 +34,13 @@ namespace SolitaireSettlement
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private Image NameUnderlineImage { get; set; }
 
+        [field: Title("GameObject Containers")]
+        [field: SerializeField, ChildGameObjectsOnly, Required]
+        private GameObject HealthIndicatorObject { get; set; }
+
+        [field: SerializeField, ChildGameObjectsOnly, Required]
+        private GameObject HungerIndicatorObject { get; set; }
+
         [field: Title("UI Objects - Text")]
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private TextMeshProUGUI NameText { get; set; }
@@ -56,11 +63,19 @@ namespace SolitaireSettlement
 
         public void UpdateDynamicTextFields(CardData data)
         {
-            UpdateTextBasedOnCardImpl<HungerCardImpl>(data, () => HungerText.text = "",
-                impl => { HungerText.text = $"{impl.CurrentHunger}/{impl.HungerCap}"; });
+            UpdateTextBasedOnCardImpl<HungerCardImpl>(data, () =>
+                {
+                    HungerIndicatorObject.SetActive(false);
+                    HungerText.text = "";
+                },
+                impl => { HungerText.text = $"{impl.CurrentHunger}"; });
 
-            UpdateTextBasedOnCardImpl<CardHealthImpl>(data, () => HealthText.text = "",
-                impl => { HealthText.text = $"{impl.CurrentHealth}/{impl.MaxHealth}"; });
+            UpdateTextBasedOnCardImpl<CardHealthImpl>(data, () =>
+                {
+                    HealthIndicatorObject.SetActive(false);
+                    HealthText.text = "";
+                },
+                impl => { HealthText.text = $"{impl.CurrentHealth}"; });
         }
 
         private void SetVisuals(CardData data)
@@ -68,13 +83,13 @@ namespace SolitaireSettlement
             SetGraphicColor(BackgroundImage, Palette.PrimaryColor);
             SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
             SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);
-            SetGraphicColor(ArtImage, Palette.PrimaryColor);
+            SetGraphicColor(ArtImage, Palette.ArtColor);
             SetGraphicColor(BorderImage, Palette.BorderColor);
             SetGraphicColor(NameUnderlineImage, Palette.BorderColor);
 
             SetGraphicColor(NameText, Palette.NameColor);
 
-            if (data.CardImage != null)
+            if (data != null && data.CardImage != null)
                 SetGraphicArt(ArtImage, data.CardImage);
         }
 
@@ -100,6 +115,11 @@ namespace SolitaireSettlement
             onImpl.Invoke(cardImpl);
         }
 
+        private void OnValidate()
+        {
+            SetVisuals(null);
+        }
+
         private static void SetGraphicColor(Graphic image, Color color)
         {
             if (image != null)
@@ -109,14 +129,9 @@ namespace SolitaireSettlement
         private static void SetGraphicArt(Image image, Sprite texture)
         {
             if (image != null && texture != null)
-            {
                 image.sprite = texture;
-                image.color = Color.white;
-            }
             else
-            {
                 image.color = new Color(0, 0, 0, 0);
-            }
         }
     }
 }
