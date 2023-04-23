@@ -36,6 +36,9 @@ namespace SolitaireSettlement
         [field: ShowInInspector, ReadOnly]
         private bool Panning { get; set; } = false;
 
+        [field: SerializeField, Range(0, 100)]
+        private float PercentAroundEdgeToStartPan { get; set; } = 0.05f;
+
         [field: SerializeField]
         private float StartingPanSpeed { get; set; } = 2.0f;
 
@@ -126,14 +129,14 @@ namespace SolitaireSettlement
             _mousePosition = context.ReadValue<Vector2>();
 
             _panDirection = new Vector2();
-            if (_mousePosition.y >= Screen.height * 0.95f)
+            if (_mousePosition.y >= Screen.height * (1.0f - PercentAroundEdgeToStartPan))
                 _panDirection.y += 1;
-            else if (_mousePosition.y <= Screen.height * 0.05f)
+            else if (_mousePosition.y <= Screen.height * PercentAroundEdgeToStartPan)
                 _panDirection.y -= 1;
 
-            if (_mousePosition.x >= Screen.width * 0.95f)
+            if (_mousePosition.x >= Screen.width * (1.0f - PercentAroundEdgeToStartPan))
                 _panDirection.x += 1;
-            else if (_mousePosition.x <= Screen.width * 0.05f)
+            else if (_mousePosition.x <= Screen.width * PercentAroundEdgeToStartPan)
                 _panDirection.x -= 1;
 
             Panning = _panDirection != Vector2.zero;
