@@ -34,6 +34,9 @@ MonoBehaviour:
     - Name: <ModifyAmount>k__BackingField
       Entry: 3
       Data: 2
+    - Name: <IgnoreStarvingWhileDoingStackActions>k__BackingField
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -62,8 +65,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: <CardBonuses>k__BackingField
+      Entry: 6
+      Data: 
   <Name>k__BackingField: Carrot
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 1ef65f7aec3f91c46bc235b941424692, type: 2}
+  <CardImage>k__BackingField: {fileID: 21300000, guid: 2b320b1e1b0014b46b210059110f19e3, type: 3}
   <CardType>k__BackingField: 4
   <ValidStackableCards>k__BackingField:
   - {fileID: 11400000, guid: 804f9573cde9098428c1dfa884a01f8c, type: 2}

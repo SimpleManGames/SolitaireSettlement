@@ -7,6 +7,7 @@ using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
+using ObjectFieldAlignment = Sirenix.OdinInspector.ObjectFieldAlignment;
 
 namespace SolitaireSettlement
 {
@@ -23,12 +24,18 @@ namespace SolitaireSettlement
             Stockpile
         }
 
-        [field: Title("Visuals")]
         [field: SerializeField, Delayed]
+        [field: VerticalGroup("row1/right"), LabelWidth(-60)]
         public string Name { get; private set; }
 
         [field: SerializeField, AssetsOnly, Required]
+        [field: VerticalGroup("row1/right"), LabelWidth(-60)]
         public CardPaletteData ColorPalette { get; private set; }
+
+        [field: SerializeField, AssetsOnly, Required, PreviewField(50, ObjectFieldAlignment.Left), HideLabel,
+                AssetSelector(Paths = "Assets/Art/Code/Icons")]
+        [field: HorizontalGroup("row1", 50), VerticalGroup("row1/left")]
+        public Sprite CardImage { get; private set; }
 
         [field: Title("Settings")]
         [field: SerializeField]

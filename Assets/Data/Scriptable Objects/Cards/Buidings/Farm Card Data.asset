@@ -74,5 +74,6 @@ MonoBehaviour:
       Data: 
   <Name>k__BackingField: Farm
   <ColorPalette>k__BackingField: {fileID: 11400000, guid: 2b570ff481835b44bbd774cc487c91b7, type: 2}
+  <CardImage>k__BackingField: {fileID: 21300000, guid: 7ae5c6ec86bca4948a372afbc323216f, type: 3}
   <CardType>k__BackingField: 2
   <ValidStackableCards>k__BackingField: []

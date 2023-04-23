@@ -3,6 +3,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,9 @@ namespace SolitaireSettlement
 
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private Image ArtBackgroundImage { get; set; }
+
+        [field: SerializeField, ChildGameObjectsOnly, Required]
+        private Image ArtImage { get; set; }
 
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private Image BorderImage { get; set; }
@@ -47,7 +51,7 @@ namespace SolitaireSettlement
             gameObject.name = data.Name;
 
             UpdateDynamicTextFields(data);
-            SetVisuals();
+            SetVisuals(data);
         }
 
         public void UpdateDynamicTextFields(CardData data)
@@ -59,15 +63,19 @@ namespace SolitaireSettlement
                 impl => { HealthText.text = $"{impl.CurrentHealth}/{impl.MaxHealth}"; });
         }
 
-        private void SetVisuals()
+        private void SetVisuals(CardData data)
         {
             SetGraphicColor(BackgroundImage, Palette.PrimaryColor);
             SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
             SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);
+            SetGraphicColor(ArtImage, Palette.PrimaryColor);
             SetGraphicColor(BorderImage, Palette.BorderColor);
             SetGraphicColor(NameUnderlineImage, Palette.BorderColor);
 
             SetGraphicColor(NameText, Palette.NameColor);
+
+            if (data.CardImage != null)
+                SetGraphicArt(ArtImage, data.CardImage);
         }
 
         private void UpdateTextBasedOnCardImpl<T>(CardData data, Action onNoImpl, Action<T> onImpl)
@@ -92,52 +100,23 @@ namespace SolitaireSettlement
             onImpl.Invoke(cardImpl);
         }
 
-        private void UpdateHungerText(CardData data)
-        {
-            if (data.OnTurnUpdate.IsNullOrEmpty())
-            {
-                HungerText.text = "";
-                return;
-            }
-
-            if (!data.OnTurnUpdate.Any(w => w is HungerCardImpl))
-            {
-                HungerText.text = "";
-                return;
-            }
-
-            var hungerCardImpl = data.OnTurnUpdate
-                .Where(w => w is HungerCardImpl)
-                .Cast<HungerCardImpl>().First();
-
-            ;
-        }
-
-        private void UpdateHealthText(CardData data)
-        {
-            if (data.OnTurnUpdate.IsNullOrEmpty())
-            {
-                HungerText.text = "";
-                return;
-            }
-
-            if (!data.OnTurnUpdate.Any(w => w is CardHealthImpl))
-            {
-                HungerText.text = "";
-                return;
-            }
-
-            var healthCardImpl = data.OnTurnUpdate
-                .Where(w => w is CardHealthImpl)
-                .Cast<CardHealthImpl>().First();
-
-            HungerText.text = $"{healthCardImpl.CurrentHealth}/{healthCardImpl.MaxHealth}";
-        }
-
         private static void SetGraphicColor(Graphic image, Color color)
         {
             if (image != null)
                 image.color = color;
+        }
+
+        private static void SetGraphicArt(Image image, Sprite texture)
+        {
+            if (image != null && texture != null)
+            {
+                image.sprite = texture;
+                image.color = Color.white;
+            }
+            else
+            {
+                image.color = new Color(0, 0, 0, 0);
+            }
         }
     }
 }
