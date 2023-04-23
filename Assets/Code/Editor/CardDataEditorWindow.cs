@@ -14,7 +14,7 @@ namespace SolitaireSettlement
         private const string SCRIPTABLE_OBJECTS_ASSET_PATH = "Assets/Data/Scriptable Objects";
         private const string AREA_DATA_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Areas";
         private const string CARD_DATA_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Cards";
-        private const string PALETTE_ASSET_PATH = CARD_DATA_ASSET_PATH + "/Palette";
+        private const string PALETTE_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Palette";
 
         private const string STACK_ACTIONS_ASSET_PATH = SCRIPTABLE_OBJECTS_ASSET_PATH + "/Stack Actions";
 
@@ -110,8 +110,7 @@ namespace SolitaireSettlement
                 var path = SCRIPTABLE_OBJECTS_ASSET_PATH + "/" + item.GetFullPath() + ".asset";
                 var asset = AssetDatabase.LoadAssetAtPath<T>(path);
 
-                item.Value =
-                    new ScriptableObjectAssetDrawer<T>(_tree, this, item, asset, validEntryCheck);
+                item.Value = new ScriptableObjectAssetDrawer<T>(_tree, this, item, asset, validEntryCheck);
             }
         }
 
