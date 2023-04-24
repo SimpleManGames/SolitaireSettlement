@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Simplicity.Singleton;
-using Simplicity.Utility.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -29,11 +27,6 @@ namespace SolitaireSettlement
         public GameObject DeckGameObject { get; set; }
 
         public Vector3 DeckPosition => DeckGameObject.transform.position;
-
-        private void Update()
-        {
-            // UpdateCardsInDeck();
-        }
 
         public void UpdateCardsInDeck()
         {
