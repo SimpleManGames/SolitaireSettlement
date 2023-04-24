@@ -14,7 +14,7 @@ namespace SolitaireSettlement
         [field: ShowInInspector, ReadOnly]
         private List<CardRuntimeInfo> _cardsInDeck;
 
-        public int CardsInDeck => _cardsInDeck.Count;
+        public int CardsInDeck => _cardsInDeck?.Count ?? 0;
         public bool HasCardsInDeck => CardsInDeck > 0;
 
         public bool HasEnoughCardsForFullDraw => _cardsInDeck.Count > CardsDrawnPerRound;

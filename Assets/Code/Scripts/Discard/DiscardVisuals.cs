@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace SolitaireSettlement
 {
-    public class DeckVisuals : MonoBehaviour
+    public class DiscardVisuals : MonoBehaviour
     {
         [field: SerializeField, ChildGameObjectsOnly]
         private TextMeshProUGUI AmountText { get; set; }
 
         private void Update()
         {
-            AmountText.text = $"{DeckManager.Instance.CardsInDeck}";
+            AmountText.text = $"{DiscardManager.Instance.DiscardCardCount}";
         }
     }
 }

@@ -12,6 +12,8 @@ namespace SolitaireSettlement
         [field: ShowInInspector, ReadOnly]
         private List<CardRuntimeInfo> _cardsInDiscard;
 
+        public int DiscardCardCount => _cardsInDiscard?.Count ?? 0;
+
         public List<CardRuntimeInfo> CardsInDiscard =>
             _cardsInDiscard = CardManager.Instance.AllCardsInfo
                 .Where(c => c.Location == CardRuntimeInfo.CardLocation.Discard)
