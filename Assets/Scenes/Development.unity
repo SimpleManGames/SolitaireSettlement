@@ -1770,6 +1770,7 @@ GameObject:
   - component: {fileID: 1836932398}
   - component: {fileID: 1836932399}
   - component: {fileID: 1836932400}
+  - component: {fileID: 1836932401}
   m_Layer: 0
   m_Name: Deck Manager
   m_TagString: Untagged
@@ -1826,6 +1827,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1836932398}
         m_TargetAssemblyTypeName: SolitaireSettlement.DeckManager, Assembly-CSharp
+        m_MethodName: UpdateCardsInDeck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1836932398}
+        m_TargetAssemblyTypeName: SolitaireSettlement.DeckManager, Assembly-CSharp
         m_MethodName: DrawCards
         m_Mode: 1
         m_Arguments:
@@ -1848,10 +1861,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b333e1896f19b4b8aede7b33ded7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 1eb709b1982099e4d8886e9e544144b3, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1836932398}
+        m_TargetAssemblyTypeName: SolitaireSettlement.DeckManager, Assembly-CSharp
+        m_MethodName: UpdateCardsInDeck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1836932401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836932396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b333e1896f19b4b8aede7b33ded7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 16dfed51e77a23147b41cd1de25d2499, type: 2}
   response:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1836932398}
+        m_TargetAssemblyTypeName: SolitaireSettlement.DeckManager, Assembly-CSharp
+        m_MethodName: UpdateCardsInDeck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1847008663
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,7 +2062,7 @@ MonoBehaviour:
       Data: 7
     - Name: <DelayBeforeNextStage>k__BackingField
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: <Condition>k__BackingField
       Entry: 7
       Data: 9|SolitaireSettlement.EnoughCardsForDrawCondition, Assembly-CSharp

@@ -13,7 +13,9 @@ namespace SolitaireSettlement
     {
         [field: ShowInInspector, ReadOnly]
         private List<CardRuntimeInfo> _cardsInDeck;
-        public bool HasCardsInDeck => _cardsInDeck.Count > 0;
+
+        public int CardsInDeck => _cardsInDeck.Count;
+        public bool HasCardsInDeck => CardsInDeck > 0;
 
         public bool HasEnoughCardsForFullDraw => _cardsInDeck.Count > CardsDrawnPerRound;
 
@@ -30,10 +32,10 @@ namespace SolitaireSettlement
 
         private void Update()
         {
-            UpdateCardsInDeck();
+            // UpdateCardsInDeck();
         }
 
-        private void UpdateCardsInDeck()
+        public void UpdateCardsInDeck()
         {
             _cardsInDeck = CardManager.Instance.AllCardsInfo
                 .Where(c => c.Location == CardRuntimeInfo.CardLocation.Deck)
