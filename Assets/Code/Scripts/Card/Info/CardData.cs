@@ -21,7 +21,8 @@ namespace SolitaireSettlement
             Building,
             Gathering,
             Food,
-            Stockpile
+            Stockpile,
+            Enemy
         }
 
         [field: SerializeField, Delayed]
