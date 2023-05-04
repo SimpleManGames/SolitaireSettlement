@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.745283, g: 0.2285066, b: 0.2285066, a: 1}
+  m_Color: {r: 0.7411765, g: 0.227451, b: 0.227451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -529,6 +529,7 @@ MonoBehaviour:
   <ArtImage>k__BackingField: {fileID: 6489972948438346403}
   <BorderImage>k__BackingField: {fileID: 6379869030545495212}
   <NameUnderlineImage>k__BackingField: {fileID: 1403837166575921486}
+  <HeartImage>k__BackingField: {fileID: 6205864733303236247}
   <HealthIndicatorObject>k__BackingField: {fileID: 1995227654370320029}
   <HungerIndicatorObject>k__BackingField: {fileID: 4554016121087392290}
   <NameText>k__BackingField: {fileID: 3066733036248691164}

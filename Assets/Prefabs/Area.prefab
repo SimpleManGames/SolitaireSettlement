@@ -208,6 +208,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa9475b3878db245ac51c567201670c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <OnAreaRevealedActions>k__BackingField
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[SolitaireSettlement.IAreaReveal,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 1|SolitaireSettlement.ExpendPersonHungerAreaReveal, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|SolitaireSettlement.SpawnExtraPersonAreaReveal, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|SolitaireSettlement.DiscoverNeighborsAreaReveal, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|SolitaireSettlement.AddCardsFromAreaReveal, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   <Data>k__BackingField: {fileID: 11400000, guid: 886bc85761db83b4c9a9e79e75ff40bb, type: 2}
   <ShownGameObject>k__BackingField: {fileID: 1104891487415016928}
 --- !u!114 &1104891488343415613
@@ -379,6 +425,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1104891487415016931}
     m_Modifications:
+    - target: {fileID: 883154545230306099, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 883154545230306099, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 883154545230306099, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 883154545230306099, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1403837166575921486, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2754591137482393890, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -471,10 +537,86 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3066733036248691164, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_fontColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3066733036248691164, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105760827950061248, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105760827950061248, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105760827950061248, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105760827950061248, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3889378039351212724, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: <Palette>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 71e55f43a34bf5645bc5f3d24d79712a, type: 2}
+    - target: {fileID: 4096833060349815217, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096833060349815217, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096833060349815217, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096833060349815217, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205864733303236247, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205864733303236247, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205864733303236247, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205864733303236247, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379869030545495212, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489972948438346403, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489972948438346403, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489972948438346403, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489972948438346403, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6938691214990423952, guid: cdb0315bcce8d3342a7db072ee9d12e5, type: 3}
       propertyPath: <Data>k__BackingField
       value: 
