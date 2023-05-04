@@ -17,6 +17,9 @@ namespace SolitaireSettlement
 
         [field: SerializeField] public Color ArtColor { get; private set; }
 
+        [field: Title("Extras")]
+        [field: SerializeField] public Color HeartColor { get; private set; }
+
         public override int GetHashCode()
         {
             unchecked // Allow arithmetic overflow, numbers will just "wrap around"
@@ -27,6 +30,7 @@ namespace SolitaireSettlement
                 hashcode = hashcode * 7302013 ^ BorderColor.GetHashCode();
                 hashcode = hashcode * 7302013 ^ NameColor.GetHashCode();
                 hashcode = hashcode * 7302013 ^ ArtColor.GetHashCode();
+                hashcode = hashcode * 7302013 ^ HeartColor.GetHashCode();
                 return hashcode;
             }
         }

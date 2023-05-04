@@ -1,5 +1,4 @@
 using System.Linq;
-using Simplicity.Utility.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -216,7 +215,7 @@ namespace SolitaireSettlement
         private bool DetermineIfShouldBeDiscarded()
         {
             if (Info.Data.CardType is CardData.ECardType.Person or CardData.ECardType.Gathering
-                or CardData.ECardType.Stockpile or CardData.ECardType.Building)
+                or CardData.ECardType.Stockpile or CardData.ECardType.Building or CardData.ECardType.Enemy)
                 return false;
 
             if (Stack != null && Stack.HasCards &&

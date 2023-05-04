@@ -9,7 +9,7 @@ namespace SolitaireSettlement
 {
     public class AreaGenerator : MonoBehaviour
     {
-        [System.Serializable]
+        [Serializable]
         private struct AreaRegionsDefinition
         {
             [field: SerializeField, HideLabel, HorizontalGroup]
@@ -17,6 +17,12 @@ namespace SolitaireSettlement
 
             [field: SerializeField, HideLabel, HorizontalGroup, Range(0, 1)]
             public float Height { get; private set; }
+
+            [field: SerializeField, LabelWidth(-160), HorizontalGroup]
+            public bool CanBeEvil { get; private set; }
+
+            [field: SerializeField, HideLabel, HorizontalGroup, Range(0, 100)]
+            public int EvilChance { get; private set; }
         }
 
         [field: SerializeField, Min(1), BoxGroup("Size", LabelText = "Size"), LabelText("Width")]
@@ -41,7 +47,7 @@ namespace SolitaireSettlement
         private Vector2 Offset { get; set; }
 
         [field: SerializeField, HorizontalGroup("Seed"), InlineButton("RandomSeed", "Generate New Seed")]
-        private int Seed { get; set; }
+        public int Seed { get; private set; }
 
         [SerializeField, HorizontalGroup("Seed"), LabelText("Randomize"), LabelWidth(70)]
         private bool newSeedOnStart = false;
@@ -53,11 +59,11 @@ namespace SolitaireSettlement
         [field: SerializeField, InlineProperty, ListDrawerSettings(Expanded = true)]
         private List<AreaRegionsDefinition> Regions { get; set; }
 
-        [ShowInInspector, HorizontalGroup(Title = "Debug Textures", GroupName = "NoiseTexture"),
+        [ShowInInspector, HorizontalGroup(Title = "Debug Textures", GroupName = "VisualizeTextures"),
          PreviewField(100.0f, ObjectFieldAlignment.Center), HideLabel]
         private Texture2D _noiseTexture;
 
-        [ShowInInspector, HorizontalGroup(GroupName = "ColorTexture"),
+        [ShowInInspector, HorizontalGroup(Title = "Debug Textures", GroupName = "VisualizeTextures"),
          PreviewField(100.0f, ObjectFieldAlignment.Center), HideLabel]
         private Texture2D _colorTexture;
 
@@ -104,9 +110,13 @@ namespace SolitaireSettlement
 
         public AreaData[] GenerateRegions(float[,] noise)
         {
+            var prng = new System.Random(Seed);
             var regionsAreaData = new AreaData[MapWidth * MapHeight];
             var colors = new Color[MapWidth * MapHeight];
             _colorTexture = new Texture2D(MapWidth, MapHeight);
+
+            var halfWidth = MapWidth / 2;
+            var halfHeight = MapHeight / 2;
 
             for (int y = 0, i = 0; y < MapHeight; y++)
             {
@@ -117,6 +127,17 @@ namespace SolitaireSettlement
                     {
                         if (currentHeight > Regions[r].Height)
                             continue;
+
+                        // if (Regions[r].CanBeEvil)
+                        // {
+                        //     var roll = prng.Next(0, 100);
+                        //     if (roll < Regions[r].EvilChance)
+                        //     {
+                        //         regionsAreaData[i] = AreaManager.Instance.EvilAreaData;
+                        //         colors[i] = Regions[r].AreaData.Color;
+                        //         break;
+                        //     }
+                        // }
 
                         regionsAreaData[i] = Regions[r].AreaData;
                         colors[i] = Regions[r].AreaData.Color;

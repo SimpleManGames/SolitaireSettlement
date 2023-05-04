@@ -16,6 +16,9 @@ namespace SolitaireSettlement
         [field: SerializeField, AssetsOnly]
         private AreaData StartingAreaData { get; set; }
 
+        [field: SerializeField, AssetsOnly]
+        public AreaData EvilAreaData { get; private set; }
+
         [field: SerializeField]
         private GameObject GameAreaCanvas { get; set; }
 
@@ -42,10 +45,10 @@ namespace SolitaireSettlement
 
         [field: ShowInInspector]
         public Vector2 MaxPosition { get; private set; }
-        
+
         [field: SerializeField, Min(0)]
         public int AreaPersonRatio { get; private set; }
-        
+
         [field: SerializeField, Min(0)]
         public int AreaDiscoverHungerCost { get; private set; }
 

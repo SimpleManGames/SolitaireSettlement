@@ -34,6 +34,9 @@ namespace SolitaireSettlement
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private Image NameUnderlineImage { get; set; }
 
+        [field: SerializeField, ChildGameObjectsOnly, Required]
+        private Image HeartImage { get; set; }
+
         [field: Title("GameObject Containers")]
         [field: SerializeField, ChildGameObjectsOnly, Required]
         private GameObject HealthIndicatorObject { get; set; }
@@ -80,17 +83,25 @@ namespace SolitaireSettlement
 
         private void SetVisuals(CardData data)
         {
+            // General Color
             SetGraphicColor(BackgroundImage, Palette.PrimaryColor);
             SetGraphicColor(NameBackgroundImage, Palette.SecondaryColor);
             SetGraphicColor(ArtBackgroundImage, Palette.SecondaryColor);
-            SetGraphicColor(ArtImage, Palette.ArtColor);
+
+            // Boarders
             SetGraphicColor(BorderImage, Palette.BorderColor);
             SetGraphicColor(NameUnderlineImage, Palette.BorderColor);
 
+            // Text
             SetGraphicColor(NameText, Palette.NameColor);
 
+            // Art
+            SetGraphicColor(ArtImage, Palette.ArtColor);
             if (data != null && data.CardImage != null)
                 SetGraphicArt(ArtImage, data.CardImage);
+
+            // Extras
+            SetGraphicColor(HeartImage, Palette.HeartColor);
         }
 
         private void UpdateTextBasedOnCardImpl<T>(CardData data, Action onNoImpl, Action<T> onImpl)

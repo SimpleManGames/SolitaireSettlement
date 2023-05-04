@@ -877,12 +877,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MapWidth>k__BackingField: 9
   <MapHeight>k__BackingField: 9
-  <NoiseScale>k__BackingField: 20.5
+  <NoiseScale>k__BackingField: 20
   <Octaves>k__BackingField: 3
   <Persistence>k__BackingField: 0.48
   <Lacunarity>k__BackingField: 2.49
   <Offset>k__BackingField: {x: 10, y: 10}
-  <Seed>k__BackingField: -490384079
+  <Seed>k__BackingField: -251044980
   newSeedOnStart: 0
   noiseGradient:
     serializedVersion: 2
@@ -916,14 +916,24 @@ MonoBehaviour:
   <Regions>k__BackingField:
   - <AreaData>k__BackingField: {fileID: 11400000, guid: cb7307e20b3c45f4bb4f403f38d8de16, type: 2}
     <Height>k__BackingField: 0.15
+    <CanBeEvil>k__BackingField: 0
+    <EvilChance>k__BackingField: 0
   - <AreaData>k__BackingField: {fileID: 11400000, guid: d86d58e823035e64a912b362c9f27843, type: 2}
     <Height>k__BackingField: 0.3
+    <CanBeEvil>k__BackingField: 1
+    <EvilChance>k__BackingField: 3
   - <AreaData>k__BackingField: {fileID: 11400000, guid: 138ede18c844bdd4c877146891a8a2ac, type: 2}
     <Height>k__BackingField: 0.5
+    <CanBeEvil>k__BackingField: 1
+    <EvilChance>k__BackingField: 8
   - <AreaData>k__BackingField: {fileID: 11400000, guid: 204800bd13fceb24085cb854ac8ba333, type: 2}
     <Height>k__BackingField: 0.745
+    <CanBeEvil>k__BackingField: 1
+    <EvilChance>k__BackingField: 10
   - <AreaData>k__BackingField: {fileID: 11400000, guid: 695d6391815bf0942a744df375f01419, type: 2}
     <Height>k__BackingField: 1
+    <CanBeEvil>k__BackingField: 1
+    <EvilChance>k__BackingField: 20
   <AutoUpdate>k__BackingField: 1
 --- !u!114 &1082791694
 MonoBehaviour:
@@ -940,6 +950,7 @@ MonoBehaviour:
   <DestroyOnLoad>k__BackingField: 0
   <OnAreaRevealedEvent>k__BackingField: {fileID: 0}
   <StartingAreaData>k__BackingField: {fileID: 11400000, guid: dd9280485b9c90644b3d6d2567e04d32, type: 2}
+  <EvilAreaData>k__BackingField: {fileID: 11400000, guid: 0c8f4758aa8dd354ba73bc006c7e8a78, type: 2}
   <GameAreaCanvas>k__BackingField: {fileID: 1513576520}
   <AreaPrefab>k__BackingField: {fileID: 1104891488343415600, guid: 00288643c26d50a4eb1e9fce72e2bb29, type: 3}
   <AreaBuffer>k__BackingField: {x: 1, y: 1}

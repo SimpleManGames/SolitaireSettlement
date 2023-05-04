@@ -42,6 +42,9 @@ namespace SolitaireSettlement
         [field: SerializeField]
         public ECardType CardType { get; private set; }
 
+        [field: SerializeField]
+        public bool FreeDragging { get; private set; } = true;
+
         [field: SerializeField, AssetsOnly, AssetSelector,
                 ListDrawerSettings(OnTitleBarGUI = "ValidStackableCardItemSyncAllGUI",
                     OnBeginListElementGUI = "ValidStackableCardElementBeginGUI",
@@ -148,7 +151,7 @@ namespace SolitaireSettlement
                     {
                         return c.Name != Name;
                     }
-                    catch (NullReferenceException e)
+                    catch (NullReferenceException)
                     {
                         Debug.LogError($"CardData was Null within AddedCardData of {kv.data.name}");
                         throw;

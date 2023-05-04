@@ -21,7 +21,7 @@ namespace SolitaireSettlement
 
         private void Awake()
         {
-            CanBeDragged = true;
+            CanBeDragged = Card.Info.Data == null || Card.Info.Data.FreeDragging;
             IsBeingDragged = false;
 
             CardCanvas = CardManager.Instance.GameAreaCanvas.GetComponent<Canvas>();
@@ -29,6 +29,9 @@ namespace SolitaireSettlement
 
         public void OnDragStart(Vector2 position)
         {
+            if (!Card.Info.Data.FreeDragging)
+                return;
+
             IsBeingDragged = true;
 
             if (Card.Info.Location != CardRuntimeInfo.CardLocation.Hand)
@@ -40,7 +43,7 @@ namespace SolitaireSettlement
 
         public void OnDrag(Vector2 position)
         {
-            if (!CanBeDragged)
+            if (!CanBeDragged || !IsBeingDragged)
                 return;
 
             // Simple way to draw the last card selected as the top one
